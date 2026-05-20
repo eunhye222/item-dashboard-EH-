@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아이템 진행 현황</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F4F3EF;
+  --surface: #FFFFFF;
+  --surface2: #EEECEA;
+  --border: #DDDBD6;
+  --border2: #C4C1BC;
+  --text: #1C1B18;
+  --text2: #6A6760;
+  --text3: #A09D98;
+  --accent: #1C1B18;
+  --red: #C0392B;
+  --radius: 6px;
+  --radius-lg: 10px;
+  --shadow-card: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+  --shadow-md: 0 8px 32px rgba(0,0,0,.14);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 13px; }
+body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* TOPBAR */
+.topbar { background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; height: 50px; position: sticky; top: 0; z-index: 200; }
+.topbar-title { font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .88; }
+.topbar-right { display: flex; align-items: center; gap: 7px; }
+.tbtn { background: rgba(255,255,255,.11); border: none; border-radius: var(--radius); padding: 5px 12px; font-size: 11.5px; color: #fff; cursor: pointer; font-family: inherit; display: flex; align-items: center; gap: 5px; transition: background .14s; }
+.tbtn:hover { background: rgba(255,255,255,.2); }
+
+/* SEARCH OVERLAY */
+.search-overlay { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,.45); align-items: flex-start; justify-content: center; padding-top: 80px; }
+.search-overlay.open { display: flex; }
+.search-box { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); width: 540px; max-width: 94vw; overflow: hidden; }
+.search-input-row { display: flex; align-items: center; gap: 10px; padding: 13px 16px; border-bottom: 1px solid var(--border); }
+.search-input-row input { flex: 1; border: none; outline: none; font-size: 15px; font-family: inherit; color: var(--text); background: none; }
+.search-input-row input::placeholder { color: var(--text3); }
+.search-results { max-height: 360px; overflow-y: auto; }
+.sri { padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--border); display: flex; gap: 12px; align-items: center; }
+.sri:hover, .sri.sel { background: var(--surface2); }
+.sri:last-child { border-bottom: none; }
+.sri-code { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--text3); width: 80px; flex-shrink: 0; }
+.sri-name { font-size: 12.5px; font-weight: 500; flex: 1; }
+.sri-tag { font-size: 10.5px; background: var(--surface2); border-radius: 100px; padding: 2px 8px; color: var(--text2); white-space: nowrap; }
+.search-hint { padding: 8px 16px; font-size: 10.5px; color: var(--text3); border-top: 1px solid var(--border); }
+.search-empty { padding: 2rem; text-align: center; color: var(--text3); font-size: 12px; }
+
+/* MAIN */
+.main { max-width: 1600px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+
+/* SEASON NAV */
+.season-nav { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: center; }
+.stab { border: 1.5px solid var(--border); border-radius: 100px; padding: 5px 16px; font-size: 11.5px; font-weight: 600; cursor: pointer; background: var(--surface); color: var(--text2); transition: all .15s; letter-spacing: .04em; }
+.stab:hover { border-color: var(--border2); color: var(--text); }
+.stab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.stab.add { border-style: dashed; color: var(--text3); font-weight: 400; }
+.stab.add:hover { color: var(--text2); }
+.stab-wrap { display: flex; align-items: center; border: 1.5px solid var(--border); border-radius: 100px; overflow: hidden; background: var(--surface); transition: border-color .15s; }
+.stab-wrap.active, .stab-wrap:has(.stab.active) { border-color: var(--accent); background: var(--accent); }
+.stab-wrap .stab { border: none; border-radius: 0; background: transparent; margin: 0; padding: 5px 14px 5px 16px; }
+.stab-wrap .stab.active { background: transparent; color: #fff; }
+.stab-wrap .stab:not(.active) { color: var(--text2); }
+.stab-wrap:not(:has(.stab.active)):hover { border-color: var(--border2); }
+.stab-edit { background: none; border: none; border-left: 1px solid rgba(0,0,0,.12); padding: 4px 8px; cursor: pointer; font-size: 11px; color: var(--text3); display: flex; align-items: center; transition: background .13s, color .13s; line-height: 1; }
+.stab-wrap:has(.stab.active) .stab-edit { border-left-color: rgba(255,255,255,.2); color: rgba(255,255,255,.6); }
+.stab-wrap:has(.stab.active) .stab-edit:hover { background: rgba(255,255,255,.15); color: #fff; }
+.stab-edit:not(.active):hover { background: var(--surface2); color: var(--text); }
+.stab-wrap.dragging { opacity: .4; cursor: grabbing; }
+.stab-wrap.drag-over { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 100px; }
+.stab-wrap[draggable="true"] { cursor: grab; }
+
+/* DOMAIN NAV */
+.domain-nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem; align-items: center; }
+.dtab { border: 1.5px solid var(--border); border-radius: 100px; padding: 4px 14px; font-size: 11px; font-weight: 500; cursor: pointer; background: var(--surface); color: var(--text2); transition: all .15s; letter-spacing: .03em; }
+.dtab:hover { border-color: var(--border2); color: var(--text); }
+.dtab.active { background: #3830A0; border-color: #3830A0; color: #fff; }
+.dtab.all.active { background: var(--text2); border-color: var(--text2); color: #fff; }
+.dtab.add { border-style: dashed; color: var(--text3); font-weight: 400; }
+.dtab.add:hover { color: var(--text2); }
+.dtab-wrap { display: inline-flex; align-items: center; border: 1.5px solid var(--border); border-radius: 100px; overflow: hidden; background: var(--surface); transition: border-color .15s; }
+.dtab-wrap:hover { border-color: var(--border2); }
+.dtab-wrap .dtab { border: none; border-radius: 0; background: transparent; margin: 0; padding: 4px 12px 4px 14px; }
+.dtab-wrap .dtab.active { background: #3830A0; color: #fff; }
+.dtab-wrap:has(.dtab.active) { border-color: #3830A0; background: #3830A0; }
+.dtab-edit { background: none; border: none; border-left: 1px solid rgba(0,0,0,.12); padding: 3px 7px; cursor: pointer; font-size: 10px; color: var(--text3); display: flex; align-items: center; transition: background .13s; }
+.dtab-wrap:has(.dtab.active) .dtab-edit { border-left-color: rgba(255,255,255,.2); color: rgba(255,255,255,.6); }
+.dtab-wrap:has(.dtab.active) .dtab-edit:hover { background: rgba(255,255,255,.15); color: #fff; }
+.dtab-edit:hover { background: var(--surface2); color: var(--text); }
+
+/* FILTER BAR */
+.filter-bar { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 11px 15px; margin-bottom: 1.25rem; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+.fg { display: flex; flex-direction: column; gap: 3px; }
+.flabel { font-size: 9.5px; font-weight: 600; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 0; }
+.fselect { border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 9px; font-size: 11.5px; font-family: inherit; background: var(--bg); color: var(--text); outline: none; cursor: pointer; min-width: 88px; }
+.fselect:focus { border-color: var(--border2); }
+.freset { margin-left: auto; border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 12px; font-size: 11.5px; font-family: inherit; background: none; color: var(--text2); cursor: pointer; }
+.freset:hover { background: var(--surface2); }
+.flabel-row { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; }
+.flabel-row .flabel { margin-bottom: 0; }
+.fedit-btn { background: none; border: 1px solid var(--border); border-radius: 100px; width: 16px; height: 16px; font-size: 12px; line-height: 1; cursor: pointer; color: var(--text3); display: flex; align-items: center; justify-content: center; padding: 0; transition: all .13s; }
+.fedit-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--surface2); }
+
+/* SECTION HEADER */
+.section-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px; }
+.section-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.section-ttl { font-size: 14px; font-weight: 700; }
+.section-cnt { font-size: 11px; color: var(--text3); background: var(--surface2); border-radius: 100px; padding: 3px 10px; }
+.spill { font-size: 11px; color: var(--text2); background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 3px 10px; display: flex; align-items: center; gap: 4px; }
+.spill strong { color: var(--text); font-weight: 600; }
+.add-btn { background: var(--accent); color: #fff; border: none; border-radius: var(--radius); padding: 7px 14px; font-size: 11.5px; font-family: inherit; cursor: pointer; display: flex; align-items: center; gap: 5px; font-weight: 500; }
+.add-btn:hover { opacity: .82; }
+
+/* CARD GRID */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
+
+/* ITEM CARD — mimics the CAD sheet reference */
+.item-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow .17s, border-color .17s, transform .12s;
+  cursor: default;
+}
+.item-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,.13); border-color: var(--border2); transform: translateY(-1px); }
+.item-card.highlight { outline: 2.5px solid #E0A800; }
+
+/* Row 1: code + brand */
+.c-row1 { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 11px 5px; border-bottom: 1px solid var(--border); }
+.c-code { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text2); letter-spacing: .02em; }
+.c-brand { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text2); }
+
+/* Row 2: item name */
+.c-names { padding: 7px 11px 6px; border-bottom: 1px solid var(--border); cursor: pointer; }
+.c-names:hover { background: var(--surface2); }
+.c-nameko { font-size: 12px; font-weight: 700; line-height: 1.4; color: var(--text); }
+.c-nameen { font-size: 10px; color: var(--text3); margin-top: 1px; line-height: 1.4; }
+
+/* Row 3: CAD image */
+.c-cad { position: relative; background: #F8F8F6; border-bottom: 1px solid var(--border); height: 185px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; }
+.c-cad:hover { background: #F2F1EE; }
+.c-cad img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 10px; }
+.c-cad-empty { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--text3); font-size: 10px; user-select: none; }
+.c-cad-empty svg { opacity: .35; }
+
+/* Row 4: colors */
+.c-colors { display: flex; flex-wrap: wrap; gap: 3px; padding: 7px 11px; border-bottom: 1px solid var(--border); }
+.ctag { font-size: 9.5px; padding: 2px 7px; border-radius: 100px; background: var(--surface2); border: 1px solid var(--border); color: var(--text2); white-space: nowrap; line-height: 1.5; }
+
+/* Row 5: material */
+.c-mat { padding: 7px 11px; border-bottom: 1px solid var(--border); cursor: pointer; }
+.c-mat:hover { background: var(--surface2); }
+.c-mat-name { font-size: 11px; font-weight: 600; color: var(--text); }
+.c-mat-detail { font-size: 10px; color: var(--text3); margin-top: 2px; line-height: 1.5; }
+.c-mat-src { font-size: 10px; color: var(--text3); margin-top: 1px; }
+
+/* Row 6: badges */
+.c-badges { display: flex; gap: 4px; padding: 6px 11px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.badge { font-size: 9.5px; padding: 2px 7px; border-radius: 100px; font-weight: 600; display: inline-block; }
+.bdg-cat { background: #EAF3E8; color: #1E5C2A; }
+.bdg-dom { background: #ECEAF8; color: #3830A0; }
+.bdg-fit { background: #F3EDE8; color: #6B3A1F; }
+
+/* Row 7: memo */
+.c-memo { padding: 4px 8px; border-bottom: 1px solid var(--border); }
+.c-memo textarea { width: 100%; border: 1px solid transparent; border-radius: var(--radius); padding: 4px 6px; font-size: 10.5px; font-family: inherit; color: var(--text2); background: transparent; resize: none; outline: none; line-height: 1.5; min-height: 28px; }
+.c-memo textarea:hover { border-color: var(--border); background: var(--surface2); }
+.c-memo textarea:focus { border-color: var(--border2); background: var(--bg); color: var(--text); }
+.c-memo textarea::placeholder { color: var(--text3); }
+
+/* Row 8: partner row */
+.c-footer { display: flex; align-items: center; justify-content: space-between; padding: 7px 11px 5px; background: var(--surface2); cursor: pointer; }
+.c-footer:hover { background: #E8E6E2; }
+.c-designer { font-size: 10px; color: var(--text2); font-weight: 500; }
+.c-partner { font-size: 10px; color: var(--text3); }
+
+/* Row 9: setup + price */
+.c-bottom { display: flex; align-items: center; justify-content: space-between; padding: 5px 11px 8px; cursor: pointer; }
+.c-setup { font-family: 'DM Mono', monospace; font-size: 9.5px; color: var(--text3); letter-spacing: .05em; }
+.c-price { font-size: 12px; font-weight: 700; color: var(--text); }
+
+/* Empty state */
+.empty-state { grid-column: 1/-1; padding: 4rem 2rem; text-align: center; color: var(--text3); }
+.empty-state svg { display: block; margin: 0 auto 12px; opacity: .35; }
+.empty-state p { font-size: 13px; }
+
+/* MODAL */
+.modal-bg { display: none; position: fixed; inset: 0; z-index: 400; background: rgba(0,0,0,.42); align-items: center; justify-content: center; }
+.modal-bg.open { display: flex; }
+.modal { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); width: 680px; max-width: 96vw; max-height: 92vh; overflow-y: auto; }
+.modal-top { padding: 17px 22px 13px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--surface); z-index: 5; }
+.modal-top h3 { font-size: 15px; font-weight: 700; }
+.mclose { background: none; border: none; cursor: pointer; color: var(--text3); font-size: 22px; line-height: 1; padding: 0 2px; }
+.modal-body { padding: 18px 22px 10px; }
+.msec { margin-bottom: 18px; }
+.msec-title { font-size: 9.5px; font-weight: 600; color: var(--text3); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.fg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+.fg2 .full { grid-column: 1/-1; }
+.fgroup { display: flex; flex-direction: column; gap: 4px; position: relative; }
+.fgroup label { font-size: 11px; font-weight: 500; color: var(--text2); }
+.fgroup input, .fgroup textarea, .fgroup select { border: 1px solid var(--border); border-radius: var(--radius); padding: 7px 10px; font-size: 12.5px; font-family: inherit; color: var(--text); background: var(--bg); outline: none; transition: border-color .15s; }
+.fgroup input:focus, .fgroup textarea:focus, .fgroup select:focus { border-color: var(--accent); background: #fff; }
+.fgroup textarea { resize: vertical; min-height: 54px; line-height: 1.6; }
+
+/* CAD upload */
+.ac-dropdown { position:absolute; top:100%; left:0; right:0; background:var(--surface); border:1px solid var(--border2); border-radius:var(--radius); box-shadow:var(--shadow-md); z-index:200; max-height:160px; overflow-y:auto; }
+.ac-item { padding:8px 12px; font-size:12.5px; cursor:pointer; border-bottom:1px solid var(--border); color:var(--text); }
+.ac-item:last-child { border-bottom:none; }
+.ac-item:hover, .ac-item.ac-sel { background:var(--surface2); }
+.ac-item mark { background:#FFF5A0; border-radius:2px; padding:0 1px; }
+.mat-suggest-item { padding: 9px 12px; cursor: pointer; font-size: 12.5px; border-bottom: 1px solid var(--border); }
+.mat-suggest-item:last-child { border-bottom: none; }
+.mat-suggest-item:hover { background: var(--surface2); }
+.mat-suggest-item .sug-name { font-weight: 600; color: var(--text); }
+.mat-suggest-item .sug-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.unit-btn { background: var(--surface2); border: 1px solid var(--border); border-radius: 100px; padding: 3px 10px; font-size: 11px; font-family: inherit; color: var(--text2); cursor: pointer; transition: all .13s; white-space: nowrap; }
+.unit-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.cad-area { border: 2px dashed var(--border2); border-radius: var(--radius-lg); padding: 18px; text-align: center; cursor: pointer; background: var(--bg); min-height: 120px; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: all .15s; }
+.cad-area:hover, .cad-area.drag { border-color: var(--accent); background: #EEECEA; }
+.cad-area img { max-height: 200px; max-width: 100%; object-fit: contain; border-radius: var(--radius); }
+.cad-hint { font-size: 11px; color: var(--text3); margin-top: 7px; }
+.cad-hint strong { color: var(--text2); }
+.cad-clear { margin-top: 8px; background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 4px 12px; font-size: 11px; font-family: inherit; color: var(--text3); cursor: pointer; }
+.cad-clear:hover { border-color: var(--red); color: var(--red); }
+
+.modal-footer { padding: 12px 22px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; bottom: 0; background: var(--surface); z-index: 5; }
+.btn-del { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 7px 14px; font-size: 12px; font-family: inherit; color: var(--red); cursor: pointer; }
+.btn-del:hover { background: #fff0f0; border-color: #f5c0c0; }
+.fright { display: flex; gap: 7px; }
+.btn-cancel { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 7px 16px; font-size: 12px; font-family: inherit; color: var(--text2); cursor: pointer; }
+.btn-cancel:hover { background: var(--surface2); }
+.btn-save { background: var(--accent); border: none; border-radius: var(--radius); padding: 7px 20px; font-size: 12px; font-family: inherit; color: #fff; cursor: pointer; font-weight: 600; }
+.btn-save:hover { opacity: .82; }
+
+/* Toast */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* GROUP STYLES */
+.group-block { margin-bottom: 2rem; }
+.group-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; padding: 8px 12px; background: var(--accent); border-radius: var(--radius-lg); }
+.group-name-input { background: transparent; border: none; outline: none; color: #fff; font-family: inherit; font-size: 13px; font-weight: 600; letter-spacing: .04em; flex: 1; }
+.group-name-input::placeholder { color: rgba(255,255,255,.4); }
+.group-count { font-size: 11px; color: rgba(255,255,255,.55); white-space: nowrap; }
+.group-del-btn { background: none; border: none; color: rgba(255,255,255,.5); cursor: pointer; font-size: 16px; line-height: 1; padding: 0 2px; }
+.group-del-btn:hover { color: #fff; }
+.group-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; min-height: 60px; border: 2px dashed transparent; border-radius: var(--radius-lg); padding: 4px; transition: border-color .15s, background .15s; }
+.group-card-grid.drag-over { border-color: var(--border2); background: rgba(0,0,0,.03); }
+.ungrouped-section { margin-bottom: 2rem; }
+.ungrouped-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.ungrouped-label { font-size: 11px; font-weight: 600; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; }
+
+.item-card { cursor: grab; }
+.card-copy-btn { background: none; border: none; cursor: pointer; color: var(--text3); padding: 2px 4px; border-radius: 4px; display: flex; align-items: center; opacity: 0; transition: opacity .15s, color .13s; }
+.item-card:hover .card-copy-btn { opacity: 1; }
+.card-copy-btn:hover { color: var(--accent); background: var(--surface2); }
+.ctx-menu { position: fixed; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); z-index: 999; min-width: 140px; overflow: hidden; padding: 4px 0; }
+.ctx-item { padding: 9px 16px; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text); }
+.ctx-item:hover { background: var(--surface2); }
+.ctx-item svg { opacity: .6; }
+.item-card.dragging-card { opacity: .4; cursor: grabbing; }
+.item-card.drag-over-card { outline: 2px solid var(--accent); outline-offset: 2px; }
+.toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--accent); color: #fff; padding: 9px 18px; border-radius: var(--radius); font-size: 12px; z-index: 999; opacity: 0; transform: translateY(8px); transition: all .22s; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateY(0); }
+
+mark { background: #FFF5A0; border-radius: 2px; padding: 0 1px; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span class="topbar-title">아이템 진행 현황</span>
+  <div class="topbar-right">
+    <button class="tbtn" onclick="openSearch()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      검색 <span style="opacity:.5;font-size:10px">Ctrl+F</span>
+    </button>
+    <button class="tbtn" onclick="openModal(null)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+      아이템 추가
+    </button>
+    <button class="tbtn" onclick="exportCSV()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      CSV
+    </button>
+    <button class="tbtn" onclick="exportDataJSON()" title="데이터를 JSON 파일로 백업">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      데이터 백업
+    </button>
+    <button class="tbtn" onclick="document.getElementById('importFileInput').click()" title="JSON 백업 파일에서 데이터 복원">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      데이터 복원
+    </button>
+    <input type="file" id="importFileInput" accept=".json" style="display:none" onchange="importDataJSON(event)">
+    <button class="tbtn" onclick="downloadHTML()" style="background:rgba(255,255,255,.22);font-weight:600;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      HTML 저장
+    </button>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-overlay" id="searchOverlay" onclick="if(event.target===this)closeSearch()">
+  <div class="search-box">
+    <div class="search-input-row">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A09D98" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="gInput" placeholder="품번, 소재명, 아이템명, 협력사..." oninput="gSearch()" onkeydown="gKey(event)" autocomplete="off">
+    </div>
+    <div class="search-results" id="gResults"></div>
+    <div class="search-hint">↑↓ 이동 &nbsp;·&nbsp; Enter 선택 &nbsp;·&nbsp; Esc 닫기</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="season-nav" id="seasonNav"></div>
+
+  <div class="filter-bar">
+    <div class="fg"><div class="flabel-row"><span class="flabel">카테고리</span><button class="fedit-btn" onclick="openFOpts('cat','카테고리')">+</button></div><select class="fselect" id="ff_cat" onchange="applyF()"><option value="">전체</option></select></div>
+    <div class="fg"><div class="flabel-row"><span class="flabel">도메인</span><button class="fedit-btn" onclick="openDomOpts()" title="도메인 항목 관리">+</button></div><select class="fselect" id="ff_dom" onchange="applyF()"><option value="">전체</option></select></div>
+    <div class="fg"><div class="flabel-row"><span class="flabel">핏</span><button class="fedit-btn" onclick="openFOpts('fit','핏')">+</button></div><select class="fselect" id="ff_fit" onchange="applyF()"><option value="">전체</option></select></div>
+    <div class="fg"><div class="flabel-row"><span class="flabel">협력사</span><button class="fedit-btn" onclick="openFOpts('partner','협력사')">+</button></div><select class="fselect" id="ff_partner" onchange="applyF()"><option value="">전체</option></select></div>
+    <div class="fg"><div class="flabel-row"><span class="flabel">소재처</span><button class="fedit-btn" onclick="openFOpts('matsrc','소재처')">+</button></div><select class="fselect" id="ff_matsrc" onchange="applyF()"><option value="">전체</option></select></div>
+    <button class="freset" onclick="resetF()">초기화</button>
+  </div>
+
+  <div class="section-hd">
+    <div class="section-left">
+      <span class="section-ttl" id="secTitle"></span>
+      <span class="section-cnt" id="secCnt"></span>
+      <span id="statPills" style="display:flex;gap:6px"></span>
+    </div>
+    <div style="display:flex;gap:7px;align-items:center">
+      <button class="add-btn" style="background:none;border:1.5px solid var(--border2);color:var(--text2);" onclick="addGroup()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        그룹 추가
+      </button>
+      <button class="add-btn" style="background:none;border:1.5px solid var(--border2);color:var(--text2);" id="pasteCardBtn" onclick="pasteCard()" style="display:none">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        카드 붙여넣기
+      </button>
+      <button class="add-btn" onclick="openModal(null)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        아이템 추가
+      </button>
+    </div>
+  </div>
+
+  <div id="cardGrid"></div>
+</div>
+
+<!-- SEASON EDIT MODAL -->
+<div class="modal-bg" id="seBg">
+  <div class="modal" style="width:340px">
+    <div class="modal-top"><h3>시즌 수정</h3><button class="mclose" onclick="closeSE()">×</button></div>
+    <div class="modal-body">
+      <div class="fgroup"><label>시즌명</label><input type="text" id="seInput" maxlength="10" onkeydown="if(event.key==='Enter')saveSeason()"></div>
+      <p style="font-size:11px;color:var(--text3);margin-top:10px">※ 시즌명을 변경하면 해당 시즌의 모든 아이템에 자동 반영됩니다.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-del" onclick="deleteSeason()">시즌 삭제</button>
+      <div class="fright"><button class="btn-cancel" onclick="closeSE()">취소</button><button class="btn-save" onclick="saveSeason()">저장</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- SEASON ADD MODAL -->
+<div class="modal-bg" id="smBg">
+  <div class="modal" style="width:340px">
+    <div class="modal-top"><h3>시즌 추가</h3><button class="mclose" onclick="closeSM()">×</button></div>
+    <div class="modal-body">
+      <div class="fgroup"><label>시즌명 (예: 25SS, 25FW)</label><input type="text" id="smInput" placeholder="26SS" maxlength="10" onkeydown="if(event.key==='Enter')addSeason()"></div>
+    </div>
+    <div class="modal-footer"><div></div><div class="fright"><button class="btn-cancel" onclick="closeSM()">취소</button><button class="btn-save" onclick="addSeason()">추가</button></div></div>
+  </div>
+</div>
+
+<!-- DOMAIN ADD MODAL -->
+<div class="modal-bg" id="dmBg">
+  <div class="modal" style="width:340px">
+    <div class="modal-top"><h3>도메인 추가</h3><button class="mclose" onclick="closeDM()">×</button></div>
+    <div class="modal-body">
+      <div class="fgroup"><label>도메인명 (예: 라이프스타일, 키즈)</label><input type="text" id="dmInput" placeholder="라이프스타일" maxlength="20" onkeydown="if(event.key==='Enter')addDomain()"></div>
+    </div>
+    <div class="modal-footer"><div></div><div class="fright"><button class="btn-cancel" onclick="closeDM()">취소</button><button class="btn-save" onclick="addDomain()">추가</button></div></div>
+  </div>
+</div>
+
+<!-- DOMAIN EDIT MODAL -->
+<div class="modal-bg" id="deBg">
+  <div class="modal" style="width:340px">
+    <div class="modal-top"><h3>도메인 수정</h3><button class="mclose" onclick="closeDE()">×</button></div>
+    <div class="modal-body">
+      <div class="fgroup"><label>도메인명</label><input type="text" id="deInput" maxlength="20" onkeydown="if(event.key==='Enter')saveDomain()"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-del" onclick="deleteDomain()">도메인 삭제</button>
+      <div class="fright"><button class="btn-cancel" onclick="closeDE()">취소</button><button class="btn-save" onclick="saveDomain()">저장</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER OPTS MODAL -->
+<div class="modal-bg" id="foptsBg">
+  <div class="modal" style="width:380px">
+    <div class="modal-top"><h3 id="foptsTitle">항목 관리</h3><button class="mclose" onclick="closeFOpts()">×</button></div>
+    <div class="modal-body">
+      <div id="foptsList" style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;max-height:300px;overflow-y:auto;"></div>
+      <div style="display:flex;gap:7px;align-items:center;border-top:1px solid var(--border);padding-top:12px;">
+        <input type="text" id="foptsInput" placeholder="새 항목 입력..." style="flex:1;border:1px solid var(--border);border-radius:var(--radius);padding:7px 10px;font-size:12.5px;font-family:inherit;outline:none;" onkeydown="if(event.key==='Enter')addFOpt()">
+        <button class="btn-save" style="padding:7px 14px" onclick="addFOpt()">추가</button>
+      </div>
+    </div>
+    <div class="modal-footer"><div></div><div class="fright"><button class="btn-cancel" onclick="closeFOpts()">닫기</button></div></div>
+  </div>
+</div>
+
+<!-- ITEM MODAL -->
+<div class="modal-bg" id="mBg">
+  <div class="modal" onkeydown="handleModalKey(event)">
+    <div class="modal-top"><h3 id="mTitle">새 아이템 추가</h3><button class="mclose" onclick="closeModal()">×</button></div>
+    <div class="modal-body">
+
+      <div class="msec">
+        <div class="msec-title">캐드 이미지</div>
+        <div class="cad-area" id="cadArea" ondragover="cadOver(event)" ondrop="cadDrop(event)">
+          <div id="cadInner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4C1BC" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="cad-hint"><strong>클릭</strong> · <strong>드래그&드롭</strong> · <strong>Ctrl+V</strong> 붙여넣기</div>
+            <div class="cad-hint" style="font-size:10px;margin-top:3px">PNG, JPG, GIF 지원</div>
+          </div>
+        </div>
+        <input type="file" id="cadFile" accept="image/*" style="display:none" onchange="cadFileChg(event)">
+        <button class="cad-clear" id="cadClear" style="display:none" onclick="cadReset()">이미지 삭제</button>
+      </div>
+
+      <div class="msec">
+        <div class="msec-title">기본 정보</div>
+        <div class="fg2">
+          <div class="fgroup"><label>시즌</label><select id="m_season" onchange="refreshMGroupSelect(editId||null)"></select></div>
+          <div class="fgroup"><label>품번</label><input type="text" id="m_code" placeholder="예: 3FSPA0373" oninput="acInput(this,'code')" onkeydown="acKey(event,this)" onblur="acBlur(this)"></div>
+          <div class="fgroup full"><label>그룹 (대분류)</label><select id="m_group"><option value="">그룹 없음</option></select></div>
+          <div class="fgroup"><label>카테고리</label><input type="text" id="m_cat" placeholder="예: 하의, 아우터" oninput="acInput(this,'cat')" onkeydown="acKey(event,this)" onblur="acBlur(this)"></div>
+          <div class="fgroup"><label>도메인</label><input type="text" id="m_dom" placeholder="예: 여성 캐주얼" oninput="acInput(this,'dom')" onkeydown="acKey(event,this)" onblur="acBlur(this)"></div>
+          <div class="fgroup full">
+            <label>아이템명 (한글)</label>
+            <input type="text" id="m_nameko" placeholder="예: 여성 스트라이프 3부 반바지" oninput="scheduleTranslate()">
+          </div>
+          <div class="fgroup full">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <label style="margin:0">아이템명 (영문)</label>
+              <span id="translateStatus" style="font-size:10.5px;color:var(--text3);display:flex;align-items:center;gap:5px;"></span>
+            </div>
+            <input type="text" id="m_nameen" placeholder="한글 입력 시 자동 번역 (대문자)">
+          </div>
+        </div>
+      </div>
+
+      <div class="msec">
+        <div class="msec-title">소재 정보</div>
+        <div class="fg2">
+          <div class="fgroup" style="position:relative">
+            <label>소재명</label>
+            <input type="text" id="m_mat" placeholder="예: 코튼 스트라이프" oninput="matNameInput()" onblur="hideMatSuggest()" autocomplete="off">
+            <div id="matSuggest" style="display:none;position:absolute;top:100%;left:0;right:0;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);box-shadow:var(--shadow-md);z-index:100;max-height:180px;overflow-y:auto;"></div>
+          </div>
+          <div class="fgroup"><label>소재처</label><input type="text" id="m_matsrc" placeholder="예: 대구 한일원단" onchange="matFieldChanged()" oninput="acInput(this,'matsrc')" onkeydown="acKey(event,this)" onblur="acBlur(this)"></div>
+          <div class="fgroup full">
+            <label>소재 세부내역</label>
+            <input type="text" id="m_matdetail" placeholder="예: 코튼 80% 폴리 20%" onchange="matFieldChanged()">
+            <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;" id="unitBtns">
+              <span style="font-size:10px;color:var(--text3);align-self:center;margin-right:2px">단위 삽입:</span>
+              <button type="button" class="unit-btn" onclick="insertUnit('g/㎡')">g/㎡</button>
+              <button type="button" class="unit-btn" onclick="insertUnit('oz')">oz</button>
+              <button type="button" class="unit-btn" onclick="insertUnit('D')">D</button>
+              <button type="button" class="unit-btn" onclick="insertUnit('T')">T</button>
+              <button type="button" class="unit-btn" onclick="insertUnit('%')">%</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="msec">
+        <div class="msec-title">스펙 / 가격</div>
+        <div class="fg2">
+          <div class="fgroup"><label>핏</label><input type="text" id="m_fit" placeholder="예: 스트레이트핏" oninput="this.value=this.value.toUpperCase();acInput(this,'fit')" onkeydown="acKey(event,this)" onblur="acBlur(this)"></div>
+          <div class="fgroup"><label>셋업코드</label><input type="text" id="m_setup" placeholder="예: 09MGS,50BKS" oninput="acInput(this,'setup')" onkeydown="acKey(event,this)" onblur="acBlur(this)"></div>
+          <div class="fgroup"><label>택가</label><input type="text" id="m_price" placeholder="예: 49,000" oninput="formatPrice(this)" inputmode="numeric"></div>
+          <div class="fgroup"><label>협력사</label><input type="text" id="m_partner" placeholder="예: (주)팬코" oninput="acInput(this,'partner')" onkeydown="acKey(event,this)" onblur="acBlur(this)"></div>
+          <div class="fgroup full"><label>컬러 (쉼표로 구분)</label><input type="text" id="m_color" placeholder="예: M.GREY(STRIPE CREAM), BLACK(STRIPE CREAM)" oninput="acInput(this,'color')" onkeydown="acKey(event,this)" onblur="acBlur(this)"></div>
+        </div>
+      </div>
+
+      <div class="msec">
+        <div class="msec-title">메모</div>
+        <div class="fgroup"><textarea id="m_memo" rows="3" placeholder="진행상황, 특이사항, 협의 내용..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-del" id="mDelBtn" onclick="deleteItem()" style="display:none">삭제</button>
+      <div class="fright"><button class="btn-cancel" onclick="closeModal()">취소</button><button class="btn-save" onclick="saveItem()">저장</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SK='itemDash_v4';
+const DB_NAME='itemDashDB', DB_STORE='data', DB_KEY='main';
+let D={seasons:[],cur:'',items:[],groups:[],filterOpts:{},domains:[],ungroupedOrder:{}};
+let _db=null;
+
+async function openIDB(){
+  if(_db)return _db;
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open(DB_NAME,1);
+    req.onupgradeneeded=e=>e.target.result.createObjectStore(DB_STORE);
+    req.onsuccess=e=>{_db=e.target.result;res(_db);};
+    req.onerror=()=>rej(req.error);
+  });
+}
+async function idbGet(){
+  const db=await openIDB();
+  return new Promise((res,rej)=>{
+    const tx=db.transaction(DB_STORE,'readonly');
+    const req=tx.objectStore(DB_STORE).get(DB_KEY);
+    req.onsuccess=()=>res(req.result);
+    req.onerror=()=>rej(req.error);
+  });
+}
+async function idbSet(val){
+  const db=await openIDB();
+  return new Promise((res,rej)=>{
+    const tx=db.transaction(DB_STORE,'readwrite');
+    const req=tx.objectStore(DB_STORE).put(val,DB_KEY);
+    req.onsuccess=()=>res();
+    req.onerror=()=>rej(req.error);
+  });
+}
+
+function defaultD(){
+  return {
+    seasons:['25SS','25FW','26SS'], cur:'25SS',
+    domains:['전체','여성 캐주얼','남성 캐주얼','남성 베이직','라이프스타일'], curDom:'전체',
+    groups:[],
+    ungroupedOrder:{},
+    filterOpts:{
+      cat:['아우터','상의','하의','원피스','스커트','니트','데님','슈즈','액세서리'],
+      fit:['오버핏','루즈핏','레귤러핏','슬림핏','와이드핏','스트레이트'],
+      partner:[],matsrc:[]
+    },
+    items:[]
+  };
+}
+function saveD(){
+  idbSet(JSON.parse(JSON.stringify(D))).catch(()=>toast('⚠️ 저장 실패'));
+}
+function uid(){ return '_'+Math.random().toString(36).slice(2,10); }
+
+let editId=null, cadUrl='', sHL='';
+let F={cat:'',dom:'',fit:'',partner:'',matsrc:''};
+let gIdx=-1;
+let deTarget='';
+
+// SEASON
+let seTarget='';
+function renderSeasonNav(){
+  const nav=document.getElementById('seasonNav');
+  nav.innerHTML=
+    D.seasons.map((s,i)=>`<div class="stab-wrap" draggable="true" data-idx="${i}">
+      <button class="stab ${s===D.cur?'active':''}" onclick="switchS('${s}')" draggable="false">${s}</button>
+      <button class="stab-edit ${s===D.cur?'active':''}" onclick="openSE('${s}',event)" draggable="false" title="시즌 수정">✏️</button>
+    </div>`).join('')
+    +`<button class="stab add" onclick="openSM()">+ 시즌 추가</button>`;
+  initDrag();
+}
+function initDrag(){
+  const nav=document.getElementById('seasonNav');
+  const wraps=()=>[...nav.querySelectorAll('.stab-wrap')];
+  let dragIdx=null;
+  wraps().forEach((el,i)=>{
+    el.addEventListener('dragstart',e=>{
+      dragIdx=i;
+      e.dataTransfer.effectAllowed='move';
+      setTimeout(()=>el.classList.add('dragging'),0);
+    });
+    el.addEventListener('dragend',()=>{
+      el.classList.remove('dragging');
+      wraps().forEach(w=>w.classList.remove('drag-over'));
+      dragIdx=null;
+    });
+    el.addEventListener('dragover',e=>{
+      e.preventDefault();
+      e.dataTransfer.dropEffect='move';
+      wraps().forEach(w=>w.classList.remove('drag-over'));
+      el.classList.add('drag-over');
+    });
+    el.addEventListener('dragleave',()=>el.classList.remove('drag-over'));
+    el.addEventListener('drop',e=>{
+      e.preventDefault();
+      const toIdx=parseInt(el.dataset.idx);
+      if(dragIdx===null||dragIdx===toIdx)return;
+      const moved=D.seasons.splice(dragIdx,1)[0];
+      D.seasons.splice(toIdx,0,moved);
+      saveD();renderAll();
+    });
+  });
+}
+function switchS(s){D.cur=s;saveD();renderAll();}
+function openSM(){document.getElementById('smInput').value='';document.getElementById('smBg').classList.add('open');setTimeout(()=>document.getElementById('smInput').focus(),40);}
+function closeSM(){document.getElementById('smBg').classList.remove('open');}
+function addSeason(){
+  const n=document.getElementById('smInput').value.trim().toUpperCase();
+  if(!n)return;
+  if(D.seasons.includes(n)){toast('이미 존재하는 시즌입니다.');return;}
+  D.seasons.push(n);D.cur=n;saveD();closeSM();renderAll();
+}
+function openSE(s,e){if(e){e.stopPropagation();e.preventDefault();}seTarget=s;document.getElementById('seInput').value=s;document.getElementById('seBg').classList.add('open');setTimeout(()=>document.getElementById('seInput').focus(),40);}
+function closeSE(){document.getElementById('seBg').classList.remove('open');}
+function saveSeason(){
+  const n=document.getElementById('seInput').value.trim();
+  if(!n)return;
+  if(n!==seTarget&&D.seasons.includes(n)){toast('이미 존재하는 시즌명입니다.');return;}
+  D.seasons=D.seasons.map(s=>s===seTarget?n:s);
+  D.items.forEach(i=>{if(i.season===seTarget)i.season=n;});
+  if(D.cur===seTarget)D.cur=n;
+  saveD();closeSE();renderAll();toast('시즌명이 변경되었습니다.');
+}
+function deleteSeason(){
+  if(!confirm(seTarget+' 시즌을 삭제하시겠습니까? 해당 시즌의 아이템도 모두 삭제됩니다.'))return;
+  D.items=D.items.filter(i=>i.season!==seTarget);
+  D.seasons=D.seasons.filter(s=>s!==seTarget);
+  if(D.cur===seTarget)D.cur=D.seasons[0]||'';
+  saveD();closeSE();renderAll();toast('시즌이 삭제되었습니다.');
+}
+
+// DOMAIN NAV
+function renderDomainNav(){
+  const nav=document.getElementById('domainNav');
+  if(!D.domains||D.domains.length===0)D.domains=['전체','여성 캐주얼','남성 캐주얼','남성 베이직','라이프스타일'];
+  if(!D.domains.includes('전체'))D.domains.unshift('전체');
+  const doms=D.domains;
+  nav.innerHTML=
+    doms.map(d=>{
+      const isAll=d==='전체';
+      const isActive=D.curDom===d;
+      if(isAll) return `<button class="dtab all ${isActive?'active':''}" onclick="switchDom('${d}')">${d}</button>`;
+      return `<div class="dtab-wrap">
+        <button class="dtab ${isActive?'active':''}" onclick="switchDom('${d}')">${d}</button>
+        <button class="dtab-edit" onclick="openDE('${d}',event)" draggable="false" title="도메인 수정">✏️</button>
+      </div>`;
+    }).join('')
+    +`<button class="dtab add" onclick="openDM()">+ 도메인 추가</button>`;
+  // Also refresh m_dom select in modal if open
+}
+function switchDom(d){D.curDom=d;saveD();renderCards();renderStats();renderDomainNav();}
+function openDM(){document.getElementById('dmInput').value='';document.getElementById('dmBg').classList.add('open');setTimeout(()=>document.getElementById('dmInput').focus(),40);}
+function closeDM(){document.getElementById('dmBg').classList.remove('open');}
+function addDomain(){
+  const n=document.getElementById('dmInput').value.trim();
+  if(!n)return;
+  if(!D.domains)D.domains=['전체'];
+  const doms=D.domains.filter(d=>d!=='전체');
+  if(doms.includes(n)){toast('이미 존재하는 도메인입니다.');return;}
+  doms.push(n);D.domains=['전체',...doms];D.curDom=n;
+  saveD();closeDM();renderDomainNav();renderCards();renderStats();
+}
+function openDE(d,e){if(e){e.stopPropagation();e.preventDefault();}deTarget=d;document.getElementById('deInput').value=d;document.getElementById('deBg').classList.add('open');setTimeout(()=>document.getElementById('deInput').focus(),40);}
+function closeDE(){document.getElementById('deBg').classList.remove('open');}
+function saveDomain(){
+  const n=document.getElementById('deInput').value.trim();
+  if(!n)return;
+  if(n!==deTarget&&(D.domains||[]).includes(n)){toast('이미 존재하는 도메인명입니다.');return;}
+  D.domains=(D.domains||[]).map(d=>d===deTarget?n:d);
+  D.items.forEach(i=>{if(i.dom===deTarget)i.dom=n;});
+  if(D.curDom===deTarget)D.curDom=n;
+  saveD();closeDE();renderDomainNav();renderCards();renderStats();toast('도메인명이 변경되었습니다.');
+}
+function deleteDomain(){
+  if(!confirm(deTarget+' 도메인을 삭제하시겠습니까?'))return;
+  D.domains=(D.domains||[]).filter(d=>d!==deTarget&&d!=='전체');
+  D.domains=['전체',...D.domains];
+  if(D.curDom===deTarget)D.curDom='전체';
+  saveD();closeDE();renderDomainNav();renderCards();renderStats();toast('도메인이 삭제되었습니다.');
+}
+
+// FILTERS
+function seasonItems(){return D.items.filter(i=>i.season===D.cur);}
+function filteredItems(){
+  const domFilter=D.curDom&&D.curDom!=='전체'?D.curDom:null;
+  return seasonItems().filter(i=>{
+    if(domFilter&&i.dom!==domFilter)return false;
+    if(F.cat&&i.cat!==F.cat)return false;
+    if(F.dom&&i.dom!==F.dom)return false;
+    if(F.fit&&i.fit!==F.fit)return false;
+    if(F.partner&&i.partner!==F.partner)return false;
+    if(F.matsrc&&i.matsrc!==F.matsrc)return false;
+    return true;
+  });
+}
+// Sync filter options: merge manual list with actual item values,
+// remove manual entries that no longer exist in any item (for auto fields)
+function syncFilterOpts(){
+  if(!D.filterOpts)D.filterOpts={cat:[],fit:[],partner:[],matsrc:[]};
+  // Sync cat, fit, partner, matsrc from actual item values
+  ['cat','fit','partner','matsrc'].forEach(key=>{
+    const usedInItems=[...new Set(D.items.map(i=>i[key]).filter(Boolean))].sort();
+    const existing=D.filterOpts[key]||[];
+    const merged=[...existing.filter(v=>usedInItems.includes(v))];
+    usedInItems.forEach(v=>{ if(!merged.includes(v)) merged.push(v); });
+    D.filterOpts[key]=merged;
+  });
+  // Sync D.domains from item dom values: auto-add new dom values, auto-remove unused
+  if(!D.domains||D.domains.length===0)D.domains=['전체','여성 캐주얼','남성 캐주얼','남성 베이직','라이프스타일'];
+  if(!D.domains.includes('전체'))D.domains.unshift('전체');
+  const usedDoms=[...new Set(D.items.map(i=>i.dom).filter(Boolean))];
+  // Add new domains found in items
+  usedDoms.forEach(d=>{ if(!D.domains.includes(d)) D.domains.push(d); });
+  // Remove domains (except '전체') that are no longer used in any item AND were auto-added
+  // Keep manually-added ones even if unused — only remove if unused AND not manually protected
+  // Simple: keep '전체' always; keep others only if used OR manually present via openDM
+  // We track this by: domains not used in items are kept as-is (user manually manages via ✏️)
+  // Actually per user request: auto-remove domains not in any item
+  D.domains=D.domains.filter(d=>d==='전체'||usedDoms.includes(d)||
+    // keep if user explicitly added via UI (we can't easily distinguish, so keep all manual)
+    // compromise: auto-add only, never auto-remove domain tabs (user uses ✏️ to delete)
+    true
+  );
+  saveD();
+}
+function getOpts(key){
+  if(key==='dom'){
+    return (D.domains||[]).filter(d=>d!=='전체');
+  }
+  if(!D.filterOpts)D.filterOpts={cat:[],fit:[],partner:[],matsrc:[]};
+  return D.filterOpts[key]||[];
+}
+function populateFilters(){
+  const fill=(id,key)=>{
+    const el=document.getElementById(id);
+    const cur=el.value;
+    const vals=getOpts(key);
+    el.innerHTML='<option value="">전체</option>'+vals.map(v=>`<option ${v===cur?'selected':''}>${v}</option>`).join('');
+  };
+  fill('ff_cat','cat');fill('ff_dom','dom');fill('ff_fit','fit');fill('ff_partner','partner');fill('ff_matsrc','matsrc');
+}
+function applyF(){F.cat=document.getElementById('ff_cat').value;F.dom=document.getElementById('ff_dom').value;F.fit=document.getElementById('ff_fit').value;F.partner=document.getElementById('ff_partner').value;F.matsrc=document.getElementById('ff_matsrc').value;renderCards();renderStats();}
+function resetF(){F={cat:'',dom:'',fit:'',partner:'',matsrc:''};['ff_cat','ff_dom','ff_fit','ff_partner','ff_matsrc'].forEach(id=>document.getElementById(id).value='');renderCards();renderStats();}
+
+// STATS
+function renderStats(){
+  const items=filteredItems();
+  const parters=[...new Set(items.map(i=>i.partner).filter(Boolean))].length;
+  const prices=items.map(i=>parseInt((i.price||'').replace(/,/g,''))).filter(p=>p>0);
+  const avg=prices.length?Math.round(prices.reduce((a,b)=>a+b,0)/prices.length):0;
+  document.getElementById('secTitle').textContent=D.cur+' 시즌';
+  document.getElementById('secCnt').textContent=items.length+'개 아이템';
+  document.getElementById('statPills').innerHTML=
+    parters?`<span class="spill"><strong>${parters}</strong> 협력사</span>`:'';
+}
+
+// HIGHLIGHT
+function hl(v){
+  if(!v)return '-';
+  if(!sHL)return String(v);
+  return String(v).replace(new RegExp(`(${sHL.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),'<mark>$1</mark>');
+}
+
+// BUILD CARD
+function buildCard(item){
+  const cadHtml=item.cad
+    ?`<img src="${item.cad}" alt="캐드">`
+    :`<div class="c-cad-empty"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>이미지 추가</span></div>`;
+
+  const colors=(item.color||'').split(',').map(c=>c.trim()).filter(Boolean);
+  const colorHtml=colors.map(c=>`<span class="ctag">${c}</span>`).join('')||'<span class="ctag">-</span>';
+
+
+
+  return `<div class="item-card" id="card_${item.id}" oncontextmenu="cardContextMenu(event,'${item.id}')">
+    <div class="c-row1">
+      <span class="c-code">${hl(item.code)||'-'}</span>
+      <button class="card-copy-btn" onclick="event.stopPropagation();copyCard('${item.id}')" title="카드 복사">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
+    </div>
+    <div class="c-names" >
+      <div class="c-nameko">${hl(item.nameko)||'-'}</div>
+      ${item.nameen?`<div class="c-nameen">${hl(item.nameen)}</div>`:''}
+    </div>
+    <div class="c-cad"  title="클릭하여 수정">${cadHtml}</div>
+    <div class="c-colors">${colorHtml}</div>
+    <div class="c-mat" >
+      <div class="c-mat-name">${hl(item.mat)||'-'}</div>
+      ${item.matdetail?`<div class="c-mat-detail">${hl(item.matdetail)}</div>`:''}
+      ${item.matsrc?`<div class="c-mat-src">소재처: ${hl(item.matsrc)}</div>`:''}
+    </div>
+    <div class="c-badges">
+      ${item.cat?`<span class="badge bdg-cat">${item.cat}</span>`:''}
+      ${item.dom?`<span class="badge bdg-dom">${item.dom}</span>`:''}
+      ${item.fit?`<span class="badge bdg-fit">${item.fit}</span>`:''}
+    </div>
+    <div class="c-memo" onclick="event.stopPropagation()">
+      <textarea placeholder="메모..." onchange="saveMemo('${item.id}',this.value)">${item.memo||''}</textarea>
+    </div>
+    <div class="c-footer" >
+      <span class="c-partner">${hl(item.partner)||'-'}</span>
+    </div>
+    <div class="c-bottom" >
+      <span class="c-setup">${item.setup||''}</span>
+      <span class="c-price">${item.price?item.price+'원':'-'}</span>
+    </div>
+  </div>`;
+}
+
+function renderCards(){
+  const items=filteredItems();
+  const container=document.getElementById('cardGrid');
+  if(!items.length){
+    container.innerHTML=`<div class="empty-state"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 8h8M8 16h5"/></svg><p>아이템이 없습니다. 상단 '아이템 추가' 버튼을 눌러주세요.</p></div>`;
+    return;
+  }
+  const itemIds=items.map(i=>i.id);
+  // Current season's groups
+  const groups=(D.groups||[]).filter(g=>g.season===D.cur);
+  // Items already in a group (filter to only visible items)
+  const groupedIds=new Set(groups.flatMap(g=>g.itemIds.filter(id=>itemIds.includes(id))));
+  // Apply ungrouped order if exists
+  let ungrouped=items.filter(i=>!groupedIds.has(i.id));
+  const uOrder=(D.ungroupedOrder||{})[D.cur];
+  if(uOrder){
+    ungrouped.sort((a,b)=>{
+      const ai=uOrder.indexOf(a.id); const bi=uOrder.indexOf(b.id);
+      return (ai<0?9999:ai)-(bi<0?9999:bi);
+    });
+  }
+
+  let html='';
+  // Render each group
+  groups.forEach(g=>{
+    const gItems=g.itemIds.filter(id=>itemIds.includes(id));
+    html+=`<div class="group-block" data-gid="${g.id}">
+      <div class="group-header">
+        <input class="group-name-input" value="${g.name||''}" placeholder="그룹명 입력..." onchange="renameGroup('${g.id}',this.value)" onkeydown="if(event.key==='Enter')this.blur()">
+        <span class="group-count">${gItems.length}개</span>
+        <button class="group-del-btn" onclick="deleteGroup('${g.id}')" title="그룹 삭제">×</button>
+      </div>
+      <div class="group-card-grid" data-gid="${g.id}"
+        ondragover="gridDragOver(event,'${g.id}')"
+        ondragleave="gridDragLeave(event)"
+        ondrop="gridDrop(event,'${g.id}')">
+        ${gItems.map(id=>buildCard(items.find(i=>i.id===id))).join('')}
+        ${gItems.length===0?'<div style="padding:1rem;color:var(--text3);font-size:12px;text-align:center;grid-column:1/-1">카드를 드래그해서 놓으세요</div>':''}
+      </div>
+    </div>`;
+  });
+
+  // Ungrouped section
+  if(ungrouped.length>0||groups.length===0){
+    html+=`<div class="ungrouped-section">
+      ${groups.length>0?'<div class="ungrouped-header"><span class="ungrouped-label">미분류</span></div>':''}
+      <div class="group-card-grid" data-gid="ungrouped"
+        ondragover="gridDragOver(event,'ungrouped')"
+        ondragleave="gridDragLeave(event)"
+        ondrop="gridDrop(event,'ungrouped')">
+        ${ungrouped.map(buildCard).join('')}
+      </div>
+    </div>`;
+  }
+
+  container.innerHTML=html;
+  initCardDrag();
+}
+
+function saveMemo(id,val){const item=D.items.find(i=>i.id===id);if(item){item.memo=val;saveD();}}
+
+// MODAL
+function openModal(id){
+  editId=id; cadUrl='';
+  const sel=document.getElementById('m_season');
+  sel.innerHTML=D.seasons.map(s=>`<option ${s===D.cur?'selected':''}>${s}</option>`).join('');
+  refreshMGroupSelect(id||null);
+  if(id){
+    const item=D.items.find(i=>i.id===id);if(!item)return;
+    document.getElementById('mTitle').textContent='아이템 수정';
+    document.getElementById('mDelBtn').style.display='block';
+    const g=k=>item[k]||'';
+    sel.value=g('season');
+    ['code','cat','dom','nameko','nameen','mat','matsrc','matdetail','fit','setup','price','partner','color','memo']
+      .forEach(k=>{const el=document.getElementById('m_'+k);if(el)el.value=g(k);});
+    cadUrl=item.cad||'';cadRenderPreview();
+  }else{
+    document.getElementById('mTitle').textContent='새 아이템 추가';
+    document.getElementById('mDelBtn').style.display='none';
+    ['code','cat','nameko','nameen','mat','matsrc','matdetail','fit','setup','price','partner','color','memo']
+      .forEach(k=>{const el=document.getElementById('m_'+k);if(el)el.value='';});
+    document.getElementById('m_dom').value='';
+    cadUrl='';cadRenderPreview();
+  }
+  document.getElementById('mBg').classList.add('open');
+}
+function closeModal(){document.getElementById('mBg').classList.remove('open');removeAllAC();}
+function refreshMGroupSelect(currentItemId, season){
+  const sel=document.getElementById('m_group');
+  if(!sel)return;
+  const s=season||document.getElementById('m_season')?.value||D.cur;
+  const groups=(D.groups||[]).filter(g=>g.season===s);
+  sel.innerHTML='<option value="">그룹 없음</option>'+groups.map(g=>`<option value="${g.id}">${g.name||'(이름 없는 그룹)'}</option>`).join('');
+  if(currentItemId){
+    const curGroup=groups.find(g=>g.itemIds.includes(currentItemId));
+    sel.value=curGroup?curGroup.id:'';
+  } else {
+    sel.value='';
+  }
+}
+function insertUnit(unit){
+  const el=document.getElementById('m_matdetail');
+  if(!el)return;
+  const val=el.value;
+  const pos=el.selectionStart;
+  const before=val.slice(0,pos);
+  const after=val.slice(pos);
+  // Add space before unit if needed
+  const spaceBefore=(before.length>0&&!before.endsWith(' '))?' ':'';
+  el.value=before+spaceBefore+unit+after;
+  const newPos=pos+spaceBefore.length+unit.length;
+  el.focus();
+  el.setSelectionRange(newPos,newPos);
+}
+function formatPrice(el){
+  const raw=el.value.replace(/[^0-9]/g,'');
+  if(!raw){el.value='';return;}
+  el.value=Number(raw).toLocaleString('ko-KR');
+}
+function handleModalKey(e){
+  const tag=e.target.tagName;
+  // Ctrl+V outside input fields: silently handle image paste, block browser dialog
+  if((e.ctrlKey||e.metaKey)&&e.key==='v'&&tag!=='INPUT'&&tag!=='TEXTAREA'){
+    e.preventDefault();
+    return;
+  }
+  // Enter to save — block only for textarea; allow from input, select, button, etc.
+  if(e.key==='Enter'&&!e.shiftKey&&tag!=='TEXTAREA'){
+    // If mat suggest dropdown is visible, let it handle selection first
+    const sug=document.getElementById('matSuggest');
+    if(sug&&sug.style.display!=='none') return;
+    e.preventDefault();saveItem();return;
+  }
+}
+function saveItem(){
+  const g=id=>(document.getElementById(id)||{}).value||'';
+  const item={
+    id:editId||uid(), season:g('m_season'),
+    code:g('m_code'),cat:g('m_cat'),dom:g('m_dom'),
+    nameko:g('m_nameko'),nameen:g('m_nameen'),
+    mat:g('m_mat'),matsrc:g('m_matsrc'),matdetail:g('m_matdetail'),
+    fit:g('m_fit'),setup:g('m_setup'),price:g('m_price'),
+    partner:g('m_partner'),color:g('m_color'),memo:g('m_memo'),cad:cadUrl
+  };
+  if(editId){const idx=D.items.findIndex(i=>i.id===editId);if(idx>=0)D.items[idx]=item;}
+  else D.items.push(item);
+  // Apply group assignment from modal
+  const selGroup=document.getElementById('m_group');
+  const chosenGid=selGroup?selGroup.value:'';
+  if(!D.groups)D.groups=[];
+  // Remove item from all groups first
+  D.groups.forEach(g=>{g.itemIds=g.itemIds.filter(id=>id!==item.id);});
+  // Add to chosen group
+  if(chosenGid){
+    const tg=D.groups.find(g=>g.id===chosenGid);
+    if(tg&&!tg.itemIds.includes(item.id))tg.itemIds.push(item.id);
+  }
+  const wasEdit=!!editId;
+  const savedItemId=item.id;
+  const savedSeason=item.season;
+  D.cur=savedSeason;
+  saveD();syncFilterOpts();closeModal();
+
+  if(wasEdit && savedSeason===D.cur){
+    // Just update the single card DOM in-place — preserves order
+    patchCard(savedItemId);
+    renderSeasonNav();
+    populateFilters();
+    renderStats();
+  } else {
+    renderAll();
+  }
+  toast(wasEdit?'아이템이 수정되었습니다.':'아이템이 추가되었습니다.');
+}
+
+function patchCard(itemId){
+  const item=D.items.find(i=>i.id===itemId);
+  if(!item)return;
+  const el=document.getElementById('card_'+itemId);
+  if(!el){
+    // Card not visible (filtered out or wrong group) — just refresh cards without destroying order
+    renderCards();
+    return;
+  }
+  // Replace card HTML in-place preserving DOM position
+  const tmp=document.createElement('div');
+  tmp.innerHTML=buildCard(item);
+  const newCard=tmp.firstElementChild;
+  el.parentNode.replaceChild(newCard,el);
+  initCardDragOn(newCard);
+
+  // Update group header counts in-place
+  document.querySelectorAll('.group-block').forEach(gb=>{
+    const gid=gb.dataset.gid;
+    const g=(D.groups||[]).find(g=>g.id===gid);
+    if(g){
+      const cnt=gb.querySelector('.group-count');
+      if(cnt){
+        const visible=filteredItems().map(i=>i.id);
+        cnt.textContent=g.itemIds.filter(id=>visible.includes(id)).length+'개';
+      }
+    }
+  });
+
+  // Check if item moved to a different group — if so move card DOM too
+  const newGroup=(D.groups||[]).find(g=>g.itemIds.includes(itemId)&&g.season===D.cur);
+  const newGid=newGroup?newGroup.id:'ungrouped';
+  const currentGrid=newCard.closest('.group-card-grid');
+  const currentGid=currentGrid?currentGrid.dataset.gid:'ungrouped';
+  if(newGid!==currentGid){
+    // Move card to correct grid without full re-render
+    const targetGrid=document.querySelector(`.group-card-grid[data-gid="${newGid}"]`);
+    if(targetGrid){
+      targetGrid.appendChild(newCard);
+      initCardDragOn(newCard);
+      // Remove placeholder if grid now has cards
+      const placeholder=targetGrid.querySelector('div[style*="드래그"]');
+      if(placeholder)placeholder.remove();
+    } else {
+      renderCards(); // target grid doesn't exist yet
+    }
+  }
+}
+function deleteItem(){
+  if(!editId||!confirm('이 아이템을 삭제하시겠습니까?'))return;
+  const delId=editId;D.items=D.items.filter(i=>i.id!==delId);if(D.groups)D.groups.forEach(g=>{g.itemIds=g.itemIds.filter(id=>id!==delId);});saveD();syncFilterOpts();closeModal();renderAll();toast('삭제되었습니다.');
+}
+
+// CAD
+function cadRenderPreview(){
+  const area=document.getElementById('cadArea'),btn=document.getElementById('cadClear');
+  if(cadUrl){area.innerHTML=`<img src="${cadUrl}" alt="캐드">`;area.style.cursor='default';btn.style.display='inline-block';}
+  else{
+    area.innerHTML=`<div>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C4C1BC" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap">
+        <button type="button" onclick="event.stopPropagation();document.getElementById('cadFile').click()" style="background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:6px 14px;font-size:12px;font-family:inherit;cursor:pointer;">열기</button>
+      </div>
+      <div class="cad-hint" style="margin-top:8px"><strong>드래그&드롭</strong> 또는 <strong>Ctrl+V</strong> 붙여넣기</div>
+      <div class="cad-hint" style="font-size:10px;margin-top:3px">PNG, JPG, GIF 지원</div>
+    </div>`;
+    area.style.cursor='default';
+    btn.style.display='none';
+  }
+}
+function cadReset(){cadUrl='';cadRenderPreview();}
+function loadImg(file){
+  const img=new Image();
+  const reader=new FileReader();
+  reader.onload=e=>{
+    img.onload=()=>{
+      const MAX=1200;
+      let w=img.width, h=img.height;
+      if(w>MAX||h>MAX){
+        if(w>h){h=Math.round(h*MAX/w);w=MAX;}
+        else{w=Math.round(w*MAX/h);h=MAX;}
+      }
+      const canvas=document.createElement('canvas');
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      cadUrl=canvas.toDataURL('image/jpeg',0.82);
+      cadRenderPreview();
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function cadFileChg(e){const f=e.target.files[0];if(f)loadImg(f);}
+function cadOver(e){e.preventDefault();document.getElementById('cadArea').classList.add('drag');}
+function cadDrop(e){e.preventDefault();document.getElementById('cadArea').classList.remove('drag');const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/'))loadImg(f);}
+function cadPaste(e){e.stopPropagation();const its=(e.clipboardData||e.originalEvent.clipboardData).items;for(const it of its){if(it.kind==='file'&&it.type.startsWith('image/')){loadImg(it.getAsFile());break;}}}
+document.addEventListener('paste',e=>{
+  if(!document.getElementById('mBg').classList.contains('open'))return;
+  if(['INPUT','TEXTAREA'].includes(e.target.tagName))return;
+  const its=(e.clipboardData||e.originalEvent.clipboardData).items;
+  for(const it of its){
+    if(it.kind==='file'&&it.type.startsWith('image/')){
+      e.preventDefault();
+      loadImg(it.getAsFile());
+      break;
+    }
+  }
+},true);
+
+// GLOBAL SEARCH
+function openSearch(){document.getElementById('gInput').value='';document.getElementById('gResults').innerHTML='';gIdx=-1;document.getElementById('searchOverlay').classList.add('open');setTimeout(()=>document.getElementById('gInput').focus(),40);}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('open');sHL='';renderCards();}
+function gSearch(){
+  const q=document.getElementById('gInput').value.trim().toLowerCase();
+  gIdx=-1;const res=document.getElementById('gResults');
+  if(!q){res.innerHTML='';return;}
+  const matched=D.items.filter(i=>[i.code,i.nameko,i.nameen,i.mat,i.cat,i.dom,i.partner].some(v=>(v||'').toLowerCase().includes(q)));
+  if(!matched.length){res.innerHTML=`<div class="search-empty">검색 결과가 없습니다.</div>`;return;}
+  res.innerHTML=matched.map(item=>`
+    <div class="sri" data-id="${item.id}" data-season="${item.season}" onclick="goItem('${item.id}','${item.season}','${q.replace(/'/g,"\\'")}')">
+      <span class="sri-code">${item.code||'-'}</span>
+      <span class="sri-name">${item.nameko||'-'}</span>
+      <span class="sri-tag">${item.season}</span>
+    </div>`).join('');
+}
+function gKey(e){
+  const els=document.querySelectorAll('.sri');
+  if(e.key==='Escape'){closeSearch();return;}
+  if(e.key==='ArrowDown'){gIdx=Math.min(gIdx+1,els.length-1);}
+  else if(e.key==='ArrowUp'){gIdx=Math.max(gIdx-1,0);}
+  else if(e.key==='Enter'&&gIdx>=0&&els[gIdx]){const el=els[gIdx];goItem(el.dataset.id,el.dataset.season,document.getElementById('gInput').value.trim());return;}
+  els.forEach((el,i)=>el.classList.toggle('sel',i===gIdx));
+  if(els[gIdx])els[gIdx].scrollIntoView({block:'nearest'});
+}
+function goItem(id,season,q){
+  closeSearch();sHL=q;D.cur=season;saveD();renderAll();
+  setTimeout(()=>{
+    const card=document.getElementById('card_'+id);
+    if(card){card.classList.add('highlight');card.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>card.classList.remove('highlight'),2500);}
+  },80);
+}
+
+// CSV
+function exportCSV(){
+  const items=filteredItems();
+  const hdrs=['시즌','품번','카테고리','아이템명(한)','아이템명(영)','도메인','소재명','소재처','소재세부내역','핏','셋업코드','택가','협력사','컬러','메모'];
+  const keys=['season','code','cat','nameko','nameen','dom','mat','matsrc','matdetail','fit','setup','price','partner','color','memo'];
+  const csv=[hdrs,...items.map(i=>keys.map(k=>`"${(i[k]||'').replace(/"/g,'""')}"`))].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));a.download=`items_${D.cur}_${new Date().toISOString().slice(0,10)}.csv`;a.click();toast('CSV 파일이 다운로드됩니다.');
+}
+
+// DATA BACKUP & RESTORE
+function exportDataJSON(){
+  const snapshot=JSON.parse(JSON.stringify(D));
+  const json=JSON.stringify(snapshot, null, 2);
+  const blob=new Blob([json],{type:'application/json;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='아이템_데이터_백업_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('✅ 데이터 백업 완료! JSON 파일을 안전한 곳에 보관하세요.');
+}
+
+function importDataJSON(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const imported=JSON.parse(ev.target.result);
+      // Validate it looks like our data
+      if(!imported.items||!Array.isArray(imported.items)){
+        toast('❌ 올바른 백업 파일이 아닙니다.');
+        return;
+      }
+      // Show confirm with stats
+      const msg=`백업 파일을 불러오시겠습니까?
+
+` +
+        `• 아이템 ${imported.items.length}개
+` +
+        `• 시즌 ${(imported.seasons||[]).join(', ')}
+
+` +
+        `⚠️ 현재 데이터는 덮어씌워집니다.
+(먼저 현재 데이터를 백업하세요)`;
+      if(!confirm(msg))return;
+      D=imported;
+      // Run migrations
+      if(!D.groups)D.groups=[];
+      if(!D.ungroupedOrder)D.ungroupedOrder={};
+      if(!D.filterOpts)D.filterOpts={cat:[],fit:[],partner:[],matsrc:[]};
+      if(!D.domains||D.domains.length===0)D.domains=['전체'];
+      if(!D.domains.includes('전체'))D.domains.unshift('전체');
+      if(!D.curDom)D.curDom='전체';
+      saveD();
+      renderAll();
+      toast('✅ 데이터 복원 완료! '+imported.items.length+'개 아이템이 불러와졌습니다.');
+    }catch(err){
+      toast('❌ 파일 읽기 실패: '+err.message);
+    }
+  };
+  reader.readAsText(file);
+  // Reset input so same file can be re-selected
+  e.target.value='';
+}
+
+// DOWNLOAD HTML FILE (with all data embedded)
+async function downloadHTML(){
+  // Embed current data into the HTML file so it loads with data pre-filled
+  const snapshot=JSON.parse(JSON.stringify(D));
+  const dataScript=`<script id="__embedded_data__">window.__EMBEDDED_DATA__=${JSON.stringify(snapshot)};<\/script>`;
+
+  // Get current HTML source and inject data
+  let src=document.documentElement.outerHTML;
+  // Remove any existing embedded data
+  src=src.replace(/<script id="__embedded_data__">[\s\S]*?<\/script>/,'');
+  // Inject before closing </body>
+  src=src.replace('</body>',dataScript+'</body>');
+
+  const blob=new Blob([src],{type:'text/html;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='아이템_진행현황_'+new Date().toISOString().slice(0,10)+'.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('HTML 파일이 다운로드됩니다. 파일을 열면 데이터가 그대로 유지됩니다.');
+}
+
+// TOAST
+let _tt;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),2200);}
+
+// KEYBOARD
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='f'){e.preventDefault();openSearch();}
+  if(e.key==='Escape'){closeSearch();closeModal();closeSM();closeSE();closeDM();closeDE();closeFOpts();}
+  // Ctrl+C: copy hovered/last-focused card
+  if((e.ctrlKey||e.metaKey)&&e.key==='c'&&!document.getElementById('mBg').classList.contains('open')){
+    if(['INPUT','TEXTAREA'].includes(document.activeElement.tagName))return;
+    if(lastHoveredCardId){e.preventDefault();copyCard(lastHoveredCardId);}
+  }
+  // Ctrl+V: paste card (only when modal is not open and not in an input)
+  if((e.ctrlKey||e.metaKey)&&e.key==='v'&&!document.getElementById('mBg').classList.contains('open')){
+    if(['INPUT','TEXTAREA'].includes(document.activeElement.tagName))return;
+    if(copiedCard){e.preventDefault();pasteCard();}
+  }
+});
+
+// Track last hovered card for Ctrl+C
+let lastHoveredCardId=null;
+document.addEventListener('mouseover',e=>{
+  const card=e.target.closest('.item-card');
+  if(card)lastHoveredCardId=card.id.replace('card_','');
+});
+
+// INIT
+// CARD COPY / PASTE
+let copiedCard=null;
+
+function copyCard(id){
+  const item=D.items.find(i=>i.id===id);
+  if(!item)return;
+  copiedCard=JSON.parse(JSON.stringify(item));
+  // Show paste button
+  const btn=document.getElementById('pasteCardBtn');
+  if(btn)btn.style.display='flex';
+  toast('카드가 복사됐습니다. 붙여넣기 버튼을 눌러주세요.');
+}
+
+function pasteCard(){
+  if(!copiedCard){toast('복사된 카드가 없습니다.');return;}
+  const newItem=JSON.parse(JSON.stringify(copiedCard));
+  newItem.id=uid();
+  newItem.season=D.cur;
+  newItem.code=newItem.code?newItem.code+'_복사':'';
+  D.items.push(newItem);
+  saveD();syncFilterOpts();renderAll();
+  toast('카드가 붙여넣어졌습니다.');
+  // Highlight the new card
+  setTimeout(()=>{
+    const card=document.getElementById('card_'+newItem.id);
+    if(card){card.classList.add('highlight');card.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>card.classList.remove('highlight'),2500);}
+  },100);
+}
+
+function cardContextMenu(e,id){
+  e.preventDefault();
+  // Remove existing context menu
+  const old=document.getElementById('ctxMenu');
+  if(old)old.remove();
+  const menu=document.createElement('div');
+  menu.id='ctxMenu';
+  menu.className='ctx-menu';
+  menu.style.left=e.clientX+'px';
+  menu.style.top=e.clientY+'px';
+  menu.innerHTML=`
+    <div class="ctx-item" onclick="copyCard('${id}');document.getElementById('ctxMenu').remove()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      카드 복사
+    </div>
+    ${copiedCard?`<div class="ctx-item" onclick="pasteCard();document.getElementById('ctxMenu').remove()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+      카드 붙여넣기
+    </div>`:''}
+    <div class="ctx-item" onclick="openModal('${id}');document.getElementById('ctxMenu').remove()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      수정
+    </div>`;
+  document.body.appendChild(menu);
+  // Close on outside click
+  setTimeout(()=>document.addEventListener('click',function h(){menu.remove();document.removeEventListener('click',h);},{once:true}),0);
+  // Keep menu inside viewport
+  const r=menu.getBoundingClientRect();
+  if(r.right>window.innerWidth)menu.style.left=(e.clientX-r.width)+'px';
+  if(r.bottom>window.innerHeight)menu.style.top=(e.clientY-r.height)+'px';
+}
+
+// GROUP MANAGEMENT
+let dragCardId=null;
+
+function addGroup(){
+  if(!D.groups)D.groups=[];
+  const g={id:uid(),name:'',season:D.cur,itemIds:[]};
+  D.groups.push(g);
+  saveD();renderCards();if(document.getElementById('mBg').classList.contains('open'))refreshMGroupSelect(editId||null);
+  // Focus the new group name input
+  setTimeout(()=>{
+    const inputs=document.querySelectorAll('.group-name-input');
+    if(inputs.length)inputs[inputs.length-1].focus();
+  },50);
+}
+
+function renameGroup(gid,name){
+  const g=(D.groups||[]).find(g=>g.id===gid);
+  if(g){g.name=name;saveD();if(document.getElementById('mBg').classList.contains('open'))refreshMGroupSelect(editId||null);}
+}
+
+function deleteGroup(gid){
+  D.groups=(D.groups||[]).filter(g=>g.id!==gid);
+  saveD();renderCards();if(document.getElementById('mBg').classList.contains('open'))refreshMGroupSelect(editId||null);
+}
+
+let dragOverCardId=null;
+
+function initCardDragOn(el){
+  if(!el)return;
+  let mouseDownTime=0,mouseDownX=0,mouseDownY=0;
+  el.setAttribute('draggable','true');
+  el.addEventListener('mousedown',e=>{mouseDownTime=Date.now();mouseDownX=e.clientX;mouseDownY=e.clientY;});
+  el.addEventListener('click',e=>{
+    const moved=Math.abs(e.clientX-mouseDownX)+Math.abs(e.clientY-mouseDownY);
+    const dur=Date.now()-mouseDownTime;
+    if(moved>6||dur>400)return;
+    const tag=e.target.tagName;
+    if(['BUTTON','INPUT','TEXTAREA','SELECT','A'].includes(tag))return;
+    if(e.target.closest('button')||e.target.closest('textarea')||e.target.closest('input'))return;
+    openModal(el.id.replace('card_',''));
+  });
+  el.addEventListener('dragstart',e=>{dragCardId=el.id.replace('card_','');e.dataTransfer.effectAllowed='move';setTimeout(()=>el.classList.add('dragging-card'),0);});
+  el.addEventListener('dragend',()=>{el.classList.remove('dragging-card');document.querySelectorAll('.group-card-grid').forEach(g=>g.classList.remove('drag-over'));document.querySelectorAll('.item-card').forEach(c=>c.classList.remove('drag-over-card'));dragCardId=null;dragOverCardId=null;});
+  el.addEventListener('dragover',e=>{e.preventDefault();e.stopPropagation();e.dataTransfer.dropEffect='move';if(el.id===('card_'+dragCardId))return;document.querySelectorAll('.item-card').forEach(c=>c.classList.remove('drag-over-card'));el.classList.add('drag-over-card');dragOverCardId=el.id.replace('card_','');});
+  el.addEventListener('dragleave',e=>{if(!el.contains(e.relatedTarget))el.classList.remove('drag-over-card');});
+  el.addEventListener('drop',e=>{e.preventDefault();e.stopPropagation();el.classList.remove('drag-over-card');if(!dragCardId||dragCardId===el.id.replace('card_',''))return;const targetId=el.id.replace('card_','');const rect=el.getBoundingClientRect();const after=e.clientX>rect.left+rect.width/2;reorderCard(dragCardId,targetId,after);});
+}
+
+function initCardDrag(){
+  document.querySelectorAll('.item-card').forEach(el=>{
+    initCardDragOn(el);
+  });
+}
+
+function reorderCard(srcId, targetId, after){
+  if(!D.groups)D.groups=[];
+  const items=filteredItems();
+  const allIds=items.map(i=>i.id);
+
+  // Find which group contains targetId
+  const targetGroup=D.groups.find(g=>g.itemIds.includes(targetId)&&g.season===D.cur);
+  const srcGroup=D.groups.find(g=>g.itemIds.includes(srcId)&&g.season===D.cur);
+
+  // Remove srcId from its current group
+  D.groups.forEach(g=>{g.itemIds=g.itemIds.filter(id=>id!==srcId);});
+
+  if(targetGroup){
+    // Insert near target
+    const idx=targetGroup.itemIds.indexOf(targetId);
+    targetGroup.itemIds.splice(after?idx+1:idx, 0, srcId);
+  } else {
+    // Target is ungrouped → reorder ungrouped list via D.ungroupedOrder
+    if(!D.ungroupedOrder)D.ungroupedOrder={};
+    if(!D.ungroupedOrder[D.cur])D.ungroupedOrder[D.cur]=[...allIds.filter(id=>!D.groups.flatMap(g=>g.itemIds).includes(id))];
+    const order=D.ungroupedOrder[D.cur];
+    const ti=order.indexOf(targetId);
+    const si=order.indexOf(srcId);
+    if(si>=0)order.splice(si,1);
+    const ni=order.indexOf(targetId);
+    order.splice(after?ni+1:ni, 0, srcId);
+    D.ungroupedOrder[D.cur]=order;
+  }
+  saveD(); renderCards();
+}
+
+function gridDragOver(e,gid){
+  e.preventDefault();
+  e.dataTransfer.dropEffect='move';
+  // Only highlight grid if not hovering a card
+  if(!dragOverCardId){
+    document.querySelectorAll('.group-card-grid').forEach(g=>g.classList.remove('drag-over'));
+    e.currentTarget.classList.add('drag-over');
+  }
+}
+
+function gridDragLeave(e){
+  if(!e.currentTarget.contains(e.relatedTarget)){
+    e.currentTarget.classList.remove('drag-over');
+    dragOverCardId=null;
+  }
+}
+
+function gridDrop(e,gid){
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  dragOverCardId=null;
+  if(!dragCardId)return;
+  if(!D.groups)D.groups=[];
+  // Remove from all groups
+  D.groups.forEach(g=>{g.itemIds=g.itemIds.filter(id=>id!==dragCardId);});
+  if(gid!=='ungrouped'){
+    const tg=D.groups.find(g=>g.id===gid);
+    if(tg&&!tg.itemIds.includes(dragCardId))tg.itemIds.push(dragCardId);
+  }
+  saveD();renderCards();
+}
+
+// GENERAL AUTOCOMPLETE
+let acSelIdx=-1;
+
+function getACSuggestions(key, val){
+  if(!val||val.length<1)return[];
+  const q=val.toLowerCase();
+  // Collect all unique values used in items for this key
+  const all=[...new Set(D.items.map(i=>i[key]).filter(Boolean))].sort();
+  return all.filter(v=>v.toLowerCase().includes(q)&&v.toLowerCase()!==q).slice(0,8);
+}
+
+function acInput(el, key){
+  acSelIdx=-1;
+  const val=el.value.trim();
+  removeAC(el);
+  if(!val){return;}
+  const sugs=getACSuggestions(key, val);
+  if(!sugs.length)return;
+  const dd=document.createElement('div');
+  dd.className='ac-dropdown';
+  dd.id='ac_'+el.id;
+  const q=val.toLowerCase();
+  dd.innerHTML=sugs.map((s,i)=>{
+    const hl=s.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');
+    return `<div class="ac-item" data-val="${s.replace(/"/g,'&quot;')}" onmousedown="acSelect(event,'${el.id}','${key}')">${hl}</div>`;
+  }).join('');
+  el.parentNode.appendChild(dd);
+}
+
+function acSelect(e, elId, key){
+  e.preventDefault();
+  const el=document.getElementById(elId);
+  if(!el)return;
+  const val=e.currentTarget.dataset.val;
+  if(key==='fit') el.value=val.toUpperCase();
+  else el.value=val;
+  removeAC(el);
+  // Trigger mat autofill if matsrc selected
+  if(elId==='m_matsrc') matFieldChanged();
+}
+
+function acKey(e, el){
+  const dd=document.getElementById('ac_'+el.id);
+  if(!dd)return;
+  const items=dd.querySelectorAll('.ac-item');
+  if(!items.length)return;
+  if(e.key==='ArrowDown'){e.preventDefault();acSelIdx=Math.min(acSelIdx+1,items.length-1);acHighlight(items);}
+  else if(e.key==='ArrowUp'){e.preventDefault();acSelIdx=Math.max(acSelIdx-1,0);acHighlight(items);}
+  else if(e.key==='Enter'&&acSelIdx>=0){
+    e.preventDefault();e.stopPropagation();
+    const key=el.id.replace('m_','');
+    const val=items[acSelIdx].dataset.val;
+    if(key==='fit') el.value=val.toUpperCase();
+    else el.value=val;
+    removeAC(el);acSelIdx=-1;
+  }
+  else if(e.key==='Escape'){removeAC(el);acSelIdx=-1;}
+}
+
+function acHighlight(items){
+  items.forEach((el,i)=>el.classList.toggle('ac-sel',i===acSelIdx));
+  if(items[acSelIdx])items[acSelIdx].scrollIntoView({block:'nearest'});
+}
+
+function acBlur(el){
+  setTimeout(()=>removeAC(el),150);
+}
+
+function removeAC(el){
+  const dd=document.getElementById('ac_'+el.id);
+  if(dd)dd.remove();
+  acSelIdx=-1;
+}
+
+function removeAllAC(){
+  document.querySelectorAll('.ac-dropdown').forEach(d=>d.remove());
+}
+
+// MATERIAL AUTOCOMPLETE & SYNC
+function getMatDB(){
+  // Build a map: matName -> {matsrc, matdetail} from all items
+  const db={};
+  D.items.forEach(i=>{
+    if(!i.mat)return;
+    if(!db[i.mat])db[i.mat]={matsrc:i.matsrc||'',matdetail:i.matdetail||''};
+  });
+  return db;
+}
+
+function matNameInput(){
+  const val=document.getElementById('m_mat').value.trim();
+  const db=getMatDB();
+  const suggest=document.getElementById('matSuggest');
+
+  // If exact match → auto-fill
+  if(db[val]){
+    const entry=db[val];
+    if(document.getElementById('m_matsrc').value==='')
+      document.getElementById('m_matsrc').value=entry.matsrc;
+    if(document.getElementById('m_matdetail').value==='')
+      document.getElementById('m_matdetail').value=entry.matdetail;
+  }
+
+  // Show suggestions
+  if(!val){suggest.style.display='none';return;}
+  const matches=Object.keys(db).filter(k=>k.toLowerCase().includes(val.toLowerCase())&&k!==val);
+  if(!matches.length){suggest.style.display='none';return;}
+  suggest.innerHTML=matches.slice(0,8).map(m=>`
+    <div class="mat-suggest-item" onmousedown="selectMat('${m.replace(/'/g,"\\'")}')">
+      <div class="sug-name">${m}</div>
+      <div class="sug-sub">${db[m].matsrc||''}${db[m].matsrc&&db[m].matdetail?' · ':''}${db[m].matdetail||''}</div>
+    </div>`).join('');
+  suggest.style.display='block';
+}
+
+function selectMat(name){
+  document.getElementById('m_mat').value=name;
+  const db=getMatDB();
+  if(db[name]){
+    document.getElementById('m_matsrc').value=db[name].matsrc||'';
+    document.getElementById('m_matdetail').value=db[name].matdetail||'';
+  }
+  document.getElementById('matSuggest').style.display='none';
+}
+
+function hideMatSuggest(){
+  setTimeout(()=>{
+    const s=document.getElementById('matSuggest');
+    if(s)s.style.display='none';
+  },150);
+}
+
+function matFieldChanged(){
+  // When matsrc or matdetail changes, ask if user wants to sync all items with same mat name
+  const matName=document.getElementById('m_mat').value.trim();
+  if(!matName)return;
+  const siblings=D.items.filter(i=>i.mat===matName&&i.id!==editId);
+  if(!siblings.length)return;
+  const newSrc=document.getElementById('m_matsrc').value.trim();
+  const newDetail=document.getElementById('m_matdetail').value.trim();
+  // Show inline sync notice
+  showMatSyncNotice(matName, newSrc, newDetail, siblings.length);
+}
+
+function showMatSyncNotice(matName, newSrc, newDetail, count){
+  let notice=document.getElementById('matSyncNotice');
+  if(!notice){
+    notice=document.createElement('div');
+    notice.id='matSyncNotice';
+    notice.style.cssText='margin-top:8px;padding:8px 12px;background:#FFF8E8;border:1px solid #E8C96A;border-radius:var(--radius);font-size:11.5px;color:#6B4F00;display:flex;align-items:center;justify-content:space-between;gap:8px;';
+    document.getElementById('m_matdetail').closest('.fgroup').after(notice);
+  }
+  notice.innerHTML=`<span>같은 소재명 <strong>'${matName}'</strong> 아이템 ${count}개에도 적용할까요?</span>
+    <div style="display:flex;gap:6px;flex-shrink:0">
+      <button type="button" onclick="syncMatAll('${matName.replace(/'/g,"\\'")}','${newSrc.replace(/'/g,"\\'")}','${newDetail.replace(/'/g,"\\'")}'); this.closest('#matSyncNotice').remove();" style="background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:4px 10px;font-size:11px;font-family:inherit;cursor:pointer;">전체 적용</button>
+      <button type="button" onclick="this.closest('#matSyncNotice').remove();" style="background:none;border:1px solid var(--border);border-radius:var(--radius);padding:4px 10px;font-size:11px;font-family:inherit;cursor:pointer;">이 아이템만</button>
+    </div>`;
+}
+
+function syncMatAll(matName, newSrc, newDetail){
+  D.items.forEach(i=>{
+    if(i.mat===matName){
+      if(newSrc)i.matsrc=newSrc;
+      if(newDetail)i.matdetail=newDetail;
+    }
+  });
+  saveD();toast('소재 정보가 전체 적용됐습니다.');
+}
+
+// AUTO TRANSLATE (MyMemory free API)
+let translateTimer=null;
+function scheduleTranslate(){
+  const ko=document.getElementById('m_nameko').value.trim();
+  const status=document.getElementById('translateStatus');
+  clearTimeout(translateTimer);
+  if(!ko){status.innerHTML='';return;}
+  status.innerHTML='<span style="opacity:.5">번역 대기 중...</span>';
+  translateTimer=setTimeout(()=>doTranslate(ko),800);
+}
+async function doTranslate(text){
+  const status=document.getElementById('translateStatus');
+  const spinner='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite;vertical-align:-2px"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>';
+  status.innerHTML=spinner+' 번역 중...';
+  try{
+    const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(text)+'&langpair=ko|en';
+    const res=await fetch(url);
+    const d=await res.json();
+    const translated=(d.responseData?.translatedText||'').trim().toUpperCase();
+    if(translated&&document.getElementById('m_nameko').value.trim()===text){
+      document.getElementById('m_nameen').value=translated;
+      status.innerHTML='<span style="color:#2D7A3A">✓ 번역 완료</span>';
+      setTimeout(()=>{if(status)status.innerHTML='';},2500);
+    }else{
+      status.innerHTML='';
+    }
+  }catch(e){
+    status.innerHTML='<span style="color:var(--red)">네트워크 오류</span>';
+    setTimeout(()=>{if(status)status.innerHTML='';},2500);
+  }
+}
+// DOMAIN OPTS (reuses foptsBg modal)
+function openDomOpts(){
+  foptsKey='dom';
+  document.getElementById('foptsTitle').textContent='도메인 항목 관리';
+  document.getElementById('foptsInput').value='';
+  renderDomOptsList();
+  document.getElementById('foptsBg').classList.add('open');
+  setTimeout(()=>document.getElementById('foptsInput').focus(),40);
+}
+function renderDomOptsList(){
+  const doms=(D.domains||[]).filter(d=>d!=='전체');
+  const list=document.getElementById('foptsList');
+  if(!doms.length){list.innerHTML='<p style="font-size:12px;color:var(--text3);text-align:center;padding:1rem">도메인이 없습니다. 아래에서 추가하세요.</p>';return;}
+  list.innerHTML=doms.map((v,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--surface2);border-radius:var(--radius);">
+      <span style="flex:1;font-size:12.5px">${v}</span>
+      <button onclick="removeDomOpt(${i})" style="background:none;border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--text3);cursor:pointer;" onmouseover="this.style.color='var(--red)';this.style.borderColor='#f5c0c0'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border)'">−</button>
+    </div>`).join('');
+}
+function removeDomOpt(idx){
+  const doms=(D.domains||[]).filter(d=>d!=='전체');
+  const removed=doms[idx];
+  doms.splice(idx,1);
+  D.domains=['전체',...doms];
+  if(D.curDom===removed)D.curDom='전체';
+  saveD();renderDomOptsList();renderDomainNav();populateFilters();renderCards();renderStats();
+}
+
+
+// FILTER OPTS MANAGEMENT
+let foptsKey='';
+function openFOpts(key,label){
+  foptsKey=key;
+  document.getElementById('foptsTitle').textContent=label+' 항목 관리';
+  document.getElementById('foptsInput').value='';
+  renderFOptsList();
+  document.getElementById('foptsBg').classList.add('open');
+  setTimeout(()=>document.getElementById('foptsInput').focus(),40);
+}
+function closeFOpts(){document.getElementById('foptsBg').classList.remove('open'); foptsKey='';}
+function renderFOptsList(){
+  // domain mode
+  if(foptsKey==='dom'){ renderDomOptsList(); return; }
+  if(!D.filterOpts)D.filterOpts={cat:[],fit:[],partner:[],matsrc:[]};
+  const opts=D.filterOpts[foptsKey]||[];
+  const list=document.getElementById('foptsList');
+  if(!opts.length){list.innerHTML='<p style="font-size:12px;color:var(--text3);text-align:center;padding:1rem">항목이 없습니다. 아래에서 추가하세요.</p>';return;}
+  list.innerHTML=opts.map((v,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--surface2);border-radius:var(--radius);">
+      <span style="flex:1;font-size:12.5px">${v}</span>
+      <button onclick="removeFOpt(${i})" style="background:none;border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--text3);cursor:pointer;" onmouseover="this.style.color='var(--red)';this.style.borderColor='#f5c0c0'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border)'">−</button>
+    </div>`).join('');
+}
+function addFOpt(){
+  const val=document.getElementById('foptsInput').value.trim();
+  if(!val)return;
+  // domain mode
+  if(foptsKey==='dom'){
+    if(!D.domains)D.domains=['전체'];
+    if(D.domains.includes(val)){toast('이미 존재하는 도메인입니다.');return;}
+    D.domains.push(val);
+    document.getElementById('foptsInput').value='';
+    saveD();renderDomOptsList();renderDomainNav();populateFilters();
+    return;
+  }
+  if(!D.filterOpts)D.filterOpts={cat:[],fit:[],partner:[],matsrc:[]};
+  if(!D.filterOpts[foptsKey])D.filterOpts[foptsKey]=[];
+  if(D.filterOpts[foptsKey].includes(val)){toast('이미 존재하는 항목입니다.');return;}
+  D.filterOpts[foptsKey].push(val);
+  document.getElementById('foptsInput').value='';
+  saveD();renderFOptsList();populateFilters();
+}
+function removeFOpt(idx){
+  if(!D.filterOpts||!D.filterOpts[foptsKey])return;
+  D.filterOpts[foptsKey].splice(idx,1);
+  saveD();renderFOptsList();populateFilters();
+}
+
+function renderAll(){syncFilterOpts();renderSeasonNav();populateFilters();renderStats();renderCards();}
+// ASYNC INIT — load from IndexedDB then render
+(async()=>{
+  try{
+    const saved=await idbGet();
+    if(saved){
+      D=saved;
+      if(D.items)D.items.forEach(i=>{if(i.cad==='__TOO_LARGE__')i.cad='';});
+    } else if(window.__EMBEDDED_DATA__){
+      // Load from embedded snapshot (downloaded HTML file)
+      D=window.__EMBEDDED_DATA__;
+      saveD(); // persist to IndexedDB
+    } else {
+      try{
+        const ls=localStorage.getItem(SK);
+        if(ls){D=JSON.parse(ls);localStorage.removeItem(SK);}
+        else D=defaultD();
+      }catch(e){D=defaultD();}
+    }
+  }catch(e){
+    if(window.__EMBEDDED_DATA__){D=window.__EMBEDDED_DATA__;saveD();}
+    else D=defaultD();
+  }
+  if(!D.groups)D.groups=[];
+  if(!D.ungroupedOrder)D.ungroupedOrder={};
+  if(!D.filterOpts)D.filterOpts={cat:['아우터','상의','하의','원피스','스커트','니트','데님'],fit:['오버핏','루즈핏','레귤러핏','슬림핏','와이드핏','스트레이트'],partner:[],matsrc:[]};
+  if(!D.domains||D.domains.length===0){D.domains=['전체','여성 캐주얼','남성 캐주얼','남성 베이직','라이프스타일'];D.curDom='전체';}
+  if(!D.domains.includes('전체'))D.domains.unshift('전체');
+  if(!D.curDom)D.curDom='전체';
+  saveD();
+  renderAll();
+})();
+</script>
+</body>
+</html>
