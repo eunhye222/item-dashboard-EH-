@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>여의도 한강 수영장 플래너</title>
+<title>주원이네 한강여의도수영장 꿀팁</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,89 +20,27 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
 
 .page { max-width: 720px; margin: 0 auto; padding: 1.25rem 1rem 3rem; display: flex; flex-direction: column; gap: 1rem; }
 
-/* SECTION */
 .section { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
-.sec-head {
-  display: flex; align-items: center; gap: 10px;
-  padding: .85rem 1.25rem;
-  border-bottom: 1px solid #EEF0F5;
-}
+.sec-head { display: flex; align-items: center; gap: 10px; padding: .85rem 1.25rem; border-bottom: 1px solid #EEF0F5; }
 .sec-icon { font-size: 1.2rem; }
 .sec-title { font-size: 15px; font-weight: 700; }
 .sec-body { padding: 1rem 1.25rem; }
 
 /* TIMELINE */
-.timeline { display: flex; flex-direction: column; gap: 0; }
-.tl-row {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: 14px;
-  padding: .9rem 0;
-  border-bottom: 1px solid #EEF0F5;
-  align-items: start;
-}
+.timeline { display: flex; flex-direction: column; }
+.tl-row { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: .9rem 0; border-bottom: 1px solid #EEF0F5; align-items: start; }
 .tl-row:last-child { border-bottom: none; }
-.tl-time {
-  font-size: 12px; font-weight: 700;
-  padding: .25rem .6rem;
-  border-radius: 6px;
-  text-align: center;
-  line-height: 1.4;
-}
+.tl-time { font-size: 12px; font-weight: 700; padding: .25rem .6rem; border-radius: 6px; text-align: center; line-height: 1.4; }
 .tl-time.swim  { background: #DBEAFE; color: #1D4ED8; }
 .tl-time.break { background: #FEE2E2; color: #B91C1C; }
 .tl-time.food  { background: #FEF3C7; color: #B45309; }
 .tl-time.go    { background: #D1FAE5; color: #065F46; }
 .tl-content { font-size: 13px; color: #374151; line-height: 1.65; }
 .tl-content strong { color: #1A202C; }
-.tl-tag {
-  display: inline-block; font-size: 10.5px; font-weight: 700;
-  padding: 1px 8px; border-radius: 100px; margin-bottom: 4px;
-}
+.tl-tag { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 1px 8px; border-radius: 100px; margin-bottom: 4px; }
 .tag-red   { background: #FEE2E2; color: #B91C1C; }
 .tag-green { background: #D1FAE5; color: #065F46; }
 .tag-blue  { background: #DBEAFE; color: #1D4ED8; }
-
-/* CHECKLIST */
-.check-group { margin-bottom: .9rem; }
-.check-group:last-child { margin-bottom: 0; }
-.cg-title {
-  font-size: 10.5px; font-weight: 700; color: #9CA3AF;
-  letter-spacing: .06em; text-transform: uppercase;
-  margin-bottom: .45rem;
-}
-.check-list { display: flex; flex-direction: column; gap: 2px; }
-.check-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 7px 10px; border-radius: 9px;
-  cursor: pointer; user-select: none;
-  transition: background .12s;
-}
-.check-item:hover { background: #F5F7FF; }
-.check-box {
-  width: 20px; height: 20px; border-radius: 6px;
-  border: 2px solid #D1D5DB; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; color: transparent;
-  transition: all .15s;
-}
-.check-item.done .check-box { background: #10B981; border-color: #10B981; color: #fff; }
-.check-text { font-size: 13px; color: #374151; flex: 1; }
-.check-sub  { font-size: 11px; color: #9CA3AF; }
-.check-item.done .check-text { text-decoration: line-through; color: #9CA3AF; }
-.check-badge {
-  font-size: 10px; font-weight: 700; padding: 2px 8px;
-  border-radius: 100px; flex-shrink: 0;
-}
-.badge-must { background: #FEE2E2; color: #B91C1C; }
-.badge-kid  { background: #FCE7F3; color: #9D174D; }
-
-/* PROGRESS BAR */
-.progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.progress-label { font-size: 11.5px; font-weight: 600; color: #6B7280; }
-.progress-count { font-size: 11.5px; color: #9CA3AF; }
-.bar-bg { background: #E5E7EB; border-radius: 100px; height: 7px; }
-.bar-fill { height: 100%; background: linear-gradient(90deg, #10B981, #34D399); border-radius: 100px; transition: width .4s; }
 
 /* PARKING */
 .parking-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .6rem; margin-bottom: .85rem; }
@@ -125,6 +63,28 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
 .tip.t-pink   { background: #FDF2F8; color: #831843; }
 .tip.t-red    { background: #FFF1F2; color: #881337; }
 
+/* CHECKLIST */
+.check-group { margin-bottom: .9rem; }
+.check-group:last-child { margin-bottom: 0; }
+.cg-title { font-size: 10.5px; font-weight: 700; color: #9CA3AF; letter-spacing: .06em; text-transform: uppercase; margin-bottom: .45rem; }
+.check-list { display: flex; flex-direction: column; gap: 2px; }
+.check-item { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 9px; cursor: pointer; user-select: none; transition: background .12s; }
+.check-item:hover { background: #F5F7FF; }
+.check-box { width: 20px; height: 20px; border-radius: 6px; border: 2px solid #D1D5DB; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; color: transparent; transition: all .15s; }
+.check-item.done .check-box { background: #10B981; border-color: #10B981; color: #fff; }
+.check-text { font-size: 13px; color: #374151; flex: 1; }
+.check-sub  { font-size: 11px; color: #9CA3AF; }
+.check-item.done .check-text { text-decoration: line-through; color: #9CA3AF; }
+.check-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; flex-shrink: 0; }
+.badge-must { background: #FEE2E2; color: #B91C1C; }
+.badge-kid  { background: #FCE7F3; color: #9D174D; }
+
+.progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.progress-label { font-size: 11.5px; font-weight: 600; color: #6B7280; }
+.progress-count { font-size: 11.5px; color: #9CA3AF; }
+.bar-bg { background: #E5E7EB; border-radius: 100px; height: 7px; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, #10B981, #34D399); border-radius: 100px; transition: width .4s; }
+
 @media (max-width: 480px) {
   .header h1 { font-size: 1.35rem; }
   .parking-grid { grid-template-columns: 1fr 1fr; }
@@ -135,8 +95,8 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
 <body>
 
 <div class="header">
-  <h1>🌊 여의도 한강 수영장</h1>
-  <p>엄마 · 아빠 · 40개월 남아 &nbsp;|&nbsp; 주말 당일치기 플래너</p>
+  <h1>🌊 주원이네 한강여의도수영장 꿀팁</h1>
+  <p>엄마 · 아빠 · 40개월 주원이 &nbsp;|&nbsp; 주말 당일치기 플래너</p>
 </div>
 
 <div class="page">
@@ -149,7 +109,6 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
     </div>
     <div class="sec-body">
       <div class="timeline">
-
         <div class="tl-row">
           <div class="tl-time swim">08:30<br>도착</div>
           <div class="tl-content">
@@ -158,7 +117,6 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
             9시 전 도착해야 주차 여유, 자리 선택 가능.
           </div>
         </div>
-
         <div class="tl-row">
           <div class="tl-time swim">09:00<br>~<br>12:00</div>
           <div class="tl-content">
@@ -167,16 +125,14 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
             선크림 입수 전 꼭 도포. 30분마다 물 마시게 하기.
           </div>
         </div>
-
         <div class="tl-row">
           <div class="tl-time break">12:00<br>~<br>13:00</div>
           <div class="tl-content">
             <span class="tl-tag tag-red">입수 금지</span><br>
             <strong>의무 휴식 시간. 물에서 나와야 함.</strong><br>
-            돗자리에서 점심 도시락 먹기. 아이 낮잠 재우기 좋은 타이밍.
+            돗자리에서 점심 도시락 먹기. 주원이 낮잠 재우기 좋은 타이밍.
           </div>
         </div>
-
         <div class="tl-row">
           <div class="tl-time swim">13:00<br>~<br>15:30</div>
           <div class="tl-content">
@@ -185,23 +141,20 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
             오후엔 자외선·지면 온도 매우 높음 → 아쿠아슈즈 필수.
           </div>
         </div>
-
         <div class="tl-row">
           <div class="tl-time food">15:30<br>~<br>16:30</div>
           <div class="tl-content">
             샤워 후 <strong>편의점 간식 또는 치킨 배달 타임.</strong><br>
-            아이 체력 확인 후 더 놀지 귀가할지 결정.
+            주원이 체력 확인 후 더 놀지 귀가할지 결정.
           </div>
         </div>
-
         <div class="tl-row">
           <div class="tl-time go">17:00<br>귀가</div>
           <div class="tl-content">
             <strong>17:30 재입수 금지 전 여유있게 철수.</strong><br>
-            짐 정리 → 주차장 → 귀가. 아이 차 안에서 잠들 가능성 높음.
+            짐 정리 → 주차장 → 귀가. 주원이 차 안에서 잠들 가능성 높음.
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -250,11 +203,11 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
       <div class="tips">
         <div class="tip t-blue">
           <span class="tip-e">🌅</span>
-          <span><strong>오전 9시 도착이 정답.</strong> 자리 여유 있고 한산해서 아이랑 편하게 놀 수 있어요.</span>
+          <span><strong>오전 9시 도착이 정답.</strong> 자리 여유 있고 한산해서 주원이랑 편하게 놀 수 있어요.</span>
         </div>
         <div class="tip t-green">
           <span class="tip-e">🏊</span>
-          <span><strong>유아풀 수심 0.4m</strong> — 40개월 아이가 혼자 서서 놀 수 있는 깊이. 분수·통돌이 놀이기구 있음.</span>
+          <span><strong>유아풀 수심 0.4m</strong> — 40개월 주원이가 혼자 서서 놀 수 있는 깊이. 분수·통돌이 놀이기구 있음.</span>
         </div>
         <div class="tip t-orange">
           <span class="tip-e">🍱</span>
@@ -262,7 +215,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
         </div>
         <div class="tip t-pink">
           <span class="tip-e">🧴</span>
-          <span><strong>선크림은 여러 개 챙기기.</strong> 물에 씻겨나가니 입수할 때마다 꼭 재도포. 아이 것 따로!</span>
+          <span><strong>선크림은 여러 개 챙기기.</strong> 물에 씻겨나가니 입수할 때마다 꼭 재도포. 주원이 것 따로!</span>
         </div>
         <div class="tip t-red">
           <span class="tip-e">🚫</span>
@@ -270,7 +223,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
         </div>
         <div class="tip t-green">
           <span class="tip-e">👟</span>
-          <span><strong>아쿠아슈즈 꼭!</strong> 여름 데크 바닥은 매우 뜨거워요. 특히 아이 맨발 금지.</span>
+          <span><strong>아쿠아슈즈 꼭!</strong> 여름 데크 바닥은 매우 뜨거워요. 주원이 맨발 금지.</span>
         </div>
         <div class="tip t-blue">
           <span class="tip-e">📱</span>
@@ -280,7 +233,7 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
     </div>
   </div>
 
-  <!-- 4. 준비물 -->
+  <!-- 4. 준비물 체크리스트 -->
   <div class="section">
     <div class="sec-head">
       <span class="sec-icon">🎒</span>
@@ -306,13 +259,13 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
           </label>
           <label class="check-item" onclick="toggle(this)">
             <div class="check-box">✓</div>
-            <div class="check-text">수영모 <span class="check-sub">— 성인 2 + 아이 1 · 미착용 시 입수 불가</span></div>
+            <div class="check-text">수영모 <span class="check-sub">— 성인 2 + 주원이 1 · 미착용 시 입수 불가</span></div>
             <span class="check-badge badge-must">필수</span>
           </label>
           <label class="check-item" onclick="toggle(this)">
             <div class="check-box">✓</div>
-            <div class="check-text">아이 수영복 <span class="check-sub">— 일반 수영복 OK</span></div>
-            <span class="check-badge badge-kid">아이</span>
+            <div class="check-text">주원이 수영복 <span class="check-sub">— 일반 수영복 OK</span></div>
+            <span class="check-badge badge-kid">주원</span>
           </label>
         </div>
       </div>
@@ -327,12 +280,12 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
           </label>
           <label class="check-item" onclick="toggle(this)">
             <div class="check-box">✓</div>
-            <div class="check-text">아이용 선크림 <span class="check-sub">— 무기자차 권장</span></div>
-            <span class="check-badge badge-kid">아이</span>
+            <div class="check-text">주원이용 선크림 <span class="check-sub">— 무기자차 권장</span></div>
+            <span class="check-badge badge-kid">주원</span>
           </label>
           <label class="check-item" onclick="toggle(this)">
             <div class="check-box">✓</div>
-            <div class="check-text">모자 <span class="check-sub">— 챙 넓은 것 · 아이 것도 챙기기</span></div>
+            <div class="check-text">모자 <span class="check-sub">— 챙 넓은 것 · 주원이 것도 챙기기</span></div>
           </label>
         </div>
       </div>
@@ -354,33 +307,33 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
           </label>
           <label class="check-item" onclick="toggle(this)">
             <div class="check-box">✓</div>
-            <div class="check-text">여벌 옷 <span class="check-sub">— 성인 + 아이</span></div>
+            <div class="check-text">여벌 옷 <span class="check-sub">— 성인 + 주원이</span></div>
           </label>
           <label class="check-item" onclick="toggle(this)">
             <div class="check-box">✓</div>
-            <div class="check-text">아쿠아슈즈 <span class="check-sub">— 아이 것도 필수. 바닥 화상 위험</span></div>
+            <div class="check-text">아쿠아슈즈 <span class="check-sub">— 주원이 것도 필수. 바닥 화상 위험</span></div>
             <span class="check-badge badge-must">필수</span>
           </label>
         </div>
       </div>
 
       <div class="check-group">
-        <div class="cg-title">아이</div>
+        <div class="cg-title">주원이</div>
         <div class="check-list">
           <label class="check-item" onclick="toggle(this)">
             <div class="check-box">✓</div>
-            <div class="check-text">아이 튜브 / 부력보조복 <span class="check-sub">— 소형 권장</span></div>
-            <span class="check-badge badge-kid">아이</span>
+            <div class="check-text">튜브 / 부력보조복 <span class="check-sub">— 소형 권장</span></div>
+            <span class="check-badge badge-kid">주원</span>
           </label>
           <label class="check-item" onclick="toggle(this)">
             <div class="check-box">✓</div>
             <div class="check-text">물병 (빨대컵) <span class="check-sub">— 30분마다 수분 보충</span></div>
-            <span class="check-badge badge-kid">아이</span>
+            <span class="check-badge badge-kid">주원</span>
           </label>
           <label class="check-item" onclick="toggle(this)">
             <div class="check-box">✓</div>
-            <div class="check-text">아이 간식 <span class="check-sub">— 과일, 요거트, 과자</span></div>
-            <span class="check-badge badge-kid">아이</span>
+            <div class="check-text">간식 <span class="check-sub">— 과일, 요거트, 과자</span></div>
+            <span class="check-badge badge-kid">주원</span>
           </label>
         </div>
       </div>
@@ -405,7 +358,6 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
 
     </div>
   </div>
-
 
 </div>
 
