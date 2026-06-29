@@ -3,68 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>주원이네 한강여의도수영장 꿀팁</title>
-<meta property="og:title" content="주원이네 한강여의도수영장 꿀팁">
-<meta property="og:description" content="타임라인·주차·꿀팁·준비물 체크리스트 한눈에 정리">
+<title>여의도 한강 수영장 가족 플래너 2026</title>
+<meta property="og:title" content="여의도 한강 수영장 가족 플래너 2026">
+<meta property="og:description" content="성인2 + 40개월 | 주차·비용·먹거리·돗자리·준비물 한눈에">
 <meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A202C; min-height: 100vh; }
+body { font-family: 'Noto Sans KR', sans-serif; background: #EBF4FF; color: #1A202C; min-height: 100vh; }
 
+/* HEADER */
 .header {
-  background: linear-gradient(135deg, #1D4ED8, #06B6D4);
+  background: linear-gradient(135deg, #1251B5 0%, #0EA5E9 60%, #06B6D4 100%);
   color: #fff;
-  padding: 2rem 1.5rem 1.75rem;
+  padding: 2rem 1.5rem 1.5rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
-.header h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: .35rem; }
-.header p { font-size: 13px; opacity: .85; }
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='28' fill='none' stroke='rgba(255,255,255,.06)' stroke-width='2'/%3E%3C/svg%3E") repeat;
+  pointer-events: none;
+}
+.header h1 { font-size: 1.55rem; font-weight: 800; margin-bottom: .3rem; position: relative; }
+.header .sub { font-size: 12.5px; opacity: .85; position: relative; margin-bottom: 1rem; }
+.season-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.3);
+  border-radius: 100px; padding: .3rem .9rem; font-size: 11.5px; font-weight: 700;
+  position: relative;
+}
+.season-dot { width: 7px; height: 7px; background: #4ADE80; border-radius: 50%; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
 
-.page { max-width: 720px; margin: 0 auto; padding: 1.25rem 1rem 3rem; display: flex; flex-direction: column; gap: 1rem; }
+/* ALERT */
+.alert {
+  max-width: 720px; margin: .75rem auto 0; padding: 0 1rem;
+}
+.alert-box {
+  background: #FFF7ED; border: 1.5px solid #FED7AA; border-radius: 12px;
+  padding: .7rem 1rem; font-size: 12.5px; color: #9A3412;
+  display: flex; align-items: flex-start; gap: 8px;
+}
 
-.section { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+/* PAGE */
+.page { max-width: 720px; margin: 0 auto; padding: 1rem 1rem 3rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.section { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,.07); }
 .sec-head { display: flex; align-items: center; gap: 10px; padding: .85rem 1.25rem; border-bottom: 1px solid #EEF0F5; }
 .sec-icon { font-size: 1.2rem; }
 .sec-title { font-size: 15px; font-weight: 700; }
 .sec-body { padding: 1rem 1.25rem; }
 
+/* SEASON INFO CARDS */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: 1rem; }
+.info-card { background: #F8FAFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: .8rem 1rem; }
+.info-label { font-size: 10px; font-weight: 700; color: #94A3B8; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+.info-val { font-size: 13.5px; font-weight: 700; color: #1E293B; line-height: 1.5; }
+.info-sub { font-size: 11px; color: #64748B; margin-top: 2px; }
+
+/* BREAK TIME ROW */
+.break-times { display: flex; flex-wrap: wrap; gap: 6px; margin-top: .6rem; }
+.bt-tag { font-size: 11px; font-weight: 700; padding: .2rem .65rem; border-radius: 100px; }
+.bt-red { background: #FEE2E2; color: #B91C1C; }
+.bt-blue { background: #DBEAFE; color: #1D4ED8; }
+.bt-green { background: #D1FAE5; color: #065F46; }
+.bt-yellow { background: #FEF3C7; color: #B45309; }
+
+/* COST CARD */
+.cost-banner {
+  background: linear-gradient(135deg, #EFF6FF, #F0FDF4);
+  border: 1.5px solid #BFDBFE; border-radius: 14px;
+  padding: 1rem 1.25rem; margin-bottom: .85rem;
+}
+.cost-family { display: flex; align-items: center; gap: 6px; margin-bottom: .75rem; flex-wrap: wrap; }
+.cost-pill {
+  display: flex; align-items: center; gap: 5px;
+  background: #fff; border: 1px solid #E2E8F0; border-radius: 100px;
+  padding: .25rem .75rem; font-size: 12px; font-weight: 600; color: #334155;
+}
+.cost-pill .price { color: #1D4ED8; }
+.cost-pill .free-price { color: #059669; }
+.cost-divider { color: #CBD5E1; font-size: 13px; }
+.cost-total {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .7rem 1rem; background: #1D4ED8; border-radius: 10px; color: #fff;
+}
+.cost-total-label { font-size: 12px; font-weight: 600; opacity: .85; }
+.cost-total-val { font-size: 1.25rem; font-weight: 800; }
+
+.cost-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cost-table th { background: #F8FAFF; color: #64748B; font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-align: left; padding: .5rem .75rem; border-bottom: 1px solid #E2E8F0; }
+.cost-table td { padding: .55rem .75rem; border-bottom: 1px solid #F1F5F9; vertical-align: top; }
+.cost-table tr:last-child td { border-bottom: none; }
+.cost-table .amount { font-weight: 700; color: #1D4ED8; text-align: right; }
+.cost-table .free { font-weight: 700; color: #059669; text-align: right; }
+.cost-note { font-size: 11px; color: #94A3B8; margin-top: .6rem; }
+
+/* FOOD SECTION */
+.food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; margin-bottom: .85rem; }
+.food-item { background: #FAFAFA; border: 1px solid #E5E7EB; border-radius: 10px; padding: .65rem .85rem; display: flex; justify-content: space-between; align-items: center; }
+.food-name { font-size: 12.5px; color: #374151; }
+.food-price { font-size: 13px; font-weight: 700; color: #B45309; }
+.food-tip-box { background: #ECFDF5; border: 1.5px solid #A7F3D0; border-radius: 12px; padding: .75rem 1rem; font-size: 12.5px; color: #065F46; }
+
+/* PARKING */
+.parking-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .6rem; margin-bottom: .85rem; }
+.park-box { background: #F5F7FF; border: 1px solid #E2E8F0; border-radius: 10px; padding: .7rem; text-align: center; }
+.park-label { font-size: 10px; color: #9CA3AF; font-weight: 600; letter-spacing: .04em; margin-bottom: 4px; }
+.park-val { font-size: 14px; font-weight: 800; color: #1D4ED8; }
+.transport { display: flex; flex-direction: column; gap: .5rem; }
+.tr-item { display: flex; align-items: flex-start; gap: 10px; padding: .65rem .85rem; border-radius: 10px; font-size: 12.5px; line-height: 1.55; }
+.tr-item.metro { background: #DBEAFE; color: #1E3A8A; }
+.tr-item.bus   { background: #EDE9FE; color: #4C1D95; }
+.tr-item.warn  { background: #FEF3C7; color: #92400E; }
+.tr-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* SHADE */
+.shade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .85rem; }
+.shade-card { border-radius: 12px; padding: .8rem 1rem; }
+.shade-ok  { background: #ECFDF5; border: 1.5px solid #6EE7B7; }
+.shade-no  { background: #FFF1F2; border: 1.5px solid #FCA5A5; }
+.shade-card-title { font-size: 11px; font-weight: 700; margin-bottom: 5px; }
+.shade-ok .shade-card-title  { color: #065F46; }
+.shade-no .shade-card-title  { color: #9F1239; }
+.shade-list { list-style: none; }
+.shade-list li { font-size: 12px; line-height: 1.6; }
+.shade-ok .shade-list li { color: #064E3B; }
+.shade-no .shade-list li { color: #881337; }
+.shade-rule-box { background: #FFF7ED; border: 1.5px solid #FDE68A; border-radius: 12px; padding: .75rem 1rem; font-size: 12.5px; color: #78350F; margin-bottom: .6rem; }
+.shade-zone-box { background: #F8FAFF; border: 1px solid #BFDBFE; border-radius: 12px; padding: .75rem 1rem; font-size: 12.5px; color: #1E3A8A; }
+
 /* TIMELINE */
 .timeline { display: flex; flex-direction: column; }
-.tl-row { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: .9rem 0; border-bottom: 1px solid #EEF0F5; align-items: start; }
+.tl-row { display: grid; grid-template-columns: 100px 1fr; gap: 14px; padding: .9rem 0; border-bottom: 1px solid #EEF0F5; align-items: start; }
 .tl-row:last-child { border-bottom: none; }
-.tl-time { font-size: 12px; font-weight: 700; padding: .25rem .6rem; border-radius: 6px; text-align: center; line-height: 1.4; }
+.tl-time { font-size: 11.5px; font-weight: 700; padding: .25rem .55rem; border-radius: 7px; text-align: center; line-height: 1.45; }
 .tl-time.swim  { background: #DBEAFE; color: #1D4ED8; }
-.tl-time.break { background: #FEE2E2; color: #B91C1C; }
+.tl-time.brk   { background: #FEE2E2; color: #B91C1C; }
 .tl-time.food  { background: #FEF3C7; color: #B45309; }
 .tl-time.go    { background: #D1FAE5; color: #065F46; }
+.tl-time.night { background: #EDE9FE; color: #5B21B6; }
 .tl-content { font-size: 13px; color: #374151; line-height: 1.65; }
 .tl-content strong { color: #1A202C; }
 .tl-tag { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 1px 8px; border-radius: 100px; margin-bottom: 4px; }
 .tag-red   { background: #FEE2E2; color: #B91C1C; }
 .tag-green { background: #D1FAE5; color: #065F46; }
 .tag-blue  { background: #DBEAFE; color: #1D4ED8; }
+.tag-purple { background: #EDE9FE; color: #5B21B6; }
+.tag-orange { background: #FEF3C7; color: #B45309; }
 
-/* PARKING */
-.parking-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .6rem; margin-bottom: .85rem; }
-.park-box { background: #F5F7FF; border: 1px solid #E2E8F0; border-radius: 10px; padding: .7rem; text-align: center; }
-.park-label { font-size: 10.5px; color: #9CA3AF; font-weight: 600; letter-spacing: .04em; margin-bottom: 4px; }
-.park-val { font-size: 14px; font-weight: 800; color: #1D4ED8; }
-.transport { display: flex; flex-direction: column; gap: .5rem; }
-.tr-item { display: flex; align-items: flex-start; gap: 10px; padding: .65rem .85rem; border-radius: 10px; font-size: 12.5px; }
-.tr-item.metro { background: #DBEAFE; color: #1E3A8A; }
-.tr-item.warn  { background: #FEF3C7; color: #92400E; }
-.tr-icon { font-size: 16px; flex-shrink: 0; }
+/* BABY TIPS */
+.baby-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; }
+.baby-card { background: #FDF2F8; border: 1px solid #F9A8D4; border-radius: 12px; padding: .75rem .9rem; }
+.baby-card-title { font-size: 10.5px; font-weight: 700; color: #9D174D; margin-bottom: 4px; }
+.baby-card-body { font-size: 12.5px; color: #831843; line-height: 1.6; }
 
 /* TIPS */
 .tips { display: flex; flex-direction: column; gap: .5rem; }
-.tip { display: flex; align-items: flex-start; gap: 10px; padding: .7rem .85rem; border-radius: 10px; font-size: 13px; line-height: 1.6; }
+.tip { display: flex; align-items: flex-start; gap: 10px; padding: .7rem .9rem; border-radius: 11px; font-size: 13px; line-height: 1.6; }
 .tip-e { font-size: 17px; flex-shrink: 0; }
 .tip.t-blue   { background: #EFF6FF; color: #1E3A8A; }
 .tip.t-green  { background: #ECFDF5; color: #064E3B; }
 .tip.t-orange { background: #FFFBEB; color: #78350F; }
 .tip.t-pink   { background: #FDF2F8; color: #831843; }
 .tip.t-red    { background: #FFF1F2; color: #881337; }
+.tip.t-purple { background: #F5F3FF; color: #4C1D95; }
 
 /* CHECKLIST */
 .check-group { margin-bottom: .9rem; }
@@ -78,9 +185,10 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
 .check-text { font-size: 13px; color: #374151; flex: 1; }
 .check-sub  { font-size: 11px; color: #9CA3AF; }
 .check-item.done .check-text { text-decoration: line-through; color: #9CA3AF; }
-.check-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; flex-shrink: 0; }
+.check-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; flex-shrink: 0; white-space: nowrap; }
 .badge-must { background: #FEE2E2; color: #B91C1C; }
 .badge-kid  { background: #FCE7F3; color: #9D174D; }
+.badge-opt  { background: #F3F4F6; color: #6B7280; }
 
 .progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .progress-label { font-size: 11.5px; font-weight: 600; color: #6B7280; }
@@ -88,281 +196,687 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F4FF; color: #1A2
 .bar-bg { background: #E5E7EB; border-radius: 100px; height: 7px; }
 .bar-fill { height: 100%; background: linear-gradient(90deg, #10B981, #34D399); border-radius: 100px; transition: width .4s; }
 
+/* DIVIDER */
+.divider { border: none; border-top: 1px dashed #E2E8F0; margin: .7rem 0; }
+
+/* POOL INFO */
+.pool-row { display: flex; align-items: center; gap: 10px; padding: .55rem 0; border-bottom: 1px solid #F1F5F9; font-size: 13px; }
+.pool-row:last-child { border-bottom: none; }
+.pool-label { font-size: 10.5px; font-weight: 700; color: #94A3B8; width: 80px; flex-shrink: 0; }
+.pool-val { flex: 1; color: #334155; }
+.pool-tag { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 100px; white-space: nowrap; }
+
+/* SOURCE */
+.source-box { text-align: center; padding: 1rem; font-size: 11px; color: #9CA3AF; line-height: 1.7; }
+
 @media (max-width: 480px) {
-  .header h1 { font-size: 1.35rem; }
+  .header h1 { font-size: 1.3rem; }
   .parking-grid { grid-template-columns: 1fr 1fr; }
-  .tl-row { grid-template-columns: 95px 1fr; }
+  .info-grid { grid-template-columns: 1fr 1fr; }
+  .food-grid { grid-template-columns: 1fr; }
+  .shade-grid { grid-template-columns: 1fr; }
+  .baby-grid { grid-template-columns: 1fr; }
+  .tl-row { grid-template-columns: 90px 1fr; gap: 10px; }
+  .cost-family { gap: 4px; }
 }
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <div class="header">
-  <h1>🌊 주원이네 한강여의도수영장 꿀팁</h1>
-  <p>엄마 · 아빠 · 40개월 주원이 &nbsp;|&nbsp; 주말 당일치기 플래너</p>
+  <h1>🌊 여의도 한강 수영장 가족 플래너</h1>
+  <p class="sub">엄마 · 아빠 · 40개월 아기 &nbsp;|&nbsp; 주말 당일치기 완벽 가이드</p>
+  <div class="season-badge">
+    <div class="season-dot"></div>
+    2026 시즌 운영 중 · 6월 19일 ~ 8월 30일
+  </div>
+</div>
+
+<!-- 잠원 ALERT -->
+<div class="alert">
+  <div class="alert-box">
+    <span>⚠️</span>
+    <span><strong>잠원 수영장 2026년 운영 없음.</strong> 노후화 리모델링 공사 중 (2028년 이후 재개장). 올해는 <strong>여의도·뚝섬</strong>으로 가세요!</span>
+  </div>
 </div>
 
 <div class="page">
 
-  <!-- 1. 타임라인 -->
-  <div class="section">
-    <div class="sec-head">
-      <span class="sec-icon">🕐</span>
-      <span class="sec-title">시간대별 타임라인</span>
-    </div>
-    <div class="sec-body">
-      <div class="timeline">
-        <div class="tl-row">
-          <div class="tl-time swim">08:30<br>도착</div>
-          <div class="tl-content">
-            <span class="tl-tag tag-blue">추천</span><br>
-            주차 후 <strong>그늘막·돗자리 자리 먼저 확보</strong>.<br>
-            9시 전 도착해야 주차 여유, 자리 선택 가능.
-          </div>
-        </div>
-        <div class="tl-row">
-          <div class="tl-time swim">09:00<br>~<br>12:00</div>
-          <div class="tl-content">
-            <span class="tl-tag tag-green">오전 물놀이</span><br>
-            <strong>가장 한산한 황금 타임.</strong> 유아풀(수심 0.4m) 중심으로 놀기.<br>
-            선크림 입수 전 꼭 도포. 30분마다 물 마시게 하기.
-          </div>
-        </div>
-        <div class="tl-row">
-          <div class="tl-time break">12:00<br>~<br>13:00</div>
-          <div class="tl-content">
-            <span class="tl-tag tag-red">입수 금지</span><br>
-            <strong>의무 휴식 시간. 물에서 나와야 함.</strong><br>
-            돗자리에서 점심 도시락 먹기. 주원이 낮잠 재우기 좋은 타이밍.
-          </div>
-        </div>
-        <div class="tl-row">
-          <div class="tl-time swim">13:00<br>~<br>15:30</div>
-          <div class="tl-content">
-            <span class="tl-tag tag-green">오후 물놀이</span><br>
-            재입수. <strong>선크림 꼭 다시 발라주기.</strong><br>
-            오후엔 자외선·지면 온도 매우 높음 → 아쿠아슈즈 필수.
-          </div>
-        </div>
-        <div class="tl-row">
-          <div class="tl-time food">15:30<br>~<br>16:30</div>
-          <div class="tl-content">
-            샤워 후 <strong>편의점 간식 또는 치킨 배달 타임.</strong><br>
-            주원이 체력 확인 후 더 놀지 귀가할지 결정.
-          </div>
-        </div>
-        <div class="tl-row">
-          <div class="tl-time go">17:00<br>귀가</div>
-          <div class="tl-content">
-            <strong>17:30 재입수 금지 전 여유있게 철수.</strong><br>
-            짐 정리 → 주차장 → 귀가. 주원이 차 안에서 잠들 가능성 높음.
-          </div>
-        </div>
+<!-- ① 운영 정보 -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-icon">📋</span>
+    <span class="sec-title">2026 운영 정보</span>
+  </div>
+  <div class="sec-body">
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-label">운영 기간</div>
+        <div class="info-val">6월 19일 ~ 8월 30일</div>
+        <div class="info-sub">매일 운영 (기상 악화 제외)</div>
       </div>
+      <div class="info-card">
+        <div class="info-label">운영 시간</div>
+        <div class="info-val">09:00 ~ 22:00</div>
+        <div class="info-sub">야간 개장 7월 3일부터</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">전화</div>
+        <div class="info-val">02-3780-0612</div>
+        <div class="info-sub">여의도 수영장</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">위치</div>
+        <div class="info-val">여의도 한강공원</div>
+        <div class="info-sub">영등포구 여의동로 330</div>
+      </div>
+    </div>
+
+    <div class="break-times">
+      <span style="font-size:11.5px;font-weight:700;color:#6B7280;align-self:center">입수 금지 &nbsp;</span>
+      <span class="bt-tag bt-red">점심 12:00~12:40</span>
+      <span class="bt-tag bt-red">매시간 15분 안전점검</span>
+      <span class="bt-tag bt-blue">기상 악화 시 즉시 퇴수</span>
+    </div>
+
+    <hr class="divider" style="margin-top:.85rem">
+
+    <div style="font-size:12px;font-weight:700;color:#64748B;margin-bottom:.5rem">시설 현황</div>
+    <div class="pool-row">
+      <span class="pool-label">유아풀</span>
+      <span class="pool-val">수심 0.4m · 분수 · 40개월 딱 맞음</span>
+      <span class="pool-tag" style="background:#FCE7F3;color:#9D174D">★ 추천</span>
+    </div>
+    <div class="pool-row">
+      <span class="pool-label">성인풀</span>
+      <span class="pool-val">수심 1.0m ~ 1.2m · 레인 구분</span>
+      <span class="pool-tag" style="background:#DBEAFE;color:#1D4ED8">성인용</span>
+    </div>
+    <div class="pool-row">
+      <span class="pool-label">아쿠아링</span>
+      <span class="pool-val">대형 원형 수영 공간 · 주변 뷰 좋음</span>
+      <span class="pool-tag" style="background:#D1FAE5;color:#065F46">가족 인기</span>
+    </div>
+    <div class="pool-row">
+      <span class="pool-label">물대포·터널</span>
+      <span class="pool-val">스파이럴 터널 · 물대포 놀이시설</span>
+      <span class="pool-tag" style="background:#FEF3C7;color:#B45309">물놀이</span>
+    </div>
+    <div class="pool-row">
+      <span class="pool-label">유수풀</span>
+      <span class="pool-val">레이지리버 · 튜브 이용 가능</span>
+      <span class="pool-tag" style="background:#EDE9FE;color:#5B21B6">튜브 필요</span>
     </div>
   </div>
-
-  <!-- 2. 주차 -->
-  <div class="section">
-    <div class="sec-head">
-      <span class="sec-icon">🚗</span>
-      <span class="sec-title">주차</span>
-    </div>
-    <div class="sec-body">
-      <div class="parking-grid">
-        <div class="park-box">
-          <div class="park-label">최초 30분</div>
-          <div class="park-val">2,000원</div>
-        </div>
-        <div class="park-box">
-          <div class="park-label">이후 10분당</div>
-          <div class="park-val">300원</div>
-        </div>
-        <div class="park-box">
-          <div class="park-label">1일 최대</div>
-          <div class="park-val">15,000원</div>
-        </div>
-      </div>
-      <div class="transport">
-        <div class="tr-item metro">
-          <span class="tr-icon">🚇</span>
-          <span><strong>지하철 추천:</strong> 5호선 여의나루역 1번 출구 → 도보 5분<br>주말엔 지하철이 훨씬 편해요</span>
-        </div>
-        <div class="tr-item warn">
-          <span class="tr-icon">⚠️</span>
-          <span><strong>차량 이용 시 오전 9시 이전 도착 필수.</strong> 10시 이후엔 주차장 포화 상태.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. 꿀팁 -->
-  <div class="section">
-    <div class="sec-head">
-      <span class="sec-icon">💡</span>
-      <span class="sec-title">꿀팁</span>
-    </div>
-    <div class="sec-body">
-      <div class="tips">
-        <div class="tip t-blue">
-          <span class="tip-e">🌅</span>
-          <span><strong>오전 9시 도착이 정답.</strong> 자리 여유 있고 한산해서 주원이랑 편하게 놀 수 있어요.</span>
-        </div>
-        <div class="tip t-green">
-          <span class="tip-e">🏊</span>
-          <span><strong>유아풀 수심 0.4m</strong> — 40개월 주원이가 혼자 서서 놀 수 있는 깊이. 분수·통돌이 놀이기구 있음.</span>
-        </div>
-        <div class="tip t-orange">
-          <span class="tip-e">🍱</span>
-          <span><strong>도시락 싸가면 최고.</strong> 한강공원은 음식 반입 자유. 치킨은 배달앱으로 GPS 배달 가능 (배민·쿠팡이츠).</span>
-        </div>
-        <div class="tip t-pink">
-          <span class="tip-e">🧴</span>
-          <span><strong>선크림은 여러 개 챙기기.</strong> 물에 씻겨나가니 입수할 때마다 꼭 재도포. 주원이 것 따로!</span>
-        </div>
-        <div class="tip t-red">
-          <span class="tip-e">🚫</span>
-          <span><strong>수영모 필수!</strong> 미착용 시 입수 불가. 12~13시, 17:30~19시는 입수 금지 시간.</span>
-        </div>
-        <div class="tip t-green">
-          <span class="tip-e">👟</span>
-          <span><strong>아쿠아슈즈 꼭!</strong> 여름 데크 바닥은 매우 뜨거워요. 주원이 맨발 금지.</span>
-        </div>
-        <div class="tip t-blue">
-          <span class="tip-e">📱</span>
-          <span><strong>방수팩 꼭 챙기기.</strong> 2~3천원짜리면 충분. 스마트폰 물 들어가면 낭패.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. 준비물 체크리스트 -->
-  <div class="section">
-    <div class="sec-head">
-      <span class="sec-icon">🎒</span>
-      <span class="sec-title">준비물 체크리스트</span>
-    </div>
-    <div class="sec-body">
-
-      <div style="margin-bottom:1rem">
-        <div class="progress-row">
-          <span class="progress-label">준비 완료도</span>
-          <span class="progress-count" id="cnt">0 / 16 완료</span>
-        </div>
-        <div class="bar-bg"><div class="bar-fill" id="bar" style="width:0%"></div></div>
-      </div>
-
-      <div class="check-group">
-        <div class="cg-title">수영 필수</div>
-        <div class="check-list">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">수영복 <span class="check-sub">— 성인 2명</span></div>
-            <span class="check-badge badge-must">필수</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">수영모 <span class="check-sub">— 성인 2 + 주원이 1 · 미착용 시 입수 불가</span></div>
-            <span class="check-badge badge-must">필수</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">주원이 수영복 <span class="check-sub">— 일반 수영복 OK</span></div>
-            <span class="check-badge badge-kid">주원</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="check-group">
-        <div class="cg-title">자외선 차단</div>
-        <div class="check-list">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">선크림 SPF50+ <span class="check-sub">— 성인용 · 여러 번 덧바름</span></div>
-            <span class="check-badge badge-must">필수</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">주원이용 선크림 <span class="check-sub">— 무기자차 권장</span></div>
-            <span class="check-badge badge-kid">주원</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">모자 <span class="check-sub">— 챙 넓은 것 · 주원이 것도 챙기기</span></div>
-          </label>
-        </div>
-      </div>
-
-      <div class="check-group">
-        <div class="cg-title">피크닉</div>
-        <div class="check-list">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">방수 돗자리</div>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">그늘막 / 간이 텐트 <span class="check-sub">— 여의도 수영장 구역 허용</span></div>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">수건 <span class="check-sub">— 1인 2장 이상</span></div>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">여벌 옷 <span class="check-sub">— 성인 + 주원이</span></div>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">아쿠아슈즈 <span class="check-sub">— 주원이 것도 필수. 바닥 화상 위험</span></div>
-            <span class="check-badge badge-must">필수</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="check-group">
-        <div class="cg-title">주원이</div>
-        <div class="check-list">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">튜브 / 부력보조복 <span class="check-sub">— 소형 권장</span></div>
-            <span class="check-badge badge-kid">주원</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">물병 (빨대컵) <span class="check-sub">— 30분마다 수분 보충</span></div>
-            <span class="check-badge badge-kid">주원</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">간식 <span class="check-sub">— 과일, 요거트, 과자</span></div>
-            <span class="check-badge badge-kid">주원</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="check-group">
-        <div class="cg-title">기타</div>
-        <div class="check-list">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">방수팩 <span class="check-sub">— 스마트폰 보관</span></div>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">도시락 + 물 1.5L <span class="check-sub">— 음식 반입 자유</span></div>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box">✓</div>
-            <div class="check-text">비닐봉지 <span class="check-sub">— 젖은 옷 담기</span></div>
-          </label>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
 </div>
+
+<!-- ② 입장료 & 비용 -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-icon">💳</span>
+    <span class="sec-title">입장료 & 예상 비용</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="cost-banner">
+      <div class="cost-family">
+        <div class="cost-pill">👩 엄마 <span class="price">5,000원</span></div>
+        <span class="cost-divider">+</span>
+        <div class="cost-pill">👨 아빠 <span class="price">5,000원</span></div>
+        <span class="cost-divider">+</span>
+        <div class="cost-pill">👶 40개월 <span class="free-price">무료</span></div>
+      </div>
+      <div class="cost-total">
+        <span class="cost-total-label">오늘 입장료 합계</span>
+        <span class="cost-total-val">10,000원</span>
+      </div>
+      <div class="cost-note">* 만 5세 이하 무료 (40개월 = 만 3세) · 증빙서류(가족관계증명서·주민증 등) 지참</div>
+    </div>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>입장료</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>성인</td>
+          <td class="amount">5,000원</td>
+          <td style="font-size:11.5px;color:#64748B">만 19세 이상</td>
+        </tr>
+        <tr>
+          <td>청소년</td>
+          <td class="amount">4,000원</td>
+          <td style="font-size:11.5px;color:#64748B">만 13~18세</td>
+        </tr>
+        <tr>
+          <td>어린이</td>
+          <td class="amount">3,000원</td>
+          <td style="font-size:11.5px;color:#64748B">만 6~12세</td>
+        </tr>
+        <tr>
+          <td>영유아</td>
+          <td class="free">무료</td>
+          <td style="font-size:11.5px;color:#059669"><strong>만 5세 이하</strong> (40개월 해당!)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div style="font-size:12px;font-weight:700;color:#64748B;margin-bottom:.6rem">당일 총 예산 가이드</div>
+    <table class="cost-table">
+      <tbody>
+        <tr>
+          <td>입장료</td>
+          <td class="amount">10,000원</td>
+        </tr>
+        <tr>
+          <td>주차 (5~6시간 기준)</td>
+          <td class="amount">6,000 ~ 9,000원</td>
+        </tr>
+        <tr>
+          <td>매점 / 먹거리</td>
+          <td class="amount">15,000 ~ 25,000원</td>
+        </tr>
+        <tr>
+          <td>음료 · 간식</td>
+          <td class="amount">5,000 ~ 10,000원</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700">예상 합계</td>
+          <td class="amount" style="font-size:15px;color:#1D4ED8;font-weight:800">36,000 ~ 54,000원</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="cost-note">💡 도시락 + 물 챙겨가면 먹거리 비용 0원 → 총 16,000~20,000원으로 절약 가능</div>
+  </div>
+</div>
+
+<!-- ③ 먹거리 & 음식 반입 -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-icon">🍜</span>
+    <span class="sec-title">먹거리 & 음식 반입 규정</span>
+  </div>
+  <div class="sec-body">
+
+    <div style="font-size:12px;font-weight:700;color:#64748B;margin-bottom:.6rem">수영장 내 매점 가격</div>
+    <div class="food-grid">
+      <div class="food-item">
+        <span class="food-name">🍜 한강 라면</span>
+        <span class="food-price">4,000원</span>
+      </div>
+      <div class="food-item">
+        <span class="food-name">🌭 핫도그 · 소시지</span>
+        <span class="food-price">3,000원~</span>
+      </div>
+      <div class="food-item">
+        <span class="food-name">🍢 떡볶이 · 어묵</span>
+        <span class="food-price">3,000원~</span>
+      </div>
+      <div class="food-item">
+        <span class="food-name">🍗 닭강정</span>
+        <span class="food-price">5,000원~</span>
+      </div>
+      <div class="food-item">
+        <span class="food-name">🥤 음료</span>
+        <span class="food-price">2,000원~</span>
+      </div>
+      <div class="food-item">
+        <span class="food-name">🍦 아이스크림</span>
+        <span class="food-price">1,500원~</span>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div style="font-size:12px;font-weight:700;color:#64748B;margin-bottom:.6rem">음식 반입 규정</div>
+
+    <div class="food-tip-box" style="margin-bottom:.55rem">
+      ✅ <strong>한강공원은 도시락 · 음식 자유 반입 가능</strong> — 미리 싸온 도시락, 과일, 간식 OK
+    </div>
+    <div style="background:#FFF1F2;border:1.5px solid #FCA5A5;border-radius:12px;padding:.75rem 1rem;font-size:12.5px;color:#881337;margin-bottom:.55rem">
+      ❌ <strong>수영장 내부</strong>에는 음식물 반입 금지 · 수영장 밖 그늘막·돗자리 구역에서 취식 가능
+    </div>
+    <div style="background:#DBEAFE;border:1.5px solid #93C5FD;border-radius:12px;padding:.75rem 1rem;font-size:12.5px;color:#1E3A8A">
+      📦 <strong>치킨 배달 가능!</strong> 배달의민족 · 쿠팡이츠로 한강공원 GPS 배달 → 수영장 근처 돗자리에서 수령 후 취식 OK
+    </div>
+
+  </div>
+</div>
+
+<!-- ④ 주차 & 교통 -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-icon">🚗</span>
+    <span class="sec-title">주차 & 교통</span>
+  </div>
+  <div class="sec-body">
+    <div class="parking-grid">
+      <div class="park-box">
+        <div class="park-label">최초 30분</div>
+        <div class="park-val">1,000원</div>
+      </div>
+      <div class="park-box">
+        <div class="park-label">추가 30분당</div>
+        <div class="park-val">300원</div>
+      </div>
+      <div class="park-box">
+        <div class="park-label">1일 최대</div>
+        <div class="park-val">15,000원</div>
+      </div>
+    </div>
+
+    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:.65rem 1rem;font-size:12.5px;color:#166534;margin-bottom:.75rem">
+      💡 <strong>5~6시간 체류 시 약 6,000~9,000원 예상</strong> (반일권이 더 저렴할 수도 있으니 현장 확인)
+    </div>
+
+    <div class="transport">
+      <div class="tr-item metro">
+        <span class="tr-icon">🚇</span>
+        <span><strong>추천 — 지하철 5호선 여의나루역 1번 출구</strong> → 도보 5분<br>주말엔 지하철이 가장 빠르고 주차비 절약</span>
+      </div>
+      <div class="tr-item bus">
+        <span class="tr-icon">🚌</span>
+        <span><strong>버스:</strong> '여의도한강공원' 정류소 하차<br>간선 버스 다수 경유</span>
+      </div>
+      <div class="tr-item warn">
+        <span class="tr-icon">⚠️</span>
+        <span><strong>차량 이용 시: 오전 9시 이전 도착 필수</strong><br>10시 이후 주차장 포화 · 대기 길게 발생 / 제3주차장(수영장 가장 인접) 우선 확인</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ 돗자리 & 그늘막 규정 -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-icon">⛱️</span>
+    <span class="sec-title">돗자리 & 그늘막 규정</span>
+  </div>
+  <div class="sec-body">
+
+    <div class="shade-rule-box" style="margin-bottom:.65rem">
+      📍 <strong>그늘막 설치 허용 기간: 3월 ~ 11월 / 06~08월 기준 09:00~20:00</strong><br>
+      20시 이후 자진 철거 필수 · 위반 시 과태료 100만 원~
+    </div>
+
+    <div class="shade-grid" style="margin-bottom:.75rem">
+      <div class="shade-card shade-ok">
+        <div class="shade-card-title">✅ 허용</div>
+        <ul class="shade-list">
+          <li>· 돗자리 (시간·장소 무관)</li>
+          <li>· 그늘막 (2면 이상 개방)</li>
+          <li>· 파라솔</li>
+          <li>· 아기 UV텐트 (개방형)</li>
+        </ul>
+      </div>
+      <div class="shade-card shade-no">
+        <div class="shade-card-title">❌ 금지</div>
+        <ul class="shade-list">
+          <li>· 일반 밀폐 텐트</li>
+          <li>· 타프 (4면 닫힘)</li>
+          <li>· 야영 · 취사</li>
+          <li>· 말뚝 · 팩 박기</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shade-zone-box" style="margin-bottom:.65rem">
+      🗺️ <strong>여의도 그늘막 설치 허용 구역</strong><br>
+      <span style="display:block;margin-top:4px;font-size:12px">• 계절광장 (약 20,000㎡) &nbsp;|&nbsp; 여름캠핑장 (약 25,000㎡)</span>
+      <span style="display:block;margin-top:3px;font-size:12px;color:#3B82F6">수영장 내에는 <strong>파라솔 선착순 무료</strong> 비치 (4인 기준 1개)</span>
+    </div>
+
+    <div style="background:#FFF7ED;border:1.5px solid #FDE68A;border-radius:12px;padding:.75rem 1rem;font-size:12.5px;color:#78350F">
+      👶 <strong>아기 있는 가족 추천 세팅:</strong><br>
+      수영장 파라솔 자리 선착순 확보 + 수영장 밖 허용구역에 그늘막 & 돗자리 설치 → 낮잠·수유 공간 확보
+    </div>
+
+  </div>
+</div>
+
+<!-- ⑥ 방문하기 좋은 시간대 + 타임라인 -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-icon">🕐</span>
+    <span class="sec-title">방문하기 좋은 시간대 & 타임라인</span>
+  </div>
+  <div class="sec-body">
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.55rem;margin-bottom:1rem">
+      <div style="background:#D1FAE5;border-radius:12px;padding:.7rem;text-align:center">
+        <div style="font-size:10.5px;font-weight:700;color:#065F46;margin-bottom:3px">🌅 최고</div>
+        <div style="font-size:12.5px;font-weight:800;color:#064E3B">09:00~11:00</div>
+        <div style="font-size:10.5px;color:#065F46">오픈 직후<br>가장 한산</div>
+      </div>
+      <div style="background:#FEF3C7;border-radius:12px;padding:.7rem;text-align:center">
+        <div style="font-size:10.5px;font-weight:700;color:#B45309;margin-bottom:3px">😓 혼잡</div>
+        <div style="font-size:12.5px;font-weight:800;color:#92400E">11:00~15:00</div>
+        <div style="font-size:10.5px;color:#B45309">주말 피크<br>자리 경쟁</div>
+      </div>
+      <div style="background:#EDE9FE;border-radius:12px;padding:.7rem;text-align:center">
+        <div style="font-size:10.5px;font-weight:700;color:#5B21B6;margin-bottom:3px">🌙 야간</div>
+        <div style="font-size:12.5px;font-weight:800;color:#4C1D95">19:00~22:00</div>
+        <div style="font-size:10.5px;color:#5B21B6">7월 3일~<br>아기는 체력 고려</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-time go">08:30<br>출발·도착</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-blue">강력 추천</span><br>
+          <strong>주차장 먼저, 그다음 자리 확보.</strong> 수영장 파라솔 선착순 — 9시 이전 도착해야 좋은 자리 선점 가능.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time swim">09:00<br>~<br>12:00</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-green">오전 물놀이</span><br>
+          <strong>황금 타임 — 가장 한산하고 수온 쾌적.</strong><br>
+          유아풀(0.4m) 중심 놀기. 입수 전 선크림 필수. 30분마다 아기 물 먹이기.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time brk">12:00<br>~<br>12:40</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-red">입수 금지</span><br>
+          <strong>의무 점심 휴식 시간.</strong> 돗자리·그늘막에서 도시락 점심 먹기.<br>
+          아기 낮잠 타이밍 — 물놀이 후 잘 잠들어요.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time swim">12:40<br>~<br>15:30</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-green">오후 물놀이</span><br>
+          재입수 전 <strong>선크림 다시 꼭 발라주기.</strong><br>
+          오후엔 지면·데크 온도 급상승 → 아쿠아슈즈 필수. 아기 그늘 자주 쉬게 하기.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time food">15:30<br>~<br>16:30</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-orange">샤워 & 간식</span><br>
+          샤워 후 매점 간식 또는 배달 치킨 타임.<br>
+          <strong>아기 체력 점검 → 더 놀지 vs 귀가 결정.</strong>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time go">17:00<br>~<br>귀가</div>
+        <div class="tl-content">
+          <strong>짐 정리 → 주차장 → 귀가.</strong><br>
+          아기는 차 안에서 곯아떨어질 가능성 높음 😴<br>
+          <span style="font-size:11.5px;color:#64748B">야간 방문 시 19:00~21:00 추천 (열기 식고 한산 / 단 아기 수면 시간 고려)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑦ 40개월 아기 특별 꿀팁 -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-icon">👶</span>
+    <span class="sec-title">40개월 아기 특별 꿀팁</span>
+  </div>
+  <div class="sec-body">
+    <div class="baby-grid">
+      <div class="baby-card">
+        <div class="baby-card-title">🏊 적합한 풀</div>
+        <div class="baby-card-body">유아풀 수심 0.4m — 혼자 서서 놀 수 있음. 분수·물총 놀이기구 있어서 아이가 가장 좋아함.</div>
+      </div>
+      <div class="baby-card">
+        <div class="baby-card-title">🧴 선크림</div>
+        <div class="baby-card-body">무기자차(티타늄·징크) 아기용 SPF50+. 매 입수 전 재도포. 얼굴·귀·목 등 꼼꼼히.</div>
+      </div>
+      <div class="baby-card">
+        <div class="baby-card-title">👟 아쿠아슈즈</div>
+        <div class="baby-card-body">여름 데크 바닥 70°C 이상 — 아기 맨발 절대 금지. 아쿠아슈즈 없으면 입장 포기각.</div>
+      </div>
+      <div class="baby-card">
+        <div class="baby-card-title">🩳 수영복 & 모자</div>
+        <div class="baby-card-body">수영모 필수 (없으면 입수 불가). 래시가드+수영팬티 조합 UV 차단 우수.</div>
+      </div>
+      <div class="baby-card">
+        <div class="baby-card-title">🫁 수영 기저귀</div>
+        <div class="baby-card-body">배변 훈련 중이라면 수영 기저귀 착용 필수. 일반 기저귀는 입수 불가.</div>
+      </div>
+      <div class="baby-card">
+        <div class="baby-card-title">💧 수분 보충</div>
+        <div class="baby-card-body">빨대컵에 물 충분히. 30분마다 물 먹이기. 아이스팩으로 차갑게 유지.</div>
+      </div>
+      <div class="baby-card">
+        <div class="baby-card-title">🛟 안전</div>
+        <div class="baby-card-body">부력보조복 또는 팔튜브 착용 권장. 눈 한순간도 떼지 않기 — 0.4m도 위험.</div>
+      </div>
+      <div class="baby-card">
+        <div class="baby-card-title">😴 낮잠</div>
+        <div class="baby-card-body">12:00 휴식 때 재우기 최고. 그늘막 안에서 접이식 매트 + 선풍기 소형 유용.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑧ 전체 꿀팁 -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-icon">💡</span>
+    <span class="sec-title">전체 꿀팁</span>
+  </div>
+  <div class="sec-body">
+    <div class="tips">
+      <div class="tip t-blue">
+        <span class="tip-e">🌅</span>
+        <span><strong>오전 9시 도착이 답.</strong> 자리 여유, 한산한 풀, 아기 물놀이 최적 컨디션. 늦을수록 손해.</span>
+      </div>
+      <div class="tip t-red">
+        <span class="tip-e">🏊</span>
+        <span><strong>수영모 필수 — 없으면 입수 불가.</strong> 성인·아기 모두. 미끄러지지 않게 끈 있는 것으로.</span>
+      </div>
+      <div class="tip t-green">
+        <span class="tip-e">🍱</span>
+        <span><strong>도시락 싸가면 먹거리 비용 0원.</strong> 음식 반입 자유. 아이스팩으로 신선 유지.</span>
+      </div>
+      <div class="tip t-orange">
+        <span class="tip-e">🍗</span>
+        <span><strong>치킨 배달 가능.</strong> 배민·쿠팡이츠 → 한강공원 GPS 입력 → 수영장 출구 근처에서 수령.</span>
+      </div>
+      <div class="tip t-pink">
+        <span class="tip-e">🧴</span>
+        <span><strong>선크림 넉넉하게 2개 이상.</strong> 물에 씻겨나가므로 입수마다 재도포. 아기 것 따로 챙기기.</span>
+      </div>
+      <div class="tip t-purple">
+        <span class="tip-e">📱</span>
+        <span><strong>방수팩 필수.</strong> 2,000~3,000원짜리로 충분. 스마트폰·열쇠·지갑 보관. 분실 방지도.</span>
+      </div>
+      <div class="tip t-blue">
+        <span class="tip-e">🧊</span>
+        <span><strong>아이스팩 + 보냉백.</strong> 음료·간식·아기 이유식 신선 유지. 더운 날 아이 체온 관리용으로도.</span>
+      </div>
+      <div class="tip t-green">
+        <span class="tip-e">🚿</span>
+        <span><strong>샤워실 이용 팁.</strong> 샴푸·바디워시·린스 직접 챙겨야 함. 드라이어 있는 곳 확인 후 활용.</span>
+      </div>
+      <div class="tip t-orange">
+        <span class="tip-e">📲</span>
+        <span><strong>서울시 한강 앱(또는 공식 홈페이지) 실시간 혼잡도 확인.</strong> 입장 전 현황 미리 체크 가능.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑨ 준비물 체크리스트 -->
+<div class="section">
+  <div class="sec-head">
+    <span class="sec-icon">🎒</span>
+    <span class="sec-title">준비물 체크리스트</span>
+  </div>
+  <div class="sec-body">
+
+    <div style="margin-bottom:1rem">
+      <div class="progress-row">
+        <span class="progress-label">준비 완료도</span>
+        <span class="progress-count" id="cnt">0 / 24 완료</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" id="bar" style="width:0%"></div></div>
+    </div>
+
+    <div class="check-group">
+      <div class="cg-title">수영 필수</div>
+      <div class="check-list">
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">수영복 <span class="check-sub">— 성인 2명</span></div>
+          <span class="check-badge badge-must">필수</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">수영모 <span class="check-sub">— 성인 2 + 아기 1 · 없으면 입수 불가</span></div>
+          <span class="check-badge badge-must">필수</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">아기 수영복 + 래시가드 <span class="check-sub">— 래시가드 UV차단 우수</span></div>
+          <span class="check-badge badge-kid">아기</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">수영 기저귀 <span class="check-sub">— 배변 훈련 중이라면 필수 (일반 기저귀 입수 불가)</span></div>
+          <span class="check-badge badge-kid">아기</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="cg-title">자외선 차단</div>
+      <div class="check-list">
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">선크림 SPF50+ <span class="check-sub">— 성인용 2개 (덧바름용)</span></div>
+          <span class="check-badge badge-must">필수</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">아기 선크림 <span class="check-sub">— 무기자차 SPF50+ 아기 전용</span></div>
+          <span class="check-badge badge-kid">아기</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">챙 넓은 모자 <span class="check-sub">— 성인 2 + 아기 1</span></div>
+          <span class="check-badge badge-must">필수</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="cg-title">아기 안전 & 물놀이</div>
+      <div class="check-list">
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">아쿠아슈즈 <span class="check-sub">— 아기 + 성인 · 바닥 화상 방지</span></div>
+          <span class="check-badge badge-must">필수</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">부력보조복 또는 팔튜브 <span class="check-sub">— 아기 안전</span></div>
+          <span class="check-badge badge-kid">아기</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">소형 튜브 <span class="check-sub">— 유수풀 이용 시 필요</span></div>
+          <span class="check-badge badge-opt">선택</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="cg-title">피크닉 & 그늘</div>
+      <div class="check-list">
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">방수 돗자리 <span class="check-sub">— 넉넉한 사이즈</span></div>
+          <span class="check-badge badge-must">필수</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">그늘막 (2면 개방형) <span class="check-sub">— 허용구역 내 설치 · 아기 낮잠용</span></div>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">수건 <span class="check-sub">— 1인 2장 이상</span></div>
+          <span class="check-badge badge-must">필수</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">여벌 옷 <span class="check-sub">— 성인 + 아기 (아기는 여벌 2세트 권장)</span></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="cg-title">음식 & 음료</div>
+      <div class="check-list">
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">도시락 <span class="check-sub">— 음식 반입 자유 · 비용 절약 최고</span></div>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">물 · 이온음료 <span class="check-sub">— 1.5L 이상 · 아기 빨대컵</span></div>
+          <span class="check-badge badge-must">필수</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">아기 간식 <span class="check-sub">— 과일, 요거트, 과자</span></div>
+          <span class="check-badge badge-kid">아기</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">보냉백 + 아이스팩 <span class="check-sub">— 음식·음료 신선 유지</span></div>
+        </label>
+      </div>
+    </div>
+
+    <div class="check-group">
+      <div class="cg-title">기타</div>
+      <div class="check-list">
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">방수팩 <span class="check-sub">— 스마트폰·열쇠·지갑 보관</span></div>
+          <span class="check-badge badge-must">필수</span>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">샴푸 · 바디워시 <span class="check-sub">— 샤워실 비품 없음</span></div>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">비닐봉지 여러 개 <span class="check-sub">— 젖은 옷·쓰레기 분리</span></div>
+        </label>
+        <label class="check-item" onclick="toggle(this)">
+          <div class="check-box">✓</div>
+          <div class="check-text">아기 증빙서류 <span class="check-sub">— 무료 입장 위해 가족관계증명서 등 지참</span></div>
+          <span class="check-badge badge-kid">아기</span>
+        </label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 출처 -->
+<div class="source-box">
+  정보 출처: 서울시 미래한강본부 공식 홈페이지 · 서울시 공식 공표 자료 (2026) · 블로그 리뷰 종합<br>
+  운영 정보는 기상 상황·서울시 정책에 따라 변경될 수 있으니 방문 전 공식 확인 권장
+</div>
+
+</div><!-- /page -->
 
 <script>
 function toggle(el) {
