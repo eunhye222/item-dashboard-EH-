@@ -15,27 +15,23 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
 /* HEADER */
 .header {
   background: linear-gradient(135deg, #0F4C81 0%, #1D9BF0 60%, #06B6D4 100%);
-  color: #fff;
-  padding: 2rem 1.5rem 1.5rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+  color: #fff; padding: 2rem 1.5rem 1.5rem; text-align: center;
+  position: relative; overflow: hidden;
 }
 .header::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   pointer-events: none;
 }
 .header-badge { display: inline-block; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.3); border-radius: 100px; font-size: 11.5px; font-weight: 700; padding: 3px 14px; letter-spacing: .04em; margin-bottom: .6rem; }
 .header h1 { font-size: 1.7rem; font-weight: 800; margin-bottom: .4rem; line-height: 1.3; }
 .header p { font-size: 13px; opacity: .85; line-height: 1.6; }
-.header-meta { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
-.meta-chip { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,.15); border-radius: 100px; padding: 5px 14px; font-size: 12.5px; font-weight: 600; }
+.header-meta { display: flex; justify-content: center; gap: .75rem; margin-top: 1rem; flex-wrap: wrap; }
+.meta-chip { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,.15); border-radius: 100px; padding: 5px 13px; font-size: 12px; font-weight: 600; }
 
 /* ALERT */
-.alert { background: #FFF3CD; border: 1.5px solid #FFC107; border-radius: 12px; padding: .85rem 1.1rem; display: flex; align-items: flex-start; gap: 10px; margin: 1rem 1rem 0; font-size: 13px; color: #7C4A00; line-height: 1.6; }
-.alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.alert-wrap { max-width: 720px; margin: 0 auto; padding: 0 1rem; }
+.alert { background: #FFF3CD; border: 1.5px solid #FFC107; border-radius: 12px; padding: .85rem 1.1rem; display: flex; align-items: flex-start; gap: 10px; margin-top: 1rem; font-size: 13px; color: #7C4A00; line-height: 1.6; }
 .alert strong { color: #5C3300; }
 
 /* PAGE */
@@ -44,17 +40,18 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
 /* SECTION */
 .section { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,.07); }
 .sec-head { display: flex; align-items: center; gap: 10px; padding: .9rem 1.3rem; border-bottom: 1px solid #EEF0F5; }
-.sec-icon { font-size: 1.25rem; }
+.sec-icon { font-size: 1.2rem; }
 .sec-title { font-size: 15px; font-weight: 700; flex: 1; }
-.sec-badge { font-size: 10.5px; font-weight: 700; padding: 2px 10px; border-radius: 100px; }
-.badge-blue { background: #DBEAFE; color: #1D4ED8; }
-.badge-green { background: #D1FAE5; color: #065F46; }
-.badge-red { background: #FEE2E2; color: #B91C1C; }
+.sec-badge { font-size: 10.5px; font-weight: 700; padding: 2px 10px; border-radius: 100px; white-space: nowrap; }
+.badge-blue   { background: #DBEAFE; color: #1D4ED8; }
+.badge-green  { background: #D1FAE5; color: #065F46; }
+.badge-red    { background: #FEE2E2; color: #B91C1C; }
 .badge-orange { background: #FEF3C7; color: #B45309; }
+.badge-purple { background: #EDE9FE; color: #6D28D9; }
 .sec-body { padding: 1.1rem 1.3rem; }
 
-/* FAMILY CARDS */
-.family-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .65rem; }
+/* FAMILY */
+.family-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .65rem; }
 .fam-card { border-radius: 12px; padding: .85rem .75rem; text-align: center; border: 1.5px solid; }
 .fam-card.f1 { background: #EFF6FF; border-color: #BFDBFE; }
 .fam-card.f2 { background: #F0FDF4; border-color: #BBF7D0; }
@@ -64,91 +61,143 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
 .fam-card.f2 .fam-name { color: #15803D; }
 .fam-card.f3 .fam-name { color: #C2410C; }
 .fam-member { font-size: 11.5px; color: #6B7280; line-height: 1.7; }
-.fam-member span { display: inline-block; background: rgba(255,255,255,.7); border-radius: 6px; padding: 1px 7px; margin: 1px 2px; }
+.fam-member span { display: inline-block; background: rgba(255,255,255,.75); border-radius: 6px; padding: 1px 7px; margin: 1px 2px; }
 .kid-badge { font-weight: 700; color: #374151 !important; }
 
-/* ROOM INFO */
-.room-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem; margin-bottom: .9rem; }
+/* ROOM */
+.room-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: .6rem; margin-bottom: .9rem; }
 .room-box { background: #F5F7FF; border: 1px solid #E2E8F0; border-radius: 11px; padding: .8rem; text-align: center; }
 .room-label { font-size: 10.5px; color: #9CA3AF; font-weight: 700; letter-spacing: .04em; margin-bottom: 5px; }
 .room-val { font-size: 15px; font-weight: 800; color: #1D4ED8; }
 .room-sub { font-size: 10.5px; color: #6B7280; margin-top: 2px; }
 .room-layout { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .2rem; }
-.room-tag { display: flex; align-items: center; gap: 5px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 6px 12px; font-size: 12.5px; color: #1D4ED8; font-weight: 600; }
-.room-notice { background: #FFF7ED; border: 1px solid #FED7AA; border-radius: 10px; padding: .75rem 1rem; margin-top: .85rem; font-size: 12.5px; color: #C2410C; line-height: 1.6; }
+.room-tag { display: flex; align-items: center; gap: 5px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #1D4ED8; font-weight: 600; }
+.room-plan { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; margin-top: .85rem; }
+.room-plan-box { border-radius: 10px; padding: .7rem .65rem; text-align: center; border: 1.5px solid; }
+.room-plan-box.p1 { background: #EFF6FF; border-color: #BFDBFE; }
+.room-plan-box.p2 { background: #F0FDF4; border-color: #BBF7D0; }
+.room-plan-box.p3 { background: #FFF7ED; border-color: #FED7AA; }
+.room-plan-type { font-size: 13px; margin-bottom: 3px; }
+.room-plan-name { font-size: 11.5px; font-weight: 800; margin-bottom: 2px; }
+.room-plan-box.p1 .room-plan-name { color: #1D4ED8; }
+.room-plan-box.p2 .room-plan-name { color: #15803D; }
+.room-plan-box.p3 .room-plan-name { color: #C2410C; }
+.room-plan-sub { font-size: 10px; color: #9CA3AF; }
 
 /* PRICE TABLE */
-.price-section { }
 .price-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: .85rem; }
-.price-table th { background: #F1F5F9; color: #374151; font-weight: 700; padding: 8px 10px; text-align: left; border-bottom: 1px solid #E2E8F0; font-size: 12px; }
-.price-table td { padding: 8px 10px; border-bottom: 1px solid #F1F5F9; vertical-align: middle; color: #374151; }
+.price-table th { background: #F1F5F9; color: #374151; font-weight: 700; padding: 8px 10px; text-align: left; border-bottom: 1px solid #E2E8F0; font-size: 11.5px; }
+.price-table td { padding: 8px 10px; border-bottom: 1px solid #F1F5F9; vertical-align: middle; color: #374151; font-size: 13px; }
 .price-table tr:last-child td { border-bottom: none; }
-.free-tag { background: #D1FAE5; color: #065F46; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
-.discount-tag { background: #DBEAFE; color: #1D4ED8; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
-.price-highlight { color: #DC2626; font-weight: 800; }
-.price-original { color: #9CA3AF; text-decoration: line-through; font-size: 11.5px; }
-.price-info { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 10px; padding: .75rem 1rem; font-size: 12.5px; color: #15803D; line-height: 1.65; }
-.price-info strong { color: #166534; }
+.free-tag  { background: #D1FAE5; color: #065F46; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
+.disc-tag  { background: #DBEAFE; color: #1D4ED8; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
+.price-hi  { color: #DC2626; font-weight: 800; }
+.price-ori { color: #9CA3AF; text-decoration: line-through; font-size: 11px; }
+.price-box { border-radius: 10px; padding: .75rem 1rem; font-size: 12.5px; line-height: 1.65; }
+.price-box.green  { background: #F0FDF4; border: 1px solid #BBF7D0; color: #15803D; }
+.price-box.orange { background: #FFF7ED; border: 1px solid #FED7AA; color: #9A3412; }
+.price-box + .price-box { margin-top: .5rem; }
 
 /* TIMELINE */
-.day-tab-wrap { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #EEF0F5; }
-.day-tab { padding: .75rem; text-align: center; font-size: 13px; font-weight: 700; color: #9CA3AF; cursor: default; }
-.day-tab.active { color: #1D4ED8; border-bottom: 2.5px solid #1D4ED8; background: #F8FBFF; }
+.day-header { display: flex; align-items: center; gap: 10px; padding: .9rem 1.3rem; background: #F8FAFF; border-top: 2px solid #E2E8F0; border-bottom: 1px solid #E2E8F0; }
+.day-header:first-of-type { border-top: none; }
+.day-num { color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
+.day-num.d1 { background: #1D4ED8; }
+.day-num.d2 { background: #0891B2; }
+.day-title { font-size: 14px; font-weight: 800; }
+.day-sub { font-size: 11.5px; color: #6B7280; margin-top: 1px; }
 .timeline { display: flex; flex-direction: column; }
-.tl-row { display: grid; grid-template-columns: 95px 1fr; gap: 12px; padding: .85rem 1.3rem; border-bottom: 1px solid #F1F5F9; align-items: start; }
+.tl-row { display: grid; grid-template-columns: 90px 1fr; gap: 12px; padding: .85rem 1.3rem; border-bottom: 1px solid #F1F5F9; align-items: start; }
 .tl-row:last-child { border-bottom: none; }
-.tl-time { font-size: 11.5px; font-weight: 700; padding: .22rem .55rem; border-radius: 7px; text-align: center; line-height: 1.45; }
+.tl-time { font-size: 11px; font-weight: 700; padding: .22rem .5rem; border-radius: 7px; text-align: center; line-height: 1.45; }
 .tl-time.go     { background: #D1FAE5; color: #065F46; }
 .tl-time.ocean  { background: #DBEAFE; color: #1D4ED8; }
 .tl-time.food   { background: #FEF3C7; color: #B45309; }
 .tl-time.hotel  { background: #EDE9FE; color: #6D28D9; }
 .tl-time.night  { background: #1E293B; color: #E2E8F0; }
 .tl-time.morn   { background: #FEF3C7; color: #B45309; }
-.tl-time.bye    { background: #FCE7F3; color: #BE185D; }
+.tl-time.fun    { background: #FCE7F3; color: #BE185D; }
 .tl-content { font-size: 13px; color: #374151; line-height: 1.65; }
 .tl-content strong { color: #111827; }
-.tl-tag { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 1px 8px; border-radius: 100px; margin-bottom: 4px; }
+.tl-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 8px; border-radius: 100px; margin-bottom: 3px; }
 .tag-tip  { background: #FEF3C7; color: #92400E; }
 .tag-warn { background: #FEE2E2; color: #B91C1C; }
 .tag-good { background: #D1FAE5; color: #065F46; }
 .tag-info { background: #DBEAFE; color: #1D4ED8; }
 .tag-hot  { background: #FCE7F3; color: #BE185D; }
 
-/* DAY DIVIDER */
-.day-label { display: flex; align-items: center; gap: 10px; padding: 1rem 1.3rem .5rem; }
-.day-label-text { font-size: 13px; font-weight: 800; color: #1D4ED8; }
-.day-label-line { flex: 1; height: 1px; background: #E2E8F0; }
-.day-label-date { font-size: 11px; color: #9CA3AF; font-weight: 600; }
+/* MEAL */
+.meal-section { display: flex; flex-direction: column; gap: .6rem; }
+.meal-card { border-radius: 12px; border: 1.5px solid; overflow: hidden; }
+.meal-head { display: flex; align-items: center; gap: 8px; padding: .65rem 1rem; font-size: 13px; font-weight: 700; }
+.meal-card.dinner .meal-head { background: #1E293B; color: #E2E8F0; }
+.meal-card.breakfast .meal-head { background: #FEF3C7; color: #92400E; border-color: #FED7AA; }
+.meal-card.dinner { border-color: #334155; }
+.meal-card.breakfast { border-color: #FED7AA; }
+.meal-body { padding: .75rem 1rem; display: flex; flex-direction: column; gap: .45rem; }
+.meal-opt { display: flex; align-items: flex-start; gap: 9px; font-size: 12.5px; line-height: 1.55; padding: .5rem .65rem; border-radius: 8px; }
+.meal-opt.best { background: #F0FDF4; color: #166534; }
+.meal-opt.ok   { background: #F8FAFF; color: #374151; }
+.meal-opt.easy { background: #FFF7ED; color: #9A3412; }
+.meal-opt-icon { font-size: 16px; flex-shrink: 0; }
+.meal-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: .5rem; }
+.meal-table th { background: #F9FAFB; color: #6B7280; font-weight: 700; padding: 6px 10px; border-bottom: 1px solid #F1F5F9; font-size: 11px; }
+.meal-table td { padding: 6px 10px; border-bottom: 1px solid #F9FAFB; color: #374151; }
+.meal-table tr:last-child td { border-bottom: none; }
 
 /* OCEAN ZONES */
-.zone-grid { display: flex; flex-direction: column; gap: .55rem; margin-bottom: 1rem; }
-.zone-row { display: grid; grid-template-columns: 130px 1fr; gap: 10px; background: #F8FAFF; border-radius: 11px; padding: .75rem .9rem; border: 1px solid #E2E8F0; align-items: start; }
+.zone-list { display: flex; flex-direction: column; gap: .5rem; margin-bottom: .85rem; }
+.zone-row { display: grid; grid-template-columns: 120px 1fr; gap: 10px; background: #F8FAFF; border-radius: 11px; padding: .7rem .9rem; border: 1px solid #E2E8F0; align-items: start; }
 .zone-name { font-size: 12.5px; font-weight: 800; color: #1D4ED8; line-height: 1.4; }
-.zone-for { font-size: 10.5px; font-weight: 700; margin-top: 3px; }
-.zone-for.kids  { color: #15803D; }
-.zone-for.all   { color: #6D28D9; }
-.zone-for.big   { color: #B45309; }
+.zone-for { font-size: 10px; font-weight: 700; margin-top: 3px; padding: 1px 7px; border-radius: 100px; display: inline-block; }
+.zone-for.kids  { background: #D1FAE5; color: #065F46; }
+.zone-for.all   { background: #EDE9FE; color: #6D28D9; }
+.zone-for.teen  { background: #FEF3C7; color: #92400E; }
 .zone-desc { font-size: 12.5px; color: #374151; line-height: 1.55; }
-.zone-star { font-size: 12px; }
 
 /* TIPS */
-.tips-grid { display: flex; flex-direction: column; gap: .5rem; }
+.tips-list { display: flex; flex-direction: column; gap: .45rem; }
 .tip-item { display: flex; align-items: flex-start; gap: 10px; padding: .65rem .85rem; border-radius: 10px; font-size: 12.5px; line-height: 1.6; }
-.tip-item.blue  { background: #EFF6FF; color: #1E40AF; }
-.tip-item.green { background: #F0FDF4; color: #166534; }
-.tip-item.orange{ background: #FFF7ED; color: #9A3412; }
-.tip-item.red   { background: #FEF2F2; color: #991B1B; }
-.tip-item.purple{ background: #F5F3FF; color: #5B21B6; }
+.tip-item.blue   { background: #EFF6FF; color: #1E40AF; }
+.tip-item.green  { background: #F0FDF4; color: #166534; }
+.tip-item.orange { background: #FFF7ED; color: #9A3412; }
+.tip-item.red    { background: #FEF2F2; color: #991B1B; }
+.tip-item.purple { background: #F5F3FF; color: #5B21B6; }
+.tip-item.gray   { background: #F8FAFC; color: #374151; border: 1px solid #E2E8F0; }
 .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* RESORT ACTIVITIES */
+.act-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; margin-bottom: .75rem; }
+.act-box { border-radius: 11px; padding: .75rem .85rem; border: 1px solid; }
+.act-box.blue   { background: #EFF6FF; border-color: #BFDBFE; }
+.act-box.green  { background: #F0FDF4; border-color: #BBF7D0; }
+.act-box.purple { background: #F5F3FF; border-color: #DDD6FE; }
+.act-box.orange { background: #FFF7ED; border-color: #FED7AA; }
+.act-box.pink   { background: #FDF2F8; border-color: #FBCFE8; }
+.act-box.gray   { background: #F8FAFC; border-color: #E2E8F0; }
+.act-title { font-size: 12.5px; font-weight: 800; margin-bottom: 3px; }
+.act-box.blue   .act-title { color: #1D4ED8; }
+.act-box.green  .act-title { color: #15803D; }
+.act-box.purple .act-title { color: #6D28D9; }
+.act-box.orange .act-title { color: #C2410C; }
+.act-box.pink   .act-title { color: #BE185D; }
+.act-box.gray   .act-title { color: #374151; }
+.act-desc { font-size: 11.5px; color: #6B7280; line-height: 1.55; }
+.act-tag-row { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 5px; }
+.act-tag { font-size: 10px; padding: 1px 7px; border-radius: 100px; font-weight: 700; }
+.tag-kids2 { background: #D1FAE5; color: #065F46; }
+.tag-adult { background: #DBEAFE; color: #1D4ED8; }
+.tag-paid  { background: #FEE2E2; color: #B91C1C; }
+.tag-free  { background: #FEF3C7; color: #B45309; }
 
 /* CHECKLIST */
 .check-group { margin-bottom: 1rem; }
 .check-group:last-child { margin-bottom: 0; }
-.check-group-title { font-size: 12.5px; font-weight: 800; color: #374151; margin-bottom: .5rem; padding-bottom: .4rem; border-bottom: 1px solid #F1F5F9; display: flex; align-items: center; gap: 6px; }
+.check-group-title { font-size: 12.5px; font-weight: 800; color: #374151; margin-bottom: .5rem; padding-bottom: .4rem; border-bottom: 1px solid #F1F5F9; }
 .check-items { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem; }
-.check-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #374151; padding: .35rem .5rem; border-radius: 8px; }
+.check-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #374151; padding: .35rem .5rem; border-radius: 8px; cursor: pointer; user-select: none; }
 .check-item:hover { background: #F8FAFF; }
-.check-box { width: 17px; height: 17px; border: 2px solid #CBD5E1; border-radius: 4px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.check-box { width: 17px; height: 17px; border: 2px solid #CBD5E1; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
 .check-box.checked { background: #1D4ED8; border-color: #1D4ED8; }
 .check-box.checked::after { content: '✓'; color: #fff; font-size: 10px; font-weight: 700; }
 .check-urgent { color: #DC2626; font-weight: 700; }
@@ -161,52 +210,46 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
 .imp-item.green { background: #F0FDF4; border: 1px solid #BBF7D0; color: #14532D; }
 .imp-num { font-size: 18px; flex-shrink: 0; }
 
-/* ACCORDION-style day tabs */
-.day-section { }
-.day-header { display: flex; align-items: center; gap: 10px; padding: .9rem 1.3rem; background: #F8FAFF; border-bottom: 1px solid #E2E8F0; }
-.day-num { background: #1D4ED8; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
-.day-title { font-size: 14px; font-weight: 800; color: #1A202C; }
-.day-sub { font-size: 11.5px; color: #6B7280; margin-top: 1px; }
+/* DIVIDER */
+.sec-divider { height: 1px; background: #EEF0F5; margin: .65rem 0; }
 
 /* FOOTER */
 .footer { text-align: center; padding: 1.5rem 1rem; font-size: 11.5px; color: #9CA3AF; line-height: 1.7; }
 
-/* RESPONSIVE */
 @media (max-width: 480px) {
   .family-grid { grid-template-columns: 1fr 1fr; }
-  .room-grid { grid-template-columns: repeat(2, 1fr); }
+  .room-grid { grid-template-columns: 1fr 1fr; }
+  .room-plan { grid-template-columns: 1fr; }
   .check-items { grid-template-columns: 1fr; }
   .zone-row { grid-template-columns: 1fr; }
+  .act-grid { grid-template-columns: 1fr; }
   .header h1 { font-size: 1.45rem; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-badge">🏖️ 1박 2일 여름 여행</div>
   <h1>비발디파크 3가족 여행</h1>
-  <p>소노벨 비발디파크 B동 · 오션월드<br>8월 1일(토) ~ 8월 2일(일)</p>
+  <p>소노벨 비발디파크 B동 Tower B · 오션월드<br>8월 1일(토) ~ 8월 2일(일)</p>
   <div class="header-meta">
     <div class="meta-chip">👨‍👩‍👧‍👦 3가족 10명</div>
-    <div class="meta-chip">🏊 오션월드 포함</div>
-    <div class="meta-chip">🍳 취사 가능</div>
+    <div class="meta-chip">🌊 오션월드 포함</div>
+    <div class="meta-chip">158.6㎡ 취사 가능</div>
   </div>
 </div>
 
-<!-- 결제 알림 -->
-<div style="max-width:720px; margin:0 auto; padding: 0 1rem;">
-  <div class="alert" style="margin: 1rem 0 0;">
-    <div class="alert-icon">⚠️</div>
-    <div><strong>결제 마감 D-20!</strong> 7월 19일(토) 23:59까지 <strong>414,000원</strong> 결제 필수 — 미결제 시 자동취소<br>
-    예약번호 <strong>3935</strong> · 이형찬 · 골드 파크뷰 침대/취사 1박</div>
+<div class="alert-wrap">
+  <div class="alert">
+    ⚠️&nbsp; <span><strong>결제 마감 D-20 · 7월 19일(토) 23:59까지 414,000원 결제 필수</strong> — 미결제 시 자동취소<br>
+    예약번호 <strong>3935</strong> · 이형찬 · 골드 스위트 파크뷰 침대/취사 · Tower B</span>
   </div>
 </div>
 
 <div class="page">
 
-  <!-- 1. 가족 구성 -->
+  <!-- ① 가족 구성 -->
   <div class="section">
     <div class="sec-head">
       <span class="sec-icon">👨‍👩‍👧‍👦</span>
@@ -218,16 +261,14 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
         <div class="fam-card f1">
           <div class="fam-name">🐣 주원이네</div>
           <div class="fam-member">
-            <span>엄마</span><span>아빠</span>
-            <br>
+            <span>엄마</span><span>아빠</span><br>
             <span class="kid-badge">주원 4살 👦</span>
           </div>
         </div>
         <div class="fam-card f2">
           <div class="fam-name">🌿 이준·이서네</div>
           <div class="fam-member">
-            <span>엄마</span><span>아빠</span>
-            <br>
+            <span>엄마</span><span>아빠</span><br>
             <span class="kid-badge">이준 6살 👦</span>
             <span class="kid-badge">이서 3살 👧</span>
           </div>
@@ -235,133 +276,140 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
         <div class="fam-card f3">
           <div class="fam-name">🌙 도윤이네</div>
           <div class="fam-member">
-            <span>엄마</span><span>아빠</span>
-            <br>
+            <span>엄마</span><span>아빠</span><br>
             <span class="kid-badge">도윤 2살 👶</span>
           </div>
         </div>
       </div>
-      <div style="margin-top:.75rem; font-size:12px; color:#6B7280; text-align:center; line-height:1.6;">
-        어른 6명 · 아이 4명 (6살, 4살, 3살, 2살) · 막내 도윤이 기준으로 여유 일정 구성
-      </div>
+      <div style="margin-top:.65rem;font-size:11.5px;color:#6B7280;text-align:center;">어른 6명 · 아이 4명 (6·4·3·2살)</div>
     </div>
   </div>
 
-  <!-- 2. 객실 정보 -->
+  <!-- ② 객실 정보 -->
   <div class="section">
     <div class="sec-head">
       <span class="sec-icon">🏨</span>
-      <span class="sec-title">골드 파크뷰 객실 정보</span>
-      <span class="sec-badge badge-green">취사 가능</span>
+      <span class="sec-title">골드 스위트 파크뷰 · Tower B</span>
+      <span class="sec-badge badge-green">158.6㎡ 취사</span>
     </div>
     <div class="sec-body">
       <div class="room-grid">
         <div class="room-box">
-          <div class="room-label">객실 타입</div>
-          <div class="room-val">침실 3개</div>
-          <div class="room-sub">더블방 · 싱글×2방 · 온돌방</div>
+          <div class="room-label">침실 구성</div>
+          <div class="room-val">3개 방</div>
+          <div class="room-sub">침대방 2 + 온돌방 1</div>
         </div>
         <div class="room-box">
           <div class="room-label">화장실</div>
           <div class="room-val">2개</div>
-          <div class="room-sub">B동 기준</div>
+          <div class="room-sub">+ 파우더룸</div>
         </div>
         <div class="room-box">
-          <div class="room-label">면적 / 수용인원</div>
+          <div class="room-label">면적 / 수용</div>
           <div class="room-val">158.6㎡</div>
           <div class="room-sub">정원 7인 · 최대 10인</div>
         </div>
         <div class="room-box">
           <div class="room-label">체크인 / 아웃</div>
-          <div class="room-val">15시 / 11시</div>
+          <div class="room-val">15:00 / 11:00</div>
           <div class="room-sub">8/1(토) ~ 8/2(일)</div>
         </div>
       </div>
       <div class="room-layout">
-        <div class="room-tag">🛏️ 침대방① 더블</div>
-        <div class="room-tag">🛏️ 침대방② 싱글+싱글</div>
+        <div class="room-tag">🛏️ 더블 침대방</div>
+        <div class="room-tag">🛏️ 싱글×2 침대방</div>
         <div class="room-tag">🏮 온돌방</div>
         <div class="room-tag">🛋️ 거실</div>
         <div class="room-tag">🍳 주방/식당</div>
         <div class="room-tag">🚿 화장실 ×2</div>
         <div class="room-tag">💄 파우더룸</div>
       </div>
-      <div class="room-notice">
-        💡 <strong>10명 배치 플랜 (158.6㎡ · Tower B):</strong><br>
-        🛏️ 더블방 → <strong>도윤이네</strong> (부부+도윤 2살) &nbsp;|&nbsp;
-        🛏️ 싱글×2방 → <strong>주원이네</strong> (엄마·아빠 각 싱글, 주원이 중간) &nbsp;|&nbsp;
-        🏮 온돌방 → <strong>이준·이서네</strong> (부부+이준·이서, 아이들 온돌 딱 좋음)<br>
-        에어매트 불필요 · 3가족 각자 독립 방 사용 가능 · 주방 취사도구 기본 제공
+      <div style="margin-top:.85rem;font-size:12.5px;font-weight:700;color:#374151;margin-bottom:.45rem;">3가족 방 배치 플랜</div>
+      <div class="room-plan">
+        <div class="room-plan-box p1">
+          <div class="room-plan-type">🛏️ 더블방</div>
+          <div class="room-plan-name">도윤이네</div>
+          <div class="room-plan-sub">부부 + 도윤(2살)</div>
+        </div>
+        <div class="room-plan-box p2">
+          <div class="room-plan-type">🛏️ 싱글×2방</div>
+          <div class="room-plan-name">주원이네</div>
+          <div class="room-plan-sub">엄마·아빠 각 싱글<br>주원이 중간</div>
+        </div>
+        <div class="room-plan-box p3">
+          <div class="room-plan-type">🏮 온돌방</div>
+          <div class="room-plan-name">이준·이서네</div>
+          <div class="room-plan-sub">4인 온돌 뒹굴뒹굴</div>
+        </div>
+      </div>
+      <div style="margin-top:.7rem;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:.7rem 1rem;font-size:12px;color:#15803D;line-height:1.6;">
+        💡 주방 냄비·그릇·칼 등 취사도구 기본 제공 · 에어매트 불필요 · 3가족 각자 독립 방 사용 가능
       </div>
     </div>
   </div>
 
-  <!-- 3. 오션월드 입장료 -->
+  <!-- ③ 오션월드 입장료 -->
   <div class="section">
     <div class="sec-head">
       <span class="sec-icon">💰</span>
-      <span class="sec-title">오션월드 입장료 (8/1 성수기)</span>
-      <span class="sec-badge badge-red">Hot Summer 시즌</span>
+      <span class="sec-title">오션월드 입장료</span>
+      <span class="sec-badge badge-red">성수기 Hot Summer 8/1</span>
     </div>
     <div class="sec-body">
       <table class="price-table">
         <thead>
           <tr>
-            <th>구분</th>
-            <th>현장 가격</th>
-            <th>온라인 예매</th>
-            <th>우리팀</th>
+            <th>구분</th><th>현장가</th><th>온라인 예매</th><th>비고</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>대인 (어른 6명)</td>
-            <td><span class="price-original">89,000원</span></td>
-            <td><span class="price-highlight">~62,000원</span> <span class="discount-tag">30%↓</span></td>
-            <td>6명 × 62,000원</td>
+            <td>어른 6명</td>
+            <td><span class="price-ori">89,000원</span></td>
+            <td><span class="price-hi">~62,000원</span> <span class="disc-tag">30%↓</span></td>
+            <td>6명 × 62,000</td>
           </tr>
           <tr>
             <td>이준 (6살)</td>
-            <td colspan="2"><span class="free-tag">무료 🎉</span> <span style="font-size:11.5px;color:#6B7280;">미취학아동 (2020년생)</span></td>
-            <td>보호자 동반 무료</td>
+            <td colspan="2"><span class="free-tag">무료 🎉</span> 미취학아동 (2020년생)</td>
+            <td>보호자 동반</td>
           </tr>
           <tr>
             <td>주원 (4살)</td>
-            <td colspan="2"><span class="free-tag">무료 🎉</span> <span style="font-size:11.5px;color:#6B7280;">미취학아동 (2022년생)</span></td>
-            <td>보호자 동반 무료</td>
+            <td colspan="2"><span class="free-tag">무료 🎉</span> 미취학아동 (2022년생)</td>
+            <td>보호자 동반</td>
           </tr>
           <tr>
             <td>이서 (3살)</td>
-            <td colspan="2"><span class="free-tag">무료 🎉</span> <span style="font-size:11.5px;color:#6B7280;">미취학아동 (2023년생)</span></td>
-            <td>보호자 동반 무료</td>
+            <td colspan="2"><span class="free-tag">무료 🎉</span> 미취학아동 (2023년생)</td>
+            <td>보호자 동반</td>
           </tr>
           <tr>
             <td>도윤 (2살)</td>
-            <td colspan="2"><span class="free-tag">무료 🎉</span> <span style="font-size:11.5px;color:#6B7280;">36개월 미만</span></td>
+            <td colspan="2"><span class="free-tag">무료 🎉</span> 36개월 미만</td>
             <td>무조건 무료</td>
           </tr>
         </tbody>
       </table>
-      <div class="price-info">
+      <div class="price-box green">
         <strong>💡 아이 4명 전원 무료!</strong> 어른 6명만 결제 — 온라인 예매 시 약 <strong>372,000원</strong> (현장 대비 약 162,000원 절약)<br>
-        미취학아동 무료는 <strong>보호자 1인당 1명</strong>, 주민등록등본·건강보험증 등 생년월일 증빙 서류 지참 필수
+        ※ 미취학아동 무료는 <strong>보호자 1인당 1명</strong> · 생년월일 증빙서류 지참 필수 (주민등록등본·건강보험증 등)
       </div>
     </div>
   </div>
 
-  <!-- 4. 일정표 -->
+  <!-- ④ 일정표 -->
   <div class="section">
     <div class="sec-head">
       <span class="sec-icon">📅</span>
       <span class="sec-title">전체 일정표</span>
     </div>
 
-    <!-- DAY 1 -->
     <div class="day-header">
-      <div class="day-num">1</div>
+      <div class="day-num d1">1</div>
       <div>
         <div class="day-title">DAY 1 · 8월 1일 (토)</div>
-        <div class="day-sub">출발 → 오션월드 → 체크인 → 저녁</div>
+        <div class="day-sub">출발 → 오션월드 → 체크인 → 저녁 · 리조트 탐방</div>
       </div>
     </div>
     <div class="timeline">
@@ -370,217 +418,358 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
         <div class="tl-content">
           <span class="tl-tag tag-warn">핵심</span><br>
           <strong>서울 기준 오전 7시 이전 출발 필수</strong><br>
-          8월 첫째 주 토요일 = 극성수기. 영동고속도로 횡성~홍천 구간 오전부터 극심한 정체. 3가족 집결 장소 미리 약속하고 차량별로 따로 출발해도 OK.
+          8월 첫 주 토요일 = 극성수기. 영동고속 횡성~홍천 구간 이른 아침부터 정체. 3가족 집결 후 차량별 각자 출발 OK.
         </div>
       </div>
       <div class="tl-row">
-        <div class="tl-time go">🏪 09:00<br>중간 마트</div>
+        <div class="tl-time go">🏪 09:00<br>마트 경유</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-tip">절약</span><br>
+          <strong>홍천 IC 인근 홈플러스 or 하나로마트</strong><br>
+          저녁 취사 재료(쌀·고기·반찬·과일) + 아이 간식·이유식·음료 구매. 리조트 내 편의점보다 훨씬 저렴. 아이스박스 필수.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time ocean">🌊 10:00<br>오션월드<br>오픈런</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-hot">황금 타임</span><br>
+          <strong>오픈(10:00) 동시 입장 — 이 시간이 핵심</strong><br>
+          체크인이 15시라 짐은 차에 두고 오션월드 직행. <strong>입장 즉시 순서: 구명조끼 대여 → 락커 → 그늘 자리 확보 → 키즈풀</strong>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time ocean">🏊 10:20<br>물놀이 1</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-good">추천 동선</span><br>
+          <strong>키즈풀(유아) → 유수풀 → 파도풀 순서로</strong><br>
+          도윤·이서·주원은 키즈풀 먼저. 이준(6살)은 유수풀 가능. 파도풀은 어른 반드시 동반.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time food">🍱 12:30<br>점심</div>
         <div class="tl-content">
           <span class="tl-tag tag-tip">꿀팁</span><br>
-          <strong>홍천 IC 인근 홈플러스 or 하나로마트 경유</strong><br>
-          취사 재료(쌀·반찬·과일·음료·라면 등) + 아이 간식·이유식 구매. 리조트 내 마트보다 훨씬 저렴. 트렁크에 아이스박스 준비!
+          <strong>12~13시 점심시간에 어트랙션 대기 급감</strong><br>
+          사람들 밥 먹으러 빠질 때 이준(6살)이 탈 수 있는 슬라이드 공략. 유아들은 그늘에서 간식·휴식. 원내 푸드코트 이용.
         </div>
       </div>
       <div class="tl-row">
-        <div class="tl-time ocean">🌊 10:00<br>오션월드</div>
+        <div class="tl-time ocean">🌤️ 13:30<br>물놀이 2</div>
         <div class="tl-content">
-          <span class="tl-tag tag-hot">오픈런 필수</span><br>
-          <strong>오픈(10:00)과 동시 입장 — 오전이 골든타임</strong><br>
-          체크인이 15시라서 짐은 차에 두고 오션월드 직행. 입구에서 락커 배정 후 아이들 수영복으로 갈아입히기.
-          <br><span style="color:#9CA3AF;font-size:11.5px;">▷ 락커 → 구명조끼 대여 → 키즈풀 자리 확보 순서로!</span>
-        </div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-time ocean">🏊 10:30<br>물놀이</div>
-        <div class="tl-content">
-          <span class="tl-tag tag-good">우선 순위</span><br>
-          <strong>1순위 키즈풀 → 유수풀 → 파도풀</strong><br>
-          막내(도윤·이서)는 키즈풀에서 신나게. 이준(6살)·주원(4살)은 유수풀 튜브도 OK. 파도풀은 어른이 꼭 동반.
-        </div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-time food">🍱 13:00<br>점심</div>
-        <div class="tl-content">
-          <span class="tl-tag tag-tip">절약팁</span><br>
-          <strong>오션월드 내 푸드코트 or 도시락 활용</strong><br>
-          성수기 원내 식당은 1만~1.5만원대. 아이 이유식·간식류는 입장 시 반입 허용 여부 확인. 외부 음식은 원칙적으로 반입 불가.
-        </div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-time ocean">🌤️ 14:00<br>물놀이 2</div>
-        <div class="tl-content">
-          <strong>오후 오션월드 마무리</strong><br>
-          아이들 체력 확인 후 탄력 운영. 막내들 낮잠 타임 되면 한 팀씩 교대로 쉬기.
-          <br><span style="color:#9CA3AF;font-size:11.5px;">▷ 샤워 후 수영복 갈아입고 체크인 준비</span>
+          <strong>오후 물놀이 마무리 + 샤워</strong><br>
+          아이들 체력 확인하며 탄력 운영. 도윤이(2살) 낮잠 시간 맞춰 한 팀씩 교대 휴식. 퇴장 전 샤워실에서 깨끗이.
         </div>
       </div>
       <div class="tl-row">
         <div class="tl-time hotel">🏨 15:00<br>체크인</div>
         <div class="tl-content">
-          <strong>소노벨 비발디파크 B동 골드 파크뷰 체크인</strong><br>
-          짐 풀고 아이들 낮잠 & 휴식. 취사 도구 확인 (냄비·그릇·밥솥 등). 부족한 어메니티는 프런트 전화 요청.
+          <strong>소노벨 비발디파크 B동 Tower B 체크인</strong><br>
+          158.6㎡ 방 입실 · 짐 풀기 · 방 배정. 아이들 낮잠 & 어른 휴식. 취사도구 확인 후 부족한 어메니티는 프런트 요청.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time fun">🎮 17:00<br>리조트 탐방</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-info">옵션</span><br>
+          <strong>지하 부대시설 탐방 — 앤트월드(키즈카페) 추천</strong><br>
+          400평 규모 실내 키즈카페. 유아놀이터·미로·레인보우슬라이드. 아이들 저녁 전 에너지 발산. 별도 입장권 필요.
         </div>
       </div>
       <div class="tl-row">
         <div class="tl-time food">🍖 18:30<br>저녁 취사</div>
         <div class="tl-content">
-          <strong>객실 취사 — 3가족 분업 저녁 준비</strong><br>
-          삼겹살·된장찌개·즉석밥 등. 1팀 요리, 1팀 아이들 케어, 1팀 테이블 세팅으로 분업. 좁을 수 있으니 간단한 메뉴 추천.
+          <span class="tl-tag tag-good">추천</span><br>
+          <strong>객실 취사 — 3가족 분업 저녁</strong><br>
+          삼겹살·된장찌개·즉석밥. 1팀 요리·1팀 아이 케어·1팀 세팅으로 분업. 158㎡라 거실에서 다 같이 먹을 수 있음.
         </div>
       </div>
       <div class="tl-row">
-        <div class="tl-time night">🌙 20:00<br>어른 타임</div>
+        <div class="tl-time night">🌙 20:30<br>어른 타임</div>
         <div class="tl-content">
-          <strong>아이들 취침 후 어른 야외 데크 타임</strong><br>
-          오전부터 물놀이한 아이들은 오후 8시면 대부분 깊은 수면. 어른들은 맥주·음료 편의점 구매 후 발코니 or 데크에서 2차.
+          <strong>아이들 재운 후 어른들 노래방 or 발코니 타임</strong><br>
+          지하 노래방 (낮~밤 운영). 오션월드에서 지친 아이들은 20~21시면 깊이 잠듦. 어른 6명 노래방 2차 추천!
         </div>
       </div>
     </div>
 
-    <!-- DAY 2 -->
-    <div class="day-header" style="margin-top:0; border-top: 2px solid #E2E8F0;">
-      <div class="day-num" style="background:#0891B2;">2</div>
+    <div class="day-header">
+      <div class="day-num d2">2</div>
       <div>
         <div class="day-title">DAY 2 · 8월 2일 (일)</div>
-        <div class="day-sub">아침 자유 → 수영장 → 체크아웃 → 귀가</div>
+        <div class="day-sub">조식 → 리조트 수영장 or 놀이공원 → 체크아웃 → 귀가</div>
       </div>
     </div>
     <div class="timeline">
       <div class="tl-row">
-        <div class="tl-time morn">🌅 07:30<br>기상·아침</div>
+        <div class="tl-time morn">🌅 07:00<br>기상·조식</div>
         <div class="tl-content">
-          <strong>간단한 취사 아침 or 편의점 아침</strong><br>
-          전날 저녁 재료로 간편하게. 아이들 일찍 깨므로 미리 준비. 라면·즉석밥·달걀프라이 등 간단하게.
+          <span class="tl-tag tag-tip">사전예약 필수</span><br>
+          <strong>셰프스키친 조식 뷔페 (1부 07:00 / 2부 08:40)</strong><br>
+          성수기 자리 빠르게 차므로 온라인 사전 예약 권장. 3부제 운영. 어른 43,000원 · 유아(미취학) 17,000원 · 도윤(36개월 미만) 무료.
         </div>
       </div>
       <div class="tl-row">
-        <div class="tl-time ocean">🏊 09:00<br>리조트 풀</div>
+        <div class="tl-time fun">🎡 09:00<br>리조트 즐기기</div>
         <div class="tl-content">
-          <span class="tl-tag tag-good">상대적 한산</span><br>
-          <strong>리조트 내 수영장 or 오션월드 재입장</strong><br>
-          일요일 오전은 비교적 한산. 오션월드 재입장 가능(당일권 기준). 막내들 마지막 물놀이 타임.
+          <span class="tl-tag tag-good">일요일 한산</span><br>
+          <strong>리조트 수영장 or 지하 어린이 놀이공원</strong><br>
+          어린이 놀이공원: 회전목마·범퍼카·키즈팡팡 (4살 이상). 오션월드 재입장 가능(당일권). 일요일 오전은 비교적 여유.
         </div>
       </div>
       <div class="tl-row">
         <div class="tl-time hotel">🧳 10:30<br>짐 정리</div>
         <div class="tl-content">
           <strong>체크아웃 준비 (11:00 퇴실)</strong><br>
-          3가족 동시 짐 정리는 혼잡. 한 팀이 아이들 챙기고, 한 팀씩 순서대로 짐 차에 싣기. 잔여 음식·식재료 정리.
+          3가족 동시 짐 정리. 한 팀이 아이들 거실에서 맡고, 팀별로 순서대로 짐 싣기. 잔여 식재료 정리.
         </div>
       </div>
       <div class="tl-row">
         <div class="tl-time food">🍜 11:30<br>점심 후 귀가</div>
         <div class="tl-content">
           <span class="tl-tag tag-tip">추천</span><br>
-          <strong>홍천·춘천 방향 닭갈비 or 국밥 한 그릇 후 귀가</strong><br>
-          일요일 귀경 정체 감안해 오후 1시 이전 귀가 출발 권장. 서울 기준 오후 2시 이후는 극심한 정체 예상.
+          <strong>춘천·홍천 닭갈비 or 국밥 후 귀가</strong><br>
+          일요일 귀경 정체 감안, 오후 1시 이전 출발 권장. 서울 방향 오후 2시 이후 극심한 정체 예상.
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 5. 오션월드 구역 안내 -->
+  <!-- ⑤ 오션월드 구역 + 꿀팁 -->
   <div class="section">
     <div class="sec-head">
       <span class="sec-icon">🌊</span>
-      <span class="sec-title">오션월드 구역별 가이드</span>
-      <span class="sec-badge badge-blue">아이 연령별 추천</span>
+      <span class="sec-title">오션월드 완벽 공략</span>
+      <span class="sec-badge badge-blue">아이 연령별 · 동선 · 꿀팁</span>
     </div>
     <div class="sec-body">
-      <div class="zone-grid">
+
+      <div style="font-size:12.5px;font-weight:800;color:#374151;margin-bottom:.5rem;">구역별 추천 (연령 기준)</div>
+      <div class="zone-list">
         <div class="zone-row">
           <div>
-            <div class="zone-name">⭐ 키즈풀<br>(어린이 전용)</div>
-            <div class="zone-for kids">2~6살 전원 최적</div>
+            <div class="zone-name">⭐ 패밀리풀<br>(키즈풀)</div>
+            <div class="zone-for kids">도윤·이서·주원·이준 전원</div>
           </div>
           <div class="zone-desc">
-            수심 낮고 미니 슬라이드·분수·워터플렉스 버킷 있음. <strong>도윤·이서 천국</strong>. 성인 입장 제한 구역이라 아이들끼리 안전하게 놀 수 있음. 성수기엔 자리 경쟁 심하니 오픈하자마자 먼저 자리 잡기.
+            유아 미끄럼틀 2대·버섯 분수대·선베드 완비. 수심 낮고 안전. <strong>도착 즉시 이곳 자리 먼저 확보</strong>. 성인 입장 제한 구역이라 아이들끼리 안전하게 놀 수 있음.
           </div>
         </div>
         <div class="zone-row">
           <div>
             <div class="zone-name">유수풀</div>
-            <div class="zone-for all">4살 이상 · 가족 전체</div>
+            <div class="zone-for all">4살 이상 + 가족 전체</div>
           </div>
           <div class="zone-desc">
-            튜브 타고 천천히 흐르는 물길 따라 이동. <strong>이준·주원 추천</strong>. 어른과 아이 함께 타기 좋아 3가족 모두 즐길 수 있음. 오전 중 가장 빠른 시간에 이용 추천.
+            튜브 타고 흐르는 물길. <strong>이준·주원 + 어른</strong>이 함께 타기 좋음. 오전 일찍 이용 권장. 대기 거의 없음.
           </div>
         </div>
         <div class="zone-row">
           <div>
             <div class="zone-name">파도풀</div>
-            <div class="zone-for big">이준(6살) + 어른</div>
+            <div class="zone-for teen">이준(6살) + 어른</div>
           </div>
           <div class="zone-desc">
-            대형 파도 정기 발생. 흥미롭지만 <strong>영유아 주의</strong> — 도윤·이서는 입수 금지. 어른이 반드시 동반. 파도풀 가장자리 스파 공간에서 어른 휴식 가능.
+            대형 파도 정기 발생. <strong>도윤·이서 입수 금지</strong>. 이준 어른 동반 필수. 파도풀 끝 인공섬 스파에서 어른 휴식 가능.
           </div>
         </div>
         <div class="zone-row">
           <div>
             <div class="zone-name">실내 워터파크</div>
-            <div class="zone-for all">날씨 걱정 없이</div>
+            <div class="zone-for all">비 오거나 너무 더울 때</div>
           </div>
           <div class="zone-desc">
-            비 오거나 너무 더울 때 대피 장소. 실내 키즈풀도 있으나 실외보다 시설 작음. 실내 슬라이드류는 <strong>이준(6살)</strong> 키/나이 기준 탑승 가능 여부 현장 확인.
+            날씨 걱정 없이 이용 가능. 실내 키즈풀도 있으나 실외보다 작음. 더위 피하는 중간 대피소로 활용.
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- 6. 꿀팁 -->
-  <div class="section">
-    <div class="sec-head">
-      <span class="sec-icon">💡</span>
-      <span class="sec-title">블로그 검증 꿀팁 총정리</span>
-    </div>
-    <div class="sec-body">
-      <div class="tips-grid">
+      <div class="sec-divider"></div>
+      <div style="font-size:12.5px;font-weight:800;color:#374151;margin-bottom:.5rem;">블로그 검증 꿀팁 10</div>
+      <div class="tips-list">
         <div class="tip-item red">
           <span class="tip-icon">🎟️</span>
-          <div><strong>오션월드 온라인 예매 필수</strong> — 성수기 주말 현장구매 1시간 대기 각오. 온라인 예매 시 30% 할인. 아이 무료 입장은 예매 시 함께 적용 요청.</div>
+          <div><strong>온라인 예매 필수</strong> — 성수기 현장 구매 시 1시간 대기 각오. 30% 할인 + 아이 무료 적용. 어른 6명 약 372,000원.</div>
         </div>
         <div class="tip-item orange">
-          <span class="tip-icon">👟</span>
-          <div><strong>아쿠아슈즈 착용 의무화</strong> (2024년부터) — 미착용 시 입장 거부. 아이 포함 전원 필수. 성수기엔 현장 대여 품절 가능성 있으니 미리 구매.</div>
+          <span class="tip-icon">⏰</span>
+          <div><strong>얼리 파크인 활용</strong> — 정식 개장 1시간 30분 전(07:30~) 입장 가능한 얼리티켓 판매. 인기 슬라이드 대기 없이 이용. 성수기 최고 꿀팁.</div>
         </div>
         <div class="tip-item blue">
           <span class="tip-icon">🕙</span>
-          <div><strong>오전 10~11시 슬라이드 대기 최단</strong> — 오픈 직후가 황금 타임. 인기 어트랙션 먼저 공략. 11시 이후부터 대기줄 급증, 피크 1시간+.</div>
+          <div><strong>오전 10~11시 슬라이드 대기 최단</strong> — 오픈 직후 황금타임. 12~13시 점심시간도 대기 급감. 이 두 타임에 인기 어트랙션 집중 공략.</div>
         </div>
         <div class="tip-item green">
-          <span class="tip-icon">🩺</span>
-          <div><strong>구명조끼 오션월드 무료 대여</strong> — 하지만 성수기엔 사이즈 한정. 오픈 즉시 먼저 가서 확보. 아이 체형에 맞는 암링·유아 바지튜브는 개인 준비 추천.</div>
+          <span class="tip-icon">🦺</span>
+          <div><strong>구명조끼 입장 즉시 대여</strong> — 무료지만 성수기 사이즈 한정. 오픈 즉시 대여소 직행. 유아 암링·바지튜브는 개인 준비 권장.</div>
+        </div>
+        <div class="tip-item orange">
+          <span class="tip-icon">👟</span>
+          <div><strong>아쿠아슈즈 의무 착용</strong> (2024년부터) — 미착용 시 전 구역 입장 불가. 성수기 현장 대여 품절 가능. 집에서 반드시 챙길 것.</div>
+        </div>
+        <div class="tip-item red">
+          <span class="tip-icon">👶</span>
+          <div><strong>수영 기저귀 필수</strong> (도윤·이서) — 일반 기저귀 착용 시 입수 불가. 여분 넉넉히 준비. 교체는 탈의실 이용.</div>
         </div>
         <div class="tip-item purple">
           <span class="tip-icon">🔒</span>
-          <div><strong>락커는 큰 사이즈로</strong> — 3가족 짐 합쳐서 큰 락커 1~2개. 수건 현장 대여 1,500원. 개인 수건 가져오면 절약. 방수팩(핸드폰 보호)도 필수.</div>
+          <div><strong>큰 락커 1~2개로 통합</strong> — 3가족 짐 합쳐서 큰 락커. 개인 수건 지참 시 1,500원 절약. 방수팩(핸드폰) 필수.</div>
         </div>
         <div class="tip-item blue">
           <span class="tip-icon">☀️</span>
-          <div><strong>선크림 SPF50+ PA++++</strong> 워터프루프 제품으로 준비. 물에 씻겨 1~2시간마다 재도포 필수. 아이들 얼굴 위주로 꼼꼼히. 여름 수상 화상 주의.</div>
-        </div>
-        <div class="tip-item orange">
-          <span class="tip-icon">🍼</span>
-          <div><strong>수영 기저귀(방수 기저귀) 필수</strong> — 도윤(2살)·이서(3살) 착용 안 하면 키즈풀 입장 불가. 일반 기저귀는 절대 안 됨. 여분 넉넉히 준비.</div>
+          <div><strong>워터프루프 선크림 SPF50+</strong> — 물놀이 중 1~2시간마다 재도포. 아이들 얼굴·어깨 집중 도포. 화상 주의.</div>
         </div>
         <div class="tip-item green">
-          <span class="tip-icon">🏕️</span>
-          <div><strong>그늘 자리 경쟁</strong> 극심 — 오픈 즉시 파라솔·그늘막 자리 먼저 확보. 짐 두고 아이들 물에 넣으면 됨. 아이들용 오리발·물안경도 준비하면 즐거움 UP.</div>
+          <span class="tip-icon">🪑</span>
+          <div><strong>그늘 자리 전쟁</strong> — 오픈 즉시 파라솔·그늘막 자리 먼저 확보 후 입수. 선베드는 패밀리풀 주변에 있음.</div>
         </div>
-        <div class="tip-item red">
-          <span class="tip-icon">💊</span>
-          <div><strong>어린이 해열제 필수 지참</strong> — 3가족 모두 각자 준비. 뜨거운 야외에서 아이들 발열 가능성. 타이레놀 시럽·이부프로펜 시럽 두 종류 준비하면 안심.</div>
-        </div>
-        <div class="tip-item purple">
-          <span class="tip-icon">🚗</span>
-          <div><strong>주차</strong> — 비발디파크 리조트 주차장 유료. 오션월드 이용 시 3시간 무료(영수증 or 티켓 제시). 3가족 차량 주차 위치 미리 공유해 두기.</div>
+        <div class="tip-item gray">
+          <span class="tip-icon">🍦</span>
+          <div><strong>원내 음식</strong> — 원칙적으로 외부 음식 반입 불가. 원내 푸드코트·편의점 이용. 이유식·아이 간식은 입구에서 확인. 1만~1.5만원대.</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 7. 준비물 체크리스트 -->
+  <!-- ⑥ 비발디파크 내부 즐길거리 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">🎡</span>
+      <span class="sec-title">비발디파크 내부 즐길거리</span>
+      <span class="sec-badge badge-purple">오션월드 외 시설</span>
+    </div>
+    <div class="sec-body">
+      <div style="font-size:12px;color:#6B7280;margin-bottom:.75rem;line-height:1.6;">지하 부대시설(비바 플렉스 몰)을 중심으로 다양한 시설이 있어요. 저녁 식사 전후로 아이들 에너지 발산하기 좋아요.</div>
+      <div class="act-grid">
+        <div class="act-box green">
+          <div class="act-title">🐜 앤트월드 (키즈카페)</div>
+          <div class="act-desc">400평 초대형 실내 키즈카페. 유아놀이터·레인보우슬라이드·미로·슈팅캐논 등 7개 테마존. 영유아부터 초등까지.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-kids2">2~6살 추천</span>
+            <span class="act-tag tag-paid">별도 입장권</span>
+          </div>
+        </div>
+        <div class="act-box purple">
+          <div class="act-title">🎢 어린이 놀이공원</div>
+          <div class="act-desc">회전목마·범퍼카·키즈팡팡·배틀킹·고스트모터. 이준(6살)·주원(4살) 딱 맞는 연령대 기구 다수.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-kids2">4살 이상</span>
+            <span class="act-tag tag-paid">별도 요금</span>
+          </div>
+        </div>
+        <div class="act-box blue">
+          <div class="act-title">🎳 볼링장</div>
+          <div class="act-desc">지하 볼링장. 저녁 식후 어른들 즐기기 좋음. 아이들은 범퍼 볼링 가능. 밤늦게까지 운영.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-adult">어른 추천</span>
+            <span class="act-tag tag-paid">별도 요금</span>
+          </div>
+        </div>
+        <div class="act-box pink">
+          <div class="act-title">🎤 노래방</div>
+          <div class="act-desc">지하 노래방. 아이들 재운 뒤 어른 6명 2차로 딱. 성수기 주말 대기 있을 수 있으니 저녁 식후 빠르게 예약.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-adult">어른 저녁 후</span>
+            <span class="act-tag tag-paid">별도 요금</span>
+          </div>
+        </div>
+        <div class="act-box orange">
+          <div class="act-title">🏓 탁구·당구장</div>
+          <div class="act-desc">탁구장·당구장. 저녁 식사 후 가볍게 즐기기 좋음. 아이들과 탁구 같이 즐길 수 있음.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-adult">어른·아이 함께</span>
+            <span class="act-tag tag-paid">별도 요금</span>
+          </div>
+        </div>
+        <div class="act-box gray">
+          <div class="act-title">☕ 지하 편의시설</div>
+          <div class="act-desc">스타벅스·도미노피자·푸드코트·편의점·기념품샵·오락실. 산책 겸 저녁 간식 해결 가능.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-free">상시 이용</span>
+          </div>
+        </div>
+      </div>
+      <div class="tip-item blue" style="margin-top:.25rem;">
+        <span class="tip-icon">💡</span>
+        <div>지하 이동은 <strong>객실에서 엘리베이터로 바로 연결</strong>. 더운 낮에 실내로 이동하기 편리. 운영시간은 시설마다 다르니 체크인 시 안내데스크에서 확인.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ 식사 플랜 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">🍽️</span>
+      <span class="sec-title">식사 플랜</span>
+      <span class="sec-badge badge-orange">저녁 · 아침</span>
+    </div>
+    <div class="sec-body">
+      <div class="meal-section">
+
+        <div class="meal-card dinner">
+          <div class="meal-head">🌙 DAY 1 저녁 (8/1 토) — 체크인 후</div>
+          <div class="meal-body">
+            <div class="meal-opt best">
+              <span class="meal-opt-icon">⭐</span>
+              <div>
+                <strong>객실 취사 추천</strong> — 삼겹살·된장찌개·즉석밥<br>
+                <span style="font-size:11.5px;color:#166534;">홍천 마트에서 재료 미리 구매. 158㎡ 넓은 거실에서 10명 다 같이 먹을 수 있음. 1팀 요리·1팀 아이 케어·1팀 세팅으로 분업. 취사도구 기본 제공.</span>
+              </div>
+            </div>
+            <div class="meal-opt ok">
+              <span class="meal-opt-icon">🍕</span>
+              <div>
+                <strong>지하 푸드코트 or 도미노피자</strong><br>
+                <span style="font-size:11.5px;color:#6B7280;">취사 재료 구매 못했을 때 대안. 지하 바로 연결. 아이들 좋아하는 피자로 간편하게.</span>
+              </div>
+            </div>
+            <div class="meal-opt easy">
+              <span class="meal-opt-icon">🏪</span>
+              <div>
+                <strong>편의점 간편식 + 컵라면</strong><br>
+                <span style="font-size:11.5px;color:#9A3412;">지하 편의점 이용. 오션월드에서 지쳐 요리하기 힘들 때. 아이들 간식 보충도.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="meal-card breakfast">
+          <div class="meal-head">🌅 DAY 2 아침 (8/2 일) — 체크아웃 전</div>
+          <div class="meal-body">
+            <div class="meal-opt best">
+              <span class="meal-opt-icon">⭐</span>
+              <div>
+                <strong>셰프스키친 조식 뷔페 (사전 온라인 예약 필수)</strong><br>
+                <span style="font-size:11.5px;color:#166534;">세계 각국 요리 프리미엄 뷔페. 3부제 운영 — 1부 07:00 / 2부 08:40 / 3부 10:20. 성수기 자리 빠르게 마감.</span>
+              </div>
+            </div>
+            <table class="meal-table">
+              <thead><tr><th>구분</th><th>가격</th><th>해당</th></tr></thead>
+              <tbody>
+                <tr><td>어른/청소년</td><td><strong>43,000원</strong></td><td>어른 6명 = 258,000원</td></tr>
+                <tr><td>유아 (미취학아동)</td><td><strong>17,000원</strong></td><td>이준·주원·이서 3명 = 51,000원</td></tr>
+                <tr><td>36개월 미만</td><td><span class="free-tag">무료</span></td><td>도윤 = 0원</td></tr>
+                <tr><td colspan="2" style="font-weight:700;color:#15803D;">합계 (10명)</td><td style="font-weight:800;color:#DC2626;">약 309,000원</td></tr>
+              </tbody>
+            </table>
+            <div class="meal-opt ok" style="margin-top:.3rem;">
+              <span class="meal-opt-icon">🍳</span>
+              <div>
+                <strong>간단 취사 아침</strong> — 달걀·즉석밥·라면<br>
+                <span style="font-size:11.5px;color:#6B7280;">전날 저녁 재료 남은 걸로 간편하게. 뷔페 예약 못 하거나 비용 아끼고 싶을 때.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="tip-item orange" style="margin-top:.65rem;">
+        <span class="tip-icon">⚠️</span>
+        <div>셰프스키친 조식뷔페는 <strong>온라인 사전 예약 필수</strong>. 성수기 당일 현장 구매는 자리 없을 가능성 높음. 전날 저녁 퇴실 전 예약해두기.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑧ 준비물 체크리스트 -->
   <div class="section">
     <div class="sec-head">
       <span class="sec-icon">🎒</span>
@@ -592,165 +781,67 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
       <div class="check-group">
         <div class="check-group-title">🚨 절대 잊으면 안 되는 것</div>
         <div class="check-items">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span class="check-urgent">수영 기저귀 (도윤·이서)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span class="check-urgent">아쿠아슈즈 (전원)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span class="check-urgent">오션월드 온라인 티켓</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span class="check-urgent">생년월일 증빙 서류 (아이 무료 입장용)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span class="check-urgent">어린이 해열제 (각 가족별)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>아이 베개·이불 (온돌방용)</span>
-          </label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">수영 기저귀 (도윤·이서)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">아쿠아슈즈 (전원 10명)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">오션월드 온라인 티켓 예매</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">아이 생년월일 증빙서류</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">어린이 해열제 (각 가족)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">조식뷔페 온라인 예약</span></label>
         </div>
       </div>
 
       <div class="check-group">
-        <div class="check-group-title">🏊 수영·물놀이 용품</div>
+        <div class="check-group-title">🏊 수영·물놀이</div>
         <div class="check-items">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>수영복 (여벌 1개씩)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>래쉬가드 (자외선 차단)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>수영모</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>물안경</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>유아 튜브·암링</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>수건 (넉넉하게)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>방수팩 (핸드폰)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>선크림 SPF50+ 워터프루프</span>
-          </label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>수영복 (여벌 1개씩)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>래쉬가드 (자외선 차단)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>수영모</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>물안경</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>유아 암링·바지튜브</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>수건 (개인당 2장)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>방수팩 (핸드폰 보호)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>선크림 SPF50+ 워터프루프</span></label>
         </div>
       </div>
 
       <div class="check-group">
         <div class="check-group-title">🍳 취사·식품</div>
         <div class="check-items">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>쌀 or 즉석밥</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>삼겹살·반찬류</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>아이 이유식·이유재료</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>아이 간식 (뻥튀기·과자)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>음료수·생수</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>아이스박스</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>조미료·기름·키친타월</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>어른 맥주·음료 (편의점)</span>
-          </label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>저녁 취사 재료 (마트 경유)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>아이 이유식 (도윤용)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>아이 간식 (뻥튀기·과자)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>아이스박스 + 음료수</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>즉석밥·라면 (아침 대비)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>조미료·기름·키친타월</span></label>
         </div>
       </div>
 
       <div class="check-group">
         <div class="check-group-title">💊 의약품·위생</div>
         <div class="check-items">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>어린이 해열제 (타이레놀·이부프로펜)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>밴드·소독제</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>지사제·소화제</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>모기 패치·물파스</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>물티슈 (넉넉히)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>기저귀 (일반, 여분)</span>
-          </label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>어린이 해열제 (타이레놀·이부프로펜)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>밴드·소독제</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>지사제·소화제</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>모기 패치·물파스</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>물티슈 (넉넉히)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>기저귀 여분 (일반·수영)</span></label>
         </div>
       </div>
 
       <div class="check-group">
-        <div class="check-group-title">🧳 기타 편의</div>
+        <div class="check-group-title">🧳 기타</div>
         <div class="check-items">
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>충전기·보조배터리</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>세면도구 (컨디셔너·폼클렌저)</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>아이 변기 시트 커버</span>
-          </label>
-          <label class="check-item" onclick="toggle(this)">
-            <div class="check-box"></div>
-            <span>영상 기기·이어폰 (이동 중)</span>
-          </label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>충전기·보조배터리</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>세면도구 (컨디셔너·폼클렌저)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>아이 베개·이불 (온돌방)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>영상 기기 (이동 중)</span></label>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- 8. 중요 안내 -->
+  <!-- ⑨ 중요 안내 -->
   <div class="section">
     <div class="sec-head">
       <span class="sec-icon">📌</span>
@@ -760,27 +851,27 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
       <div class="imp-list">
         <div class="imp-item warn">
           <span class="imp-num">⚠️</span>
-          <div><strong>[D-20 결제 마감]</strong> 7월 19일(토) 23:59까지 414,000원 결제 필수 — 예약번호 3935 · 이형찬. 미결제 시 자동취소되며 성수기 재예약 불가 가능성 있음.</div>
+          <div><strong>[D-20 결제 마감]</strong> 7월 19일(토) 23:59까지 414,000원 결제 필수. 예약번호 3935 · 이형찬. 미결제 시 자동취소, 성수기 재예약 불가.</div>
         </div>
         <div class="imp-item warn">
           <span class="imp-num">📋</span>
-          <div><strong>[취소 위약금]</strong> 이용일 8일 전(7월 24일)까지만 무료 취소. 이후 위약금 + 벌점 부과. 불참 가족 생기면 빠르게 공지 필요.</div>
+          <div><strong>[취소 위약금]</strong> 이용일 8일 전(7월 24일)까지 무료 취소. 이후 위약금 + 벌점 부과. 불참 가족 생기면 빠르게 공지.</div>
         </div>
         <div class="imp-item info">
           <span class="imp-num">🧒</span>
-          <div><strong>[아이 무료 입장]</strong> 미취학아동(2019.1.1 이후 출생) 보호자 1인당 1명 무료. 주민등록등본·건강보험증 등 생년월일 증명 서류 지참 필수. 이준·주원·이서·도윤 4명 전원 해당.</div>
+          <div><strong>[아이 무료 입장]</strong> 미취학아동(2019.01.01 이후 출생) 보호자 1인당 1명 무료. 이준·주원·이서·도윤 4명 전원 해당. 생년월일 증빙서류 지참 필수.</div>
         </div>
         <div class="imp-item info">
-          <span class="imp-num">👟</span>
-          <div><strong>[아쿠아슈즈 의무]</strong> 2024년부터 오션월드 전 구역 아쿠아슈즈 착용 필수. 미착용 시 입장 제한. 아이 포함 전원 꼭 챙길 것.</div>
+          <span class="imp-num">🍽️</span>
+          <div><strong>[셰프스키친 조식]</strong> 온라인 사전 예약 필수 (1부 07:00 / 2부 08:40). 어른 43,000원 · 유아 17,000원 · 36개월 미만 무료. 10명 합계 약 309,000원.</div>
         </div>
         <div class="imp-item green">
-          <span class="imp-num">🍳</span>
-          <div><strong>[취사 도구]</strong> 골드 파크뷰 취사실에 냄비·그릇·주방칼 등 기본 취사도구 제공. 정확한 구비 품목은 체크인 전 리조트 전화 확인 권장.</div>
+          <span class="imp-num">🏨</span>
+          <div><strong>[객실 확인]</strong> 골드 스위트 파크뷰 RM00046561 · Tower B · 158.6㎡. 주방 취사도구 기본 제공. 추가 어메니티 필요시 프런트 전화 요청.</div>
         </div>
         <div class="imp-item green">
           <span class="imp-num">🚗</span>
-          <div><strong>[교통]</strong> 서울에서 비발디파크 약 1.5~2시간 (홍천 방면). 8월 첫 주 토요일 극성수기 — 오전 7시 이전 출발 강력 권장. 귀가는 일요일 오전에 빨리.</div>
+          <div><strong>[교통]</strong> 서울 기준 약 1.5~2시간 (홍천 방면). 8월 첫 주 토요일 = 극성수기. 오전 7시 이전 출발 강력 권장. 귀가는 일요일 낮 1시 이전.</div>
         </div>
       </div>
     </div>
@@ -789,14 +880,13 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A2
 </div>
 
 <div class="footer">
-  3가족 여행 정보 대시보드 · 소노벨 비발디파크 + 오션월드<br>
-  8월 1일(토) ~ 8월 2일(일) · 골드 파크뷰 침대/취사 · 예약번호 3935
+  3가족 여행 대시보드 · 소노벨 비발디파크 골드 스위트 파크뷰 · 오션월드<br>
+  8월 1일(토) ~ 8월 2일(일) · 예약번호 3935
 </div>
 
 <script>
 function toggle(el) {
-  const box = el.querySelector('.check-box');
-  box.classList.toggle('checked');
+  el.querySelector('.check-box').classList.toggle('checked');
 }
 </script>
 </body>
