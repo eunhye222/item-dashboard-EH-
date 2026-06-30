@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8/29~30 당진 아마존스테이 탑쓰리 글램핑</title>
+<meta property="og:title" content="8/29~30 당진 아마존스테이 탑쓰리 글램핑 계획">
+<meta property="og:description" content="아마존스테이 당진 글램핑 · 아마존 아쿠아파크 · 일정 · 꿀팁 · 준비물 총정리">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans KR', sans-serif; background: #F0F6FF; color: #1A202C; min-height: 100vh; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #14532D 0%, #16A34A 55%, #0E9F6E 100%);
+  color: #fff; padding: 2rem 1.5rem 1.5rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.header::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.header-badge { display: inline-block; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.3); border-radius: 100px; font-size: 11.5px; font-weight: 700; padding: 3px 14px; letter-spacing: .04em; margin-bottom: .6rem; }
+.header h1 { font-size: 1.7rem; font-weight: 800; margin-bottom: .4rem; line-height: 1.3; }
+.header p { font-size: 13px; opacity: .85; line-height: 1.6; }
+.header-meta { display: flex; justify-content: center; gap: .75rem; margin-top: 1rem; flex-wrap: wrap; }
+.meta-chip { display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,.15); border-radius: 100px; padding: 5px 13px; font-size: 12px; font-weight: 600; }
+
+/* ALERT */
+.alert-wrap { max-width: 720px; margin: 0 auto; padding: 0 1rem; }
+.alert { background: #FFF3CD; border: 1.5px solid #FFC107; border-radius: 12px; padding: .85rem 1.1rem; display: flex; align-items: flex-start; gap: 10px; margin-top: 1rem; font-size: 13px; color: #7C4A00; line-height: 1.6; }
+.alert strong { color: #5C3300; }
+
+/* PAGE */
+.page { max-width: 720px; margin: 0 auto; padding: 1rem 1rem 3rem; display: flex; flex-direction: column; gap: 1rem; }
+
+/* SECTION */
+.section { background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,.07); }
+.sec-head { display: flex; align-items: center; gap: 10px; padding: .9rem 1.3rem; border-bottom: 1px solid #EEF0F5; }
+.sec-icon { font-size: 1.2rem; }
+.sec-title { font-size: 15px; font-weight: 700; flex: 1; }
+.sec-badge { font-size: 10.5px; font-weight: 700; padding: 2px 10px; border-radius: 100px; white-space: nowrap; }
+.badge-blue   { background: #DBEAFE; color: #1D4ED8; }
+.badge-green  { background: #D1FAE5; color: #065F46; }
+.badge-red    { background: #FEE2E2; color: #B91C1C; }
+.badge-orange { background: #FEF3C7; color: #B45309; }
+.badge-purple { background: #EDE9FE; color: #6D28D9; }
+.sec-body { padding: 1.1rem 1.3rem; }
+
+/* FAMILY */
+.family-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .65rem; }
+.fam-card { border-radius: 12px; padding: .85rem .75rem; text-align: center; border: 1.5px solid; }
+.fam-card.f1 { background: #EFF6FF; border-color: #BFDBFE; }
+.fam-card.f2 { background: #F0FDF4; border-color: #BBF7D0; }
+.fam-card.f3 { background: #FFF7ED; border-color: #FED7AA; }
+.fam-name { font-size: 13px; font-weight: 800; margin-bottom: .45rem; }
+.fam-card.f1 .fam-name { color: #1D4ED8; }
+.fam-card.f2 .fam-name { color: #15803D; }
+.fam-card.f3 .fam-name { color: #C2410C; }
+.fam-member { font-size: 11.5px; color: #6B7280; line-height: 1.7; }
+.fam-member span { display: inline-block; background: rgba(255,255,255,.75); border-radius: 6px; padding: 1px 7px; margin: 1px 2px; }
+.kid-badge { font-weight: 700; color: #374151 !important; }
+
+/* ROOM */
+.room-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: .6rem; margin-bottom: .9rem; }
+.room-box { background: #F5F7FF; border: 1px solid #E2E8F0; border-radius: 11px; padding: .8rem; text-align: center; }
+.room-label { font-size: 10.5px; color: #9CA3AF; font-weight: 700; letter-spacing: .04em; margin-bottom: 5px; }
+.room-val { font-size: 15px; font-weight: 800; color: #1D4ED8; }
+.room-sub { font-size: 10.5px; color: #6B7280; margin-top: 2px; }
+.room-layout { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .2rem; }
+.room-tag { display: flex; align-items: center; gap: 5px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #1D4ED8; font-weight: 600; }
+
+/* TENT ASSIGN */
+.tent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; margin-top: .8rem; }
+.tent-box { border-radius: 12px; padding: .85rem .9rem; border: 1.5px solid; }
+.tent-box.t1 { background: #F0FDF4; border-color: #BBF7D0; }
+.tent-box.t2 { background: #EFF6FF; border-color: #BFDBFE; }
+.tent-name { font-size: 12.5px; font-weight: 800; margin-bottom: 4px; }
+.tent-box.t1 .tent-name { color: #15803D; }
+.tent-box.t2 .tent-name { color: #1D4ED8; }
+.tent-sub { font-size: 11.5px; color: #6B7280; line-height: 1.6; }
+
+/* PRICE TABLE */
+.price-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: .85rem; }
+.price-table th { background: #F1F5F9; color: #374151; font-weight: 700; padding: 8px 10px; text-align: left; border-bottom: 1px solid #E2E8F0; font-size: 11.5px; }
+.price-table td { padding: 8px 10px; border-bottom: 1px solid #F1F5F9; vertical-align: middle; color: #374151; font-size: 13px; }
+.price-table tr:last-child td { border-bottom: none; }
+.free-tag  { background: #D1FAE5; color: #065F46; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
+.disc-tag  { background: #DBEAFE; color: #1D4ED8; font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
+.price-hi  { color: #DC2626; font-weight: 800; }
+.price-ori { color: #9CA3AF; text-decoration: line-through; font-size: 11px; }
+
+/* TIMELINE */
+.day-header { display: flex; align-items: center; gap: 10px; padding: .9rem 1.3rem; background: #F8FAFF; border-top: 2px solid #E2E8F0; border-bottom: 1px solid #E2E8F0; }
+.day-header:first-of-type { border-top: none; }
+.day-num { color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
+.day-num.d1 { background: #16A34A; }
+.day-num.d2 { background: #0891B2; }
+.day-title { font-size: 14px; font-weight: 800; }
+.day-sub { font-size: 11.5px; color: #6B7280; margin-top: 1px; }
+.timeline { display: flex; flex-direction: column; }
+.tl-row { display: grid; grid-template-columns: 90px 1fr; gap: 12px; padding: .85rem 1.3rem; border-bottom: 1px solid #F1F5F9; align-items: start; }
+.tl-row:last-child { border-bottom: none; }
+.tl-time { font-size: 11px; font-weight: 700; padding: .22rem .5rem; border-radius: 7px; text-align: center; line-height: 1.45; }
+.tl-time.go     { background: #D1FAE5; color: #065F46; }
+.tl-time.ocean  { background: #DBEAFE; color: #1D4ED8; }
+.tl-time.food   { background: #FEF3C7; color: #B45309; }
+.tl-time.hotel  { background: #EDE9FE; color: #6D28D9; }
+.tl-time.night  { background: #1E293B; color: #E2E8F0; }
+.tl-time.morn   { background: #FEF3C7; color: #B45309; }
+.tl-time.fun    { background: #FCE7F3; color: #BE185D; }
+.tl-content { font-size: 13px; color: #374151; line-height: 1.65; }
+.tl-content strong { color: #111827; }
+.tl-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 8px; border-radius: 100px; margin-bottom: 3px; }
+.tag-tip  { background: #FEF3C7; color: #92400E; }
+.tag-warn { background: #FEE2E2; color: #B91C1C; }
+.tag-good { background: #D1FAE5; color: #065F46; }
+.tag-info { background: #DBEAFE; color: #1D4ED8; }
+.tag-hot  { background: #FCE7F3; color: #BE185D; }
+
+/* MEAL */
+.meal-section { display: flex; flex-direction: column; gap: .6rem; }
+.meal-card { border-radius: 12px; border: 1.5px solid; overflow: hidden; }
+.meal-head { display: flex; align-items: center; gap: 8px; padding: .65rem 1rem; font-size: 13px; font-weight: 700; }
+.meal-card.dinner .meal-head { background: #1E293B; color: #E2E8F0; }
+.meal-card.breakfast .meal-head { background: #FEF3C7; color: #92400E; border-color: #FED7AA; }
+.meal-card.dinner { border-color: #334155; }
+.meal-card.breakfast { border-color: #FED7AA; }
+.meal-body { padding: .75rem 1rem; display: flex; flex-direction: column; gap: .45rem; }
+.meal-opt { display: flex; align-items: flex-start; gap: 9px; font-size: 12.5px; line-height: 1.55; padding: .5rem .65rem; border-radius: 8px; }
+.meal-opt.best { background: #F0FDF4; color: #166534; }
+.meal-opt.ok   { background: #F8FAFF; color: #374151; }
+.meal-opt.easy { background: #FFF7ED; color: #9A3412; }
+.meal-opt-icon { font-size: 16px; flex-shrink: 0; }
+.meal-opt-label { font-size: 10px; font-weight: 800; padding: 1px 8px; border-radius: 100px; margin-right: 6px; display: inline-block; vertical-align: 1px; }
+.meal-opt.best .meal-opt-label { background: #16A34A; color: #fff; }
+.meal-opt.ok   .meal-opt-label { background: #94A3B8; color: #fff; }
+.meal-opt.easy .meal-opt-label { background: #FB923C; color: #fff; }
+.meal-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: .5rem; }
+.meal-table th { background: #F9FAFB; color: #6B7280; font-weight: 700; padding: 6px 10px; border-bottom: 1px solid #F1F5F9; font-size: 11px; }
+.meal-table td { padding: 6px 10px; border-bottom: 1px solid #F9FAFB; color: #374151; }
+.meal-table tr:last-child td { border-bottom: none; }
+
+/* ZONES */
+.zone-list { display: flex; flex-direction: column; gap: .5rem; margin-bottom: .85rem; }
+.zone-row { display: grid; grid-template-columns: 120px 1fr; gap: 10px; background: #F8FAFF; border-radius: 11px; padding: .7rem .9rem; border: 1px solid #E2E8F0; align-items: start; }
+.zone-name { font-size: 12.5px; font-weight: 800; color: #1D4ED8; line-height: 1.4; }
+.zone-for { font-size: 10px; font-weight: 700; margin-top: 3px; padding: 1px 7px; border-radius: 100px; display: inline-block; }
+.zone-for.kids  { background: #D1FAE5; color: #065F46; }
+.zone-for.all   { background: #EDE9FE; color: #6D28D9; }
+.zone-for.teen  { background: #FEF3C7; color: #92400E; }
+.zone-desc { font-size: 12.5px; color: #374151; line-height: 1.55; }
+
+/* TIPS */
+.tips-list { display: flex; flex-direction: column; gap: .45rem; }
+.tip-item { display: flex; align-items: flex-start; gap: 10px; padding: .65rem .85rem; border-radius: 10px; font-size: 12.5px; line-height: 1.6; }
+.tip-item.blue   { background: #EFF6FF; color: #1E40AF; }
+.tip-item.green  { background: #F0FDF4; color: #166534; }
+.tip-item.orange { background: #FFF7ED; color: #9A3412; }
+.tip-item.red    { background: #FEF2F2; color: #991B1B; }
+.tip-item.purple { background: #F5F3FF; color: #5B21B6; }
+.tip-item.gray   { background: #F8FAFC; color: #374151; border: 1px solid #E2E8F0; }
+.tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* CAMP ACTIVITIES */
+.act-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; margin-bottom: .75rem; }
+.act-box { border-radius: 11px; padding: .75rem .85rem; border: 1px solid; }
+.act-box.blue   { background: #EFF6FF; border-color: #BFDBFE; }
+.act-box.green  { background: #F0FDF4; border-color: #BBF7D0; }
+.act-box.purple { background: #F5F3FF; border-color: #DDD6FE; }
+.act-box.orange { background: #FFF7ED; border-color: #FED7AA; }
+.act-box.gray   { background: #F8FAFC; border-color: #E2E8F0; }
+.act-title { font-size: 12.5px; font-weight: 800; margin-bottom: 3px; }
+.act-box.blue   .act-title { color: #1D4ED8; }
+.act-box.green  .act-title { color: #15803D; }
+.act-box.purple .act-title { color: #6D28D9; }
+.act-box.orange .act-title { color: #C2410C; }
+.act-box.gray   .act-title { color: #374151; }
+.act-desc { font-size: 11.5px; color: #6B7280; line-height: 1.55; }
+.act-tag-row { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 5px; }
+.act-tag { font-size: 10px; padding: 1px 7px; border-radius: 100px; font-weight: 700; }
+.tag-kids2 { background: #D1FAE5; color: #065F46; }
+.tag-adult { background: #DBEAFE; color: #1D4ED8; }
+.tag-paid  { background: #FEE2E2; color: #B91C1C; }
+.tag-free  { background: #FEF3C7; color: #B45309; }
+
+/* CHECKLIST */
+.check-group { margin-bottom: 1rem; }
+.check-group:last-child { margin-bottom: 0; }
+.check-group-title { font-size: 12.5px; font-weight: 800; color: #374151; margin-bottom: .5rem; padding-bottom: .4rem; border-bottom: 1px solid #F1F5F9; }
+.check-items { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem; }
+.check-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #374151; padding: .35rem .5rem; border-radius: 8px; cursor: pointer; user-select: none; }
+.check-item:hover { background: #F8FAFF; }
+.check-box { width: 17px; height: 17px; border: 2px solid #CBD5E1; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.check-box.checked { background: #16A34A; border-color: #16A34A; }
+.check-box.checked::after { content: '✓'; color: #fff; font-size: 10px; font-weight: 700; }
+.check-urgent { color: #DC2626; font-weight: 700; }
+
+/* DIVIDER */
+.sec-divider { height: 1px; background: #EEF0F5; margin: .65rem 0; }
+
+/* FOOTER */
+.footer { text-align: center; padding: 1.5rem 1rem; font-size: 11.5px; color: #9CA3AF; line-height: 1.7; }
+
+@media (max-width: 480px) {
+  .family-grid { grid-template-columns: 1fr 1fr; }
+  .room-grid { grid-template-columns: 1fr 1fr; }
+  .tent-grid { grid-template-columns: 1fr; }
+  .check-items { grid-template-columns: 1fr; }
+  .zone-row { grid-template-columns: 1fr; }
+  .act-grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 1.45rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">🏕️ 1박 2일 여름 글램핑</div>
+  <h1>당진 아마존스테이 탑쓰리 글램핑</h1>
+  <p>아마존스테이 당진 (글램핑) · 아마존 아쿠아파크 당진<br>8월 29일(토) ~ 8월 30일(일)</p>
+  <div class="header-meta">
+    <div class="meta-chip">👨‍👩‍👧‍👦 탑쓰리 10명</div>
+    <div class="meta-chip">🌊 아쿠아파크 도보권</div>
+    <div class="meta-chip">🏕️ 텐트 2동</div>
+  </div>
+</div>
+
+<div class="alert-wrap">
+  <div class="alert">
+    ⚠️&nbsp; <span><strong>여름 성수기 주말 — 텐트 2동(A/B) 동시 예약 필요, 서두르세요</strong><br>
+    아마존스테이 당진 (충남 당진시 신평면) · 체크인 15:00 / 체크아웃 11:00 · 예약·결제 정보는 확정 후 추가 기재 예정</span>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ① 가족 구성 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">👨‍👩‍👧‍👦</span>
+      <span class="sec-title">탑쓰리 구성원</span>
+      <span class="sec-badge badge-blue">총 10명</span>
+    </div>
+    <div class="sec-body">
+      <div class="family-grid">
+        <div class="fam-card f1">
+          <div class="fam-name">🐣 주원이네</div>
+          <div class="fam-member">
+            <span>엄마</span><span>아빠</span><br>
+            <span class="kid-badge">주원 4살 👦</span>
+          </div>
+        </div>
+        <div class="fam-card f2">
+          <div class="fam-name">🌿 이준·이서네</div>
+          <div class="fam-member">
+            <span>엄마</span><span>아빠</span><br>
+            <span class="kid-badge">이준 6살 👦</span>
+            <span class="kid-badge">이서 3살 👧</span>
+          </div>
+        </div>
+        <div class="fam-card f3">
+          <div class="fam-name">🌙 도윤이네</div>
+          <div class="fam-member">
+            <span>엄마</span><span>아빠</span><br>
+            <span class="kid-badge">도윤 2살 👶</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:.65rem;font-size:11.5px;color:#6B7280;text-align:center;">어른 6명 · 아이 4명 (6·4·3·2살)</div>
+    </div>
+  </div>
+
+  <!-- ② 글램핑 텐트 정보 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">🏕️</span>
+      <span class="sec-title">아마존스테이 당진 · 글램핑 텐트</span>
+      <span class="sec-badge badge-green">취사 가능</span>
+    </div>
+    <div class="sec-body">
+      <div class="room-grid">
+        <div class="room-box">
+          <div class="room-label">기준 / 최대 인원</div>
+          <div class="room-val">2인 / 6인</div>
+          <div class="room-sub">텐트당, 초과 1인 2만원</div>
+        </div>
+        <div class="room-box">
+          <div class="room-label">체크인 / 아웃</div>
+          <div class="room-val">15:00 / 11:00</div>
+          <div class="room-sub">18시 이후 입실 시 사전 연락</div>
+        </div>
+        <div class="room-box">
+          <div class="room-label">내부 시설</div>
+          <div class="room-val">침대·화장실</div>
+          <div class="room-sub">샤워실·취사도구 내부 구비</div>
+        </div>
+        <div class="room-box">
+          <div class="room-label">위치</div>
+          <div class="room-val">당진 신평면</div>
+          <div class="room-sub">아마존 아쿠아파크와 같은 부지</div>
+        </div>
+      </div>
+      <div class="room-layout">
+        <div class="room-tag">🛏️ 침대</div>
+        <div class="room-tag">📺 TV / 에어컨</div>
+        <div class="room-tag">🧊 냉장고</div>
+        <div class="room-tag">🍳 취사도구</div>
+        <div class="room-tag">🚿 내부 화장실·샤워실</div>
+        <div class="room-tag">📶 무선인터넷</div>
+      </div>
+
+      <div class="sec-divider"></div>
+      <div style="font-size:12.5px;font-weight:800;color:#374151;margin-bottom:.5rem;">텐트 배정 추천 (가족 단위 유지)</div>
+      <div class="tent-grid">
+        <div class="tent-box t1">
+          <div class="tent-name">🅰 텐트 A (6명)</div>
+          <div class="tent-sub">주원이네(엄마·아빠·주원) + 도윤이네(엄마·아빠·도윤)<br>기준 2인 + 초과 4인</div>
+        </div>
+        <div class="tent-box t2">
+          <div class="tent-name">🅱 텐트 B (4명)</div>
+          <div class="tent-sub">이준·이서네(엄마·아빠·이준·이서)<br>기준 2인 + 초과 2인 · 여유 2인</div>
+        </div>
+      </div>
+      <div class="tip-item green" style="margin-top:.7rem;">
+        <span class="tip-icon">💡</span>
+        <div>텐트 최대 6인이라 10명 전원이 한 텐트에 들어갈 수 없음. <strong>2동 예약 필수</strong>. 가까운 자리(인접 사이트)로 예약 요청해두면 두 텐트 오가기 편함.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 아쿠아파크 입장료 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">💰</span>
+      <span class="sec-title">아마존 아쿠아파크 입장료</span>
+      <span class="sec-badge badge-red">8월 성수기</span>
+    </div>
+    <div class="sec-body">
+      <table class="price-table">
+        <thead>
+          <tr>
+            <th>구분</th><th>주간권 (9~17시)</th><th>야간권 (18~22시)</th><th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>어른 6명</td>
+            <td><span class="price-hi">35,000원</span></td>
+            <td>24,000원</td>
+            <td>만 19세 이상</td>
+          </tr>
+          <tr>
+            <td>청소년</td>
+            <td>32,000원</td>
+            <td>21,000원</td>
+            <td>8세~만 18세 (해당자 없음)</td>
+          </tr>
+          <tr>
+            <td>이준 (6살)</td>
+            <td colspan="2"><span class="price-hi">소인 요금</span></td>
+            <td>24개월~취학전 기준</td>
+          </tr>
+          <tr>
+            <td>주원 (4살)</td>
+            <td colspan="2"><span class="price-hi">소인 요금</span></td>
+            <td>24개월~취학전 기준</td>
+          </tr>
+          <tr>
+            <td>이서 (3살)</td>
+            <td colspan="2"><span class="price-hi">소인 요금</span></td>
+            <td>24개월~취학전 기준</td>
+          </tr>
+          <tr>
+            <td>도윤 (2살)</td>
+            <td colspan="2"><span class="price-hi">소인 요금 (확인 필요)</span></td>
+            <td>만 24개월 경계 — 생년월일 확인</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tip-item red" style="margin-top:.5rem;">
+        <span style="font-size:16px;">⏱️</span>
+        <div><strong>온라인 예매 권장</strong> — 성수기 주말 현장 매표는 대기가 길어질 수 있음. 공식 홈페이지(amazonpark.co.kr / amazondangjin.com)에서 사전 예매하면 빠르게 입장 가능.</div>
+      </div>
+      <div class="tip-item gray" style="margin-top:.45rem;">
+        <span class="tip-icon">ℹ️</span>
+        <div>도윤이(2살)는 만 24개월 미만이면 무료. 생년월일 기준 정확한 개월 수 확인 후 무료/소인 여부 결정. 입장 시 생년월일 증빙서류 지참 권장.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 일정표 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">📅</span>
+      <span class="sec-title">전체 일정표</span>
+    </div>
+
+    <div class="day-header">
+      <div class="day-num d1">1</div>
+      <div>
+        <div class="day-title">DAY 1 · 8월 29일 (토)</div>
+        <div class="day-sub">집결 → 아쿠아파크 → 체크인 → 저녁 바비큐 → 모닥불</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-time go">🚗 09:30<br>집결</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-warn">핵심</span><br>
+          <strong>9시 30분 집결</strong><br>
+          탑쓰리 집결 후 차량별 각자 출발 OK. 서울 기준 당진까지 약 1시간 30분~2시간 소요, 여름 주말 정체 감안.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time ocean">🌊 11:30<br>아쿠아파크<br>도착</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-hot">물놀이 먼저</span><br>
+          <strong>주간권 구매 후 바로 입수</strong><br>
+          체크인이 15시라 짐은 차에 두고 아쿠아파크 직행. 글램핑장과 같은 부지라 도보 이동 가능.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time ocean">🏊 11:30~14:30<br>물놀이</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-good">추천 동선</span><br>
+          <strong>영유아풀 → 키즈존 → 슬라이드 순서로</strong><br>
+          도윤·이서·주원은 영유아·키즈풀 먼저. 이준(6살)은 키즈존 슬라이드 가능. 점심은 원내 식음시설 이용.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time hotel">🏕️ 15:00<br>체크인</div>
+        <div class="tl-content">
+          <strong>아마존스테이 텐트 A·B 체크인</strong><br>
+          짐 풀기 · 텐트 배정(텐트 A: 주원이네+도윤이네 / 텐트 B: 이준·이서네). 아이들 샤워·낮잠, 어른 휴식.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time food">🍖 18:00<br>저녁 바비큐</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-good">추천</span><br>
+          <strong>텐트 앞마당에서 바비큐 그릴세트</strong><br>
+          그릴세트 예약은 당일 19시까지 가능 — 도착 직후 미리 신청해두기. 고기·채소는 직접 준비하거나 현장 대여 가능 여부 확인.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time night">🌙 20:00<br>모닥불 타임</div>
+        <div class="tl-content">
+          <strong>아이들과 모닥불(불멍) · 마시멜로</strong><br>
+          물놀이로 지친 아이들은 일찍 잠들기 쉬움. 재운 뒤 어른들끼리 텐트 앞 모닥불에서 담소.
+        </div>
+      </div>
+    </div>
+
+    <div class="day-header">
+      <div class="day-num d2">2</div>
+      <div>
+        <div class="day-title">DAY 2 · 8월 30일 (일)</div>
+        <div class="day-sub">기상 → 텐트 조식 → 정리 → 체크아웃 → 귀가</div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-time morn">🌅 08:00<br>기상·조식</div>
+        <div class="tl-content">
+          <strong>텐트 내 취사도구로 간단 조식</strong><br>
+          빵·시리얼·즉석밥 등 간편식 위주. 텐트 안 주방시설 활용해 가족별로 각자 텐트에서 식사 가능.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time hotel">🧳 10:00<br>짐 정리</div>
+        <div class="tl-content">
+          <strong>체크아웃 준비 (11:00 퇴실)</strong><br>
+          탑쓰리 동시 짐 정리. 텐트 A·B 각자 정리 후 합류. 그릴·식기 등 대여품 반납 여부 확인.
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-time food">🍜 11:30<br>점심 후 귀가</div>
+        <div class="tl-content">
+          <span class="tl-tag tag-tip">추천</span><br>
+          <strong>당진 신평 인근 맛집 후 귀가</strong><br>
+          우렁이박사·옛날우렁이식당(쌈밥) 또는 정대냉면 등 단체석 가능한 곳으로. 일요일 오후 귀경 정체 감안해 너무 늦지 않게 출발.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ 아쿠아파크 완벽 공략 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">🌊</span>
+      <span class="sec-title">아쿠아파크 완벽 공략</span>
+      <span class="sec-badge badge-blue">아이 연령별 · 동선 · 꿀팁</span>
+    </div>
+    <div class="sec-body">
+
+      <div style="font-size:12.5px;font-weight:800;color:#374151;margin-bottom:.5rem;">구역별 추천 (연령 기준)</div>
+      <div class="zone-list">
+        <div class="zone-row">
+          <div>
+            <div class="zone-name">⭐ 영유아풀</div>
+            <div class="zone-for kids">도윤·이서·주원 위주</div>
+          </div>
+          <div class="zone-desc">
+            수심 낮고 안전한 유아 전용 구역. <strong>도착 즉시 이곳부터</strong>. 부모 동반 필수, 그늘 자리 함께 확보.
+          </div>
+        </div>
+        <div class="zone-row">
+          <div>
+            <div class="zone-name">키즈존 (정글풀류)</div>
+            <div class="zone-for all">영유아~13세 전용</div>
+          </div>
+          <div class="zone-desc">
+            아이 전용 슬라이드·물놀이 시설. <strong>이준(6살)</strong>이 특히 좋아할 구역. 어른 한 명씩 교대로 동반.
+          </div>
+        </div>
+        <div class="zone-row">
+          <div>
+            <div class="zone-name">계곡형 메인풀</div>
+            <div class="zone-for teen">이준 + 어른</div>
+          </div>
+          <div class="zone-desc">
+            국내 최초 계곡형 아쿠아파크 콘셉트. 수심이 깊을 수 있어 <strong>도윤·이서 입수 자제</strong>. 어른 동반 시에만 이용.
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-divider"></div>
+      <div style="font-size:12.5px;font-weight:800;color:#374151;margin-bottom:.5rem;">꿀팁</div>
+      <div class="tips-list">
+        <div class="tip-item orange">
+          <span class="tip-icon">⏰</span>
+          <div><strong>오전 일찍 입장</strong> — 주간권은 09~17시. 오픈 직후 1~2시간이 대기 가장 적은 황금타임. 점심시간 직후도 비교적 한산.</div>
+        </div>
+        <div class="tip-item green">
+          <span class="tip-icon">🦺</span>
+          <div><strong>구명조끼·튜브 사전 확인</strong> — 현장 대여 가능 여부와 수량은 성수기 한정될 수 있음. 유아용 암링·바지튜브는 개인 준비 권장.</div>
+        </div>
+        <div class="tip-item red">
+          <span class="tip-icon">👶</span>
+          <div><strong>수영 기저귀 필수</strong> (도윤·이서) — 일반 기저귀 착용 시 입수 불가한 워터파크가 대부분. 여분 넉넉히 준비.</div>
+        </div>
+        <div class="tip-item blue">
+          <span class="tip-icon">☀️</span>
+          <div><strong>워터프루프 선크림 SPF50+</strong> — 1~2시간마다 재도포. 야외 계곡형 시설 특성상 그늘이 적을 수 있어 화상 주의.</div>
+        </div>
+        <div class="tip-item purple">
+          <span class="tip-icon">🔒</span>
+          <div><strong>락커·짐 관리</strong> — 텐트가 바로 옆이라 큰 짐은 텐트에 두고 최소 짐만 들고 입장 가능. 방수팩(핸드폰) 필수.</div>
+        </div>
+        <div class="tip-item gray">
+          <span class="tip-icon">🍦</span>
+          <div><strong>원내 식음시설</strong> — 점심은 원내 식당·매점 이용. 외부 음식 반입 가능 여부는 현장 안내 확인.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ 글램핑장 즐길거리 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">🏕️</span>
+      <span class="sec-title">글램핑장 즐길거리</span>
+      <span class="sec-badge badge-purple">아쿠아파크 외 시설</span>
+    </div>
+    <div class="sec-body">
+      <div style="font-size:12px;color:#6B7280;margin-bottom:.75rem;line-height:1.6;">물놀이 후 저녁 시간을 텐트 앞마당에서 보내기 좋아요. 신축 시설로 깨끗하다는 후기가 많아요.</div>
+      <div class="act-grid">
+        <div class="act-box orange">
+          <div class="act-title">🔥 바비큐 그릴</div>
+          <div class="act-desc">텐트별 바비큐 그릴세트 대여. 당일 19시까지 신청 가능. 고기·채소 직접 준비 또는 현장 구매 여부 확인.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-kids2">전 가족</span>
+            <span class="act-tag tag-paid">별도 요금</span>
+          </div>
+        </div>
+        <div class="act-box purple">
+          <div class="act-title">🌙 모닥불(불멍)</div>
+          <div class="act-desc">텐트 앞 데크에서 모닥불 가능 여부 체크인 시 확인. 마시멜로 구워먹기 등 아이들과 함께하기 좋음.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-kids2">전 가족</span>
+          </div>
+        </div>
+        <div class="act-box blue">
+          <div class="act-title">🍳 텐트 내 취사</div>
+          <div class="act-desc">텐트 내부에 취사도구·냉장고 기본 구비. 아침은 텐트에서 간단히 해결 가능.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-free">상시 이용</span>
+          </div>
+        </div>
+        <div class="act-box green">
+          <div class="act-title">🚶 아쿠아파크 도보 이동</div>
+          <div class="act-desc">같은 부지 내 위치해 짐 없이 가볍게 오갈 수 있음. 저녁 무렵 야간권으로 한 번 더 입장도 고려 가능.</div>
+          <div class="act-tag-row">
+            <span class="act-tag tag-adult">어른·아이 함께</span>
+            <span class="act-tag tag-paid">별도 요금</span>
+          </div>
+        </div>
+      </div>
+      <div class="tip-item blue" style="margin-top:.25rem;">
+        <span class="tip-icon">💡</span>
+        <div>그릴세트·모닥불 등 부대시설 예약 가능 여부와 마감 시간은 시설마다 다르니 <strong>체크인 시 웰컴센터(041-430-8233)에서 확인</strong>.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ 식사 플랜 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">🍽️</span>
+      <span class="sec-title">식사 플랜</span>
+      <span class="sec-badge badge-orange">저녁 · 아침</span>
+    </div>
+    <div class="sec-body">
+      <div class="meal-section">
+
+        <div class="meal-card dinner">
+          <div class="meal-head">🌙 DAY 1 저녁 (8/29 토) — 체크인 후</div>
+          <div class="meal-body">
+            <div class="meal-opt best">
+              <span class="meal-opt-icon">⭐</span>
+              <div>
+                <strong><span class="meal-opt-label">추천</span>텐트 앞 바비큐</strong> — 그릴세트 대여<br>
+                <span style="font-size:11.5px;color:#166534;">글램핑 핵심 즐길거리. 당일 19시까지 그릴세트 신청 필요. 고기·채소는 미리 챙겨오거나 인근 마트에서 구매.</span>
+              </div>
+            </div>
+            <div class="meal-opt ok">
+              <span class="meal-opt-icon">🍲</span>
+              <div>
+                <strong><span class="meal-opt-label">대안1</span>우렁이박사 / 옛날우렁이식당</strong> — 쌈밥 전문점<br>
+                <span style="font-size:11.5px;color:#6B7280;">신평면 인근 쌈밥집, 후기 평점 높음. 단체석 가능 여부 사전 전화 확인 권장.</span>
+              </div>
+            </div>
+            <div class="meal-opt easy">
+              <span class="meal-opt-icon">🍜</span>
+              <div>
+                <strong><span class="meal-opt-label">대안2</span>정대냉면</strong> — 인근 냉면 맛집<br>
+                <span style="font-size:11.5px;color:#9A3412;">날씨가 덥거나 바비큐가 번거로울 때 대안. 더위에 지친 아이들 입맛 살리기 좋음.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="meal-card breakfast">
+          <div class="meal-head">🌅 DAY 2 아침 (8/30 일) — 체크아웃 전</div>
+          <div class="meal-body">
+            <div class="meal-opt best">
+              <span class="meal-opt-icon">⭐</span>
+              <div>
+                <strong><span class="meal-opt-label">추천</span>텐트 내 간편 취사 조식</strong><br>
+                <span style="font-size:11.5px;color:#166534;">빵·시리얼·즉석밥·계란 등. 텐트 내 취사도구·냉장고 활용해 가볍게. 전날 장 본 재료 활용 가능.</span>
+              </div>
+            </div>
+            <div class="meal-opt ok" style="margin-top:.3rem;">
+              <span class="meal-opt-icon">🍜</span>
+              <div>
+                <strong><span class="meal-opt-label">대안1</span>인근 식당 아침 식사</strong><br>
+                <span style="font-size:11.5px;color:#6B7280;">취사가 번거로우면 체크아웃 후 점심 겸 인근 맛집으로 이동.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑧ 준비물 체크리스트 -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="sec-icon">🎒</span>
+      <span class="sec-title">준비물 체크리스트</span>
+      <span class="sec-badge badge-orange">출발 전 확인</span>
+    </div>
+    <div class="sec-body">
+
+      <div class="check-group">
+        <div class="check-group-title">🚨 절대 잊으면 안 되는 것</div>
+        <div class="check-items">
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">수영 기저귀 (도윤·이서)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">아쿠아파크 입장권 (온라인 예매)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">아이 생년월일 증빙서류</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">바비큐 그릴세트 사전 예약</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span class="check-urgent">텐트 2동 예약 확인 (A/B)</span></label>
+        </div>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">🏊 수영·물놀이</div>
+        <div class="check-items">
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>수영복 (여벌 1개씩)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>래쉬가드 (자외선 차단)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>아쿠아슈즈</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>유아 암링·바지튜브</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>수건 (개인당 2장)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>방수팩 (핸드폰 보호)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>선크림 SPF50+ 워터프루프</span></label>
+        </div>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">🔥 바비큐·캠핑</div>
+        <div class="check-items">
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>고기·채소 (바비큐용)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>아이스박스 + 음료수</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>모기 패치·벌레퇴치제</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>손전등 (야간 이동용)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>실내화·슬리퍼</span></label>
+        </div>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">💊 의약품·위생</div>
+        <div class="check-items">
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>어린이 해열제 (타이레놀·이부프로펜)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>밴드·소독제</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>지사제·소화제</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>물티슈 (넉넉히)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>기저귀 여분 (일반·수영)</span></label>
+        </div>
+      </div>
+
+      <div class="check-group">
+        <div class="check-group-title">🧳 기타</div>
+        <div class="check-items">
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>충전기·보조배터리</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>세면도구</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>여벌 옷 (아이용 넉넉히)</span></label>
+          <label class="check-item" onclick="toggle(this)"><div class="check-box"></div><span>영상 기기 (이동 중)</span></label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  탑쓰리 여행 대시보드 · 아마존스테이 당진 글램핑 · 아마존 아쿠아파크<br>
+  8월 29일(토) ~ 8월 30일(일)
+</div>
+
+<script>
+function toggle(el) {
+  el.querySelector('.check-box').classList.toggle('checked');
+}
+</script>
+</body>
+</html>
