@@ -122,6 +122,16 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #EBF4FF; color: #1A2
 .tr-item.warn  { background: #FEF3C7; color: #92400E; }
 .tr-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
 
+.lot-card { display: flex; gap: 12px; align-items: flex-start; padding: .65rem .85rem; border-radius: 10px; border: 1px solid #E2E8F0; background: #FAFAFA; margin-bottom: .5rem; }
+.lot-card.lot-best { background: #ECFDF5; border: 1.5px solid #6EE7B7; }
+.lot-rank { font-size: 12px; font-weight: 700; color: #475569; flex-shrink: 0; width: 52px; padding-top: 1px; }
+.lot-best .lot-rank { color: #065F46; }
+.lot-body { flex: 1; }
+.lot-name { font-size: 13px; font-weight: 700; color: #1A202C; margin-bottom: 3px; }
+.lot-sub { font-size: 11px; font-weight: 500; color: #94A3B8; }
+.lot-detail { font-size: 12px; color: #475569; line-height: 1.55; margin-bottom: 3px; }
+.lot-nav { font-size: 11.5px; color: #1D4ED8; font-weight: 600; }
+
 /* SHADE */
 .shade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .85rem; }
 .shade-card { border-radius: 12px; padding: .8rem 1rem; }
@@ -474,6 +484,41 @@ body { font-family: 'Noto Sans KR', sans-serif; background: #EBF4FF; color: #1A2
 
     <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:10px;padding:.65rem 1rem;font-size:12.5px;color:#166534;margin-bottom:.75rem">
       💡 <strong>5~6시간 체류 시 약 6,000~9,000원 예상</strong> (반일권이 더 저렴할 수도 있으니 현장 확인)
+    </div>
+
+    <hr class="divider">
+
+    <div style="font-size:12px;font-weight:700;color:#64748B;margin-bottom:.6rem">어디에 주차할까? — 추천 순위</div>
+
+    <div class="lot-card lot-best">
+      <div class="lot-rank">🥇 1순위</div>
+      <div class="lot-body">
+        <div class="lot-name">여의도 제3주차장 <span class="lot-sub">(서강대교 남단)</span></div>
+        <div class="lot-detail">수영장 입구까지 <strong>도보 약 7분</strong> · 가는 길에 안내 현수막 있어 찾기 쉬움</div>
+        <div class="lot-nav">📍 내비 검색: <strong>영등포구 여의도동 83-6</strong> 또는 "여의도 제3주차장"</div>
+      </div>
+    </div>
+
+    <div class="lot-card">
+      <div class="lot-rank">🥈 2순위</div>
+      <div class="lot-body">
+        <div class="lot-name">국회 둔치주차장</div>
+        <div class="lot-detail">제3주차장 만차 시 대안 · 도보로 조금 더 걸림</div>
+        <div class="lot-nav">📍 내비 검색: "국회 둔치주차장"</div>
+      </div>
+    </div>
+
+    <div class="lot-card">
+      <div class="lot-rank">🥉 3순위</div>
+      <div class="lot-body">
+        <div class="lot-name">여의도 제4주차장 <span class="lot-sub">(여의2교)</span></div>
+        <div class="lot-detail">제3주차장보다 거리는 있지만 혼잡할 때 여유 있는 편</div>
+        <div class="lot-nav">📍 내비 검색: "여의도 제4주차장"</div>
+      </div>
+    </div>
+
+    <div style="background:#FFF1F2;border:1.5px solid #FCA5A5;border-radius:10px;padding:.65rem 1rem;font-size:12px;color:#9F1239;margin:.65rem 0 .85rem">
+      ⚠️ 여의도 제1·2주차장은 수영장과 거리가 멀어 비추천. 아기 짐(돗자리·튜브·아이스박스) 들고 걷기엔 <strong>제3주차장이 압도적으로 편함.</strong>
     </div>
 
     <div class="transport">
